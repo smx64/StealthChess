@@ -1,21 +1,23 @@
-let x=125;
+let PP_playerCount = 1;
 
 function piecePlacement()
+{    
+    PP_playerTextDisplay();
+}
+
+function PP_playerTextDisplay()
 {
-    background(0);
+    textAlign(CENTER,CENTER);
+    textFont(CS_fontAccent);
+    textSize(32);
     fill(CS_redShade);
     noStroke();
+    text("PIECE PLACEMENT", width/2, height/12);
 
-    textAlign(CENTER,CENTER);
-    textSize(30);
     textFont(CS_fontHeading);
-    text(CS_playerNames[0], width/2, height/2);
-    text(CS_playerNames[1], width/2, height/2+20);
-    
-    for(let i=0;i<CS_totalCards;i++)
-    {
-        text(CS_P1_Cards[i], width/2, height/2+50)
-    }
+    fill(255);
+    text("PLAYER "+PP_playerCount+": "+CS_playerNames[PP_playerCount-1], width/2, height/7.5);
 
-    text(x,width/2,height/4);
+    textFont(CS_fontAccent);
+    text("IN PROGRESS", width/2, height/2);
 }

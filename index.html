@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend+Tera:wght@100..900&display=swap" rel="stylesheet">
+
         <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.js"> </script>
         <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/addons/p5.sound.js"> </script>
-        
-        <script src="cardSelection.js"> </script>
-        <script src="piecePlacement.js"> </script>
-
+        <script src="./splashScreen.js"> </script>
         <title> StealthChess - Shash </title>
 
         <style>
+            *
+            {
+                font-family: "Lexend Tera", serif;
+                font-optical-sizing: auto;
+                font-style: normal;
+                font-size: 15px;
+                font-weight: 450;
+                background-color: white;
+                transition: 0.2s;
+            }
+            *:hover
+            {
+                background-color: red;
+                color: white;
+            }
             html, body
             {
                 margin: 0;
