@@ -5,7 +5,8 @@ let CS_totalCards = 4;
 
 //initializing card placeholder position variables
 let CS_cards_initxPos;
-let CS_cards_separation = 325;
+let CS_cards_separation;
+let CS_cards_size;
 
 //initializing aesthetic variables - red color, fonts, card & background images
 let CS_backgroundImage;
@@ -62,6 +63,26 @@ function setup()
     CS_cardLetterField.hide();
     CS_cardLetterField.size(30, 30);
     CS_cardLetterField.position(width/1.92, height-(height/8.5));
+
+    //setting card height to scale according to screen-height
+    CS_cards_size = height/3;
+    CS_cards_separation = 325;
+
+    //generating chessboard for piece placement segment
+    let PP_init_block_yPos = int(height/3.75);
+    for(let PP_blockRow=0; PP_blockRow<PP_chessboardSize; PP_blockRow++)
+    {
+        let PP_init_block_xPos = int(width/9);
+        PP_blocksArray.push([]);
+
+        for(let PP_blockCol=0; PP_blockCol<PP_chessboardSize; PP_blockCol++)
+        {
+            let PP_Chessboard_object = new PP_Chessboard(PP_init_block_xPos, PP_init_block_yPos, PP_blockRow, PP_blockCol);
+            PP_blocksArray[PP_blockRow].push(PP_Chessboard_object);
+            PP_init_block_xPos += PP_blocksArray[PP_blockRow][PP_blockCol].PP_block_separation;
+        }
+        PP_init_block_yPos += PP_blocksArray[PP_blockRow][PP_blockRow].PP_block_separation;
+    }
 }
 
 function draw()
@@ -88,7 +109,7 @@ function draw()
             CS_cards_initxPos = width/5.5;
             for(let i=0; i<CS_totalCards; i++)
             {
-                rect(CS_cards_initxPos, height/1.8, 250, 390, 15);
+                rect(CS_cards_initxPos, height/1.8, CS_cards_size, CS_cards_size/0.64, 15);
                 CS_cards_initxPos += CS_cards_separation;
             }
 
@@ -108,7 +129,7 @@ function draw()
                 //generating actual card images for the values entered
                 //function decides which image to generate depending on value passed from letter input field
                 imageMode(CENTER);
-                image(CS_showCardImage(CS_P1_Cards[CS_cardCount]), CS_cards_initxPos, height/1.8, 270, 420);
+                image(CS_showCardImage(CS_P1_Cards[CS_cardCount]), CS_cards_initxPos, height/1.8, CS_cards_size, CS_cards_size/0.64);
                 CS_cards_initxPos += CS_cards_separation;
             }
             //same thing as above, but for player 2
@@ -118,7 +139,7 @@ function draw()
                 CS_cardLetterField.value("");
 
                 imageMode(CENTER);
-                image(CS_showCardImage(CS_P2_Cards[CS_cardCount]), CS_cards_initxPos, height/1.8, 270, 420);
+                image(CS_showCardImage(CS_P2_Cards[CS_cardCount]), CS_cards_initxPos, height/1.8, CS_cards_size, CS_cards_size/0.64);
                 CS_cards_initxPos += CS_cards_separation;
             }
             //counter to check total cards picked by each player
@@ -186,7 +207,7 @@ function CS_playerTextDisplay()
 
             textFont(CS_fontBody);
             textSize(30);
-            text("Cards Picked From Deck", width/2, height/4);
+            text("Cards Picked From Deck", width/2, height/4.5);
             text("Card Letter: ", width/2.1, height-(height/9));
             CS_cardLetterField.show();
         }
@@ -196,7 +217,7 @@ function CS_playerTextDisplay()
             rectMode(CORNER);
             fill(CS_redShade);
             noStroke();
-            rect(0, height-(height/9), width, 100);
+            rect(0, height-(height/9), width, height);
             
             fill(255);
             textFont(CS_fontBody);
