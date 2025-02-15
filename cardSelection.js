@@ -12,8 +12,8 @@ let PS_cards_size;
 let PS_backgroundImage;
 let PS_redShade = "#FF0000";
 let PS_fontHeading, PS_fontBody, PS_fontAccent;
-let PS_P1_cardImage_Q, PS_P1_cardImage_B, PS_P1_cardImage_N, PS_P1_cardImage_R, PS_P1_cardImage_P;
-let PS_P2_cardImage_Q, PS_P2_cardImage_B, PS_P2_cardImage_N, PS_P2_cardImage_R, PS_P2_cardImage_P;
+let PS_P1_cardImage_K, PS_P1_cardImage_Q, PS_P1_cardImage_B, PS_P1_cardImage_N, PS_P1_cardImage_R, PS_P1_cardImage_P;
+let PS_P2_cardImage_K, PS_P2_cardImage_Q, PS_P2_cardImage_B, PS_P2_cardImage_N, PS_P2_cardImage_R, PS_P2_cardImage_P;
 
 //initializing input field variables
 let PS_nameField, PS_cardLetterField;
@@ -34,6 +34,7 @@ function preload()
     PS_fontBody = loadFont("./Assets/NATS.ttf");
 
     //pre-loading player 1 card images
+    PS_P1_cardImage_K = loadImage("./Assets/Player1_King.png");
     PS_P1_cardImage_Q = loadImage("./Assets/Player1_Queen.png");
     PS_P1_cardImage_B = loadImage("./Assets/Player1_Bishop.png");
     PS_P1_cardImage_N = loadImage("./Assets/Player1_Knight.png");
@@ -41,6 +42,7 @@ function preload()
     PS_P1_cardImage_P = loadImage("./Assets/Player1_Pawn.png");
 
     //pre-loading player 2 card images
+    PS_P2_cardImage_K = loadImage("./Assets/Player2_King.png");
     PS_P2_cardImage_Q = loadImage("./Assets/Player2_Queen.png");
     PS_P2_cardImage_B = loadImage("./Assets/Player2_Bishop.png");
     PS_P2_cardImage_N = loadImage("./Assets/Player2_Knight.png");
@@ -236,13 +238,15 @@ function PS_playerTextDisplay()
     }
 }
 
-//function to return variable name of actual image card depending on letter value received from input field
+// function to return variable name of actual image card depending on letter value received from input field
 function PS_showCardImage(letterValue)
 {
     if(PS_playerCount == 1)
     {
         switch(letterValue)
         {
+            case 'K': return PS_P1_cardImage_K;
+            break;
             case 'Q': return PS_P1_cardImage_Q;
             break;
             case 'B': return PS_P1_cardImage_B;
@@ -259,6 +263,8 @@ function PS_showCardImage(letterValue)
     {
         switch(letterValue)
         {
+            case 'K': return PS_P2_cardImage_K;
+            break;
             case 'Q': return PS_P2_cardImage_Q;
             break;
             case 'B': return PS_P2_cardImage_B;
