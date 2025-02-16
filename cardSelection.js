@@ -89,8 +89,8 @@ function setup()
     //initializing class objects for player pieces - runs in piecePlacement.js file
     for(let i=0; i<PS_totalCards; i++)
     {
-        let PP_P1_Pieces_object = new PP_P1_Pieces(PS_P1_Cards[i]);
-        let PP_P2_Pieces_object = new PP_P2_Pieces(PS_P2_Cards[i]);
+        let PP_P1_Pieces_object = new PP_P1_Pieces();
+        let PP_P2_Pieces_object = new PP_P2_Pieces();
         PP_P1_piecesArray.push(PP_P1_Pieces_object);
         PP_P2_piecesArray.push(PP_P2_Pieces_object);
     }

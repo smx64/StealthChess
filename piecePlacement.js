@@ -4,6 +4,10 @@ let PP_chessboardSize = 8;
 let PP_pieceCounter = 1;
 let PP_hoverShade = "#00FF00";
 
+//initializing variables for piece movement after initial placement
+let PP_blockActive = 0;
+let PP_prev_blockRow, PP_prev_blockCol;
+
 //initializing object arrays for chessboard & player piece placements
 let PP_blocksArray = [];
 let PP_P1_piecesArray = [];
@@ -85,10 +89,10 @@ class PP_Chessboard
 //class declarations for player pieces
 class PP_P1_Pieces
 {
-    constructor(_PP_pieceType)
+    constructor()
     {
         this.PP_piecePlayerNumber = 1;
-        this.PP_pieceType = _PP_pieceType;
+        this.PP_pieceType;
         this.PP_piecePosition_idRow;
         this.PP_piecePosition_idCol;
     }
@@ -96,10 +100,10 @@ class PP_P1_Pieces
 
 class PP_P2_Pieces
 {
-    constructor(_PP_pieceType)
+    constructor()
     {
         this.PP_piecePlayerNumber = 2;
-        this.PP_pieceType = _PP_pieceType;
+        this.PP_pieceType;
         this.PP_piecePosition_idRow;
         this.PP_piecePosition_idCol;
     }
@@ -108,41 +112,39 @@ class PP_P2_Pieces
 //main function where everything runs
 function piecePlacement()
 {
-    PP_playerTextDisplay();
-
-    //generating chessboard and running all functions
-    for(let PP_blockRow=0; PP_blockRow<PP_chessboardSize; PP_blockRow++)
+    if(PP_playerCount <= PS_totalPlayers)
     {
-        for(let PP_blockCol=0; PP_blockCol<PP_chessboardSize; PP_blockCol++)
+        PP_playerTextDisplay();
+        
+        //generating chessboard and running all functions
+        for(let PP_blockRow=0; PP_blockRow<PP_chessboardSize; PP_blockRow++)
         {
-            //draw chessboard on-screen
-            PP_blocksArray[PP_blockRow][PP_blockCol].PP_drawBlock();
-
-            if(PP_playerCount <= PS_totalPlayers)
+            for(let PP_blockCol=0; PP_blockCol<PP_chessboardSize; PP_blockCol++)
             {
-                //calculate loop start/end depending on player number
-                let hoverBlock_Start, hoverBlock_End;
+                //draw chessboard on-screen
+                PP_blocksArray[PP_blockRow][PP_blockCol].PP_drawBlock();
+                
+                //calculate mousehover loop start/end depending on player number
+                let PP_hoverBlock_Start, PP_hoverBlock_End;
                 if(PP_playerCount == 1)
                 {
-                    hoverBlock_Start = 0;
-                    hoverBlock_End = 3;
+                    PP_hoverBlock_Start = 0;
+                    PP_hoverBlock_End = 3;
                 }
                 else
                 {
-                    hoverBlock_Start = PP_chessboardSize-3;
-                    hoverBlock_End = PP_chessboardSize;
+                    PP_hoverBlock_Start = PP_chessboardSize-3;
+                    PP_hoverBlock_End = PP_chessboardSize;
                 }
 
                 //code to run mouse-hover functions depending on player number
-                for(let i=hoverBlock_Start; i<hoverBlock_End; i++)
+                for(let i=PP_hoverBlock_Start; i<PP_hoverBlock_End; i++)
                 {
                     PP_blocksArray[PP_blockRow][i].PP_hoverBlock();
 
                     //running loop for total no.of pieces (5)
                     if(PP_pieceCounter <= PS_totalCards)
                     {
-                        // PP_blocksArray[PP_blockRow][i].PP_hoverBlock();
-
                         //code to run only when mouse-clicked and hovering on an empty block
                         if(mouseButton == LEFT && mouseIsPressed == true && PP_blocksArray[PP_blockRow][i].PP_block_hoverFlag == 1 && PP_blocksArray[PP_blockRow][i].PP_block_occupiedFlag != 1)
                         {
@@ -153,25 +155,29 @@ function piecePlacement()
                             if(PP_playerCount == 1)
                             {
                                 PP_blocksArray[PP_blockRow][i].PP_block_playerNumber = 1;
+                                PP_P1_piecesArray[PP_pieceCounter-1].PP_pieceType = PS_P1_Cards[PP_pieceCounter-1];
                                 PP_P1_piecesArray[PP_pieceCounter-1].PP_piecePosition_idRow = PP_blockRow;
                                 PP_P1_piecesArray[PP_pieceCounter-1].PP_piecePosition_idCol = i;
                             }
                             else if(PP_playerCount == 2)
                             {
                                 PP_blocksArray[PP_blockRow][i].PP_block_playerNumber = 2;
+                                PP_P2_piecesArray[PP_pieceCounter-1].PP_pieceType = PS_P2_Cards[PP_pieceCounter-1];
                                 PP_P2_piecesArray[PP_pieceCounter-1].PP_piecePosition_idRow = PP_blockRow;
                                 PP_P2_piecesArray[PP_pieceCounter-1].PP_piecePosition_idCol = i;
                             }
-
-                            //increment piece counter once a piece has been placed
+                            
+                            //increment piece counter once a piece has been placed & refresh screen graphics
                             mouseIsPressed = false;
                             keyIsPressed = false;
-                            PP_pieceCounter++;
                             background(PS_backgroundImage);
+                            PP_pieceCounter++;
                         }
                     }
                     else if(PP_pieceCounter > PS_totalCards)
                     {
+                        //finalize piece positions for player and increment counter on pressing enter
+                        //reset piececounter variable for next player
                         if(keyCode == ENTER && keyIsPressed == true)
                         {
                             background(PS_backgroundImage);
@@ -180,38 +186,115 @@ function piecePlacement()
                         }
                         else
                         {
-                            if(mouseButton == LEFT && mouseIsPressed == true && PP_blocksArray[PP_blockRow][i].PP_block_hoverFlag == 1 && PP_blocksArray[PP_blockRow][i].PP_block_occupiedFlag == 1)
+                            //code to run when no block is selected
+                            if(PP_blockActive == 0)
                             {
-                                if(PP_blocksArray[PP_blockRow][i].PP_block_selectedFlag == 0)
+                                //toggling selected flag value when clicking on an occupied block
+                                if(mouseButton == LEFT && mouseIsPressed == true && PP_blocksArray[PP_blockRow][i].PP_block_hoverFlag == 1 && PP_blocksArray[PP_blockRow][i].PP_block_occupiedFlag == 1 && PP_blocksArray[PP_blockRow][i].PP_block_selectedFlag == 0)
                                 {
+                                    //store coordinates in variables so that this block can be reset if player moves piece
                                     PP_blocksArray[PP_blockRow][i].PP_block_selectedFlag = 1;
+                                    PP_prev_blockRow = PP_blockRow;
+                                    PP_prev_blockCol = i;
+
+                                    //toggle flag to mark that a block has been selected
+                                    PP_blockActive = 1;
                                     mouseIsPressed = false;
-                                    console.log("SELECTED: "+PP_blockRow+','+i);
-
-                                    let init_blockRow = PP_blockRow;
-                                    let init_blockCol = i;
-
-                                    console.log("POSITION BEFORE: "+init_blockRow+','+init_blockCol);
                                 }
-                                else
+                            }
+                            //code to run when a particular block is selected
+                            else if(PP_blockActive == 1)
+                            {
+                                //mouse-click only works if a block is being hovered on
+                                if(mouseButton == LEFT && mouseIsPressed == true && PP_blocksArray[PP_blockRow][i].PP_block_hoverFlag == 1)
                                 {
-                                    PP_blocksArray[PP_blockRow][i].PP_block_selectedFlag = 0;
-                                    mouseIsPressed = false;
+                                    //de-selecting block if it is clicked again
+                                    if(PP_blocksArray[PP_blockRow][i].PP_block_selectedFlag == 1)
+                                    {
+                                        //toggling flag and reseting variable values
+                                        PP_blocksArray[PP_blockRow][i].PP_block_selectedFlag = 0;
+                                        PP_prev_blockRow = '';
+                                        PP_prev_blockCol = '';
+
+                                        //toggling flag to reset the block selection process
+                                        PP_blockActive = 0;
+                                        mouseIsPressed = false;
+                                    }
+                                    //move selection to another occupied block when it is clicked
+                                    else if(PP_blocksArray[PP_blockRow][i].PP_block_occupiedFlag == 1 && PP_blocksArray[PP_blockRow][i].PP_block_selectedFlag == 0)
+                                    {
+                                        //move selection to current block, and de-select the previous block
+                                        PP_blocksArray[PP_blockRow][i].PP_block_selectedFlag = 1;
+                                        PP_blocksArray[PP_prev_blockRow][PP_prev_blockCol].PP_block_selectedFlag = 0;
+
+                                        //store value of current block coordinates in variable for later manipulation
+                                        PP_prev_blockRow = PP_blockRow;
+                                        PP_prev_blockCol = i;
+                                        PP_blockActive = 1;
+                                        mouseIsPressed = false;
+                                    }
+                                    //changing the position of a selected block
+                                    else if(PP_blocksArray[PP_blockRow][i].PP_block_occupiedFlag != 1 && PP_blocksArray[PP_prev_blockRow][PP_prev_blockCol].PP_block_selectedFlag == 1)
+                                    {
+                                        //toggling occupied flag and setting player number for the new block
+                                        PP_blocksArray[PP_blockRow][i].PP_block_occupiedFlag = 1;
+                                        PP_blocksArray[PP_blockRow][i].PP_block_playerNumber = PP_playerCount;
+                                        
+                                        //resetting flags & player number for the previously selected block
+                                        PP_blocksArray[PP_prev_blockRow][PP_prev_blockCol].PP_block_occupiedFlag = 0;
+                                        PP_blocksArray[PP_prev_blockRow][PP_prev_blockCol].PP_block_selectedFlag = 0;
+                                        PP_blocksArray[PP_prev_blockRow][PP_prev_blockCol].PP_block_playerNumber = 0;
+
+                                        //checking piece array for the previous block's coordinates for updating values
+                                        for(let j=0; j<PS_totalCards; j++)
+                                        {
+                                            if(PP_playerCount == 1)
+                                            {
+                                                //updating piece coordinates with new values for player 1
+                                                if(PP_P1_piecesArray[j].PP_piecePosition_idRow == PP_prev_blockRow && PP_P1_piecesArray[j].PP_piecePosition_idCol == PP_prev_blockCol)
+                                                {
+                                                    PP_P1_piecesArray[j].PP_piecePosition_idRow = PP_blockRow;
+                                                    PP_P1_piecesArray[j].PP_piecePosition_idCol = i;
+                                                    break;
+                                                }
+                                            }
+                                            else if(PP_playerCount == 2)
+                                            {
+                                                //updating piece coordinates with new values for player 2
+                                                if(PP_P2_piecesArray[j].PP_piecePosition_idRow = PP_prev_blockRow && PP_P2_piecesArray[j].PP_piecePosition_idCol == PP_prev_blockCol)
+                                                {
+                                                    PP_P2_piecesArray[j].PP_piecePosition_idRow = PP_blockRow;
+                                                    PP_P2_piecesArray[j].PP_piecePosition_idCol = i;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        
+                                        // PP_prev_blockRow = '';
+                                        // PP_prev_blockCol = '';
+                                        //resetting flag to restart process for a new block
+                                        PP_blockActive = 0;
+                                        mouseIsPressed = false;
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            }
-            else
-            {
-                //ENTER CODE WHEN ALL PLAYERS HAVE PLACED THEIR PIECES
+                }            
             }
         }
     }
+    //code to run after piece placement has finished for both players
+    else if(PP_playerCount > PS_totalPlayers)
+    {
+        background(PS_backgroundImage);
+        console.log(PP_P1_piecesArray);
+        console.log(PP_P2_piecesArray);
+        noLoop();
+    }
 }
 
-//function to display page heading text
+//function to display page text and card images
 function PP_playerTextDisplay()
 {
     textAlign(CENTER,CENTER);
