@@ -261,7 +261,7 @@ function piecePlacement()
                                             else if(PP_playerCount == 2)
                                             {
                                                 //updating piece coordinates with new values for player 2
-                                                if(PP_P2_piecesArray[j].PP_piecePosition_idRow = PP_prev_blockRow && PP_P2_piecesArray[j].PP_piecePosition_idCol == PP_prev_blockCol)
+                                                if(PP_P2_piecesArray[j].PP_piecePosition_idRow == PP_prev_blockRow && PP_P2_piecesArray[j].PP_piecePosition_idCol == PP_prev_blockCol)
                                                 {
                                                     PP_P2_piecesArray[j].PP_piecePosition_idRow = PP_blockRow;
                                                     PP_P2_piecesArray[j].PP_piecePosition_idCol = i;
@@ -270,8 +270,6 @@ function piecePlacement()
                                             }
                                         }
                                         
-                                        // PP_prev_blockRow = '';
-                                        // PP_prev_blockCol = '';
                                         //resetting flag to restart process for a new block
                                         PP_blockActive = 0;
                                         mouseIsPressed = false;
