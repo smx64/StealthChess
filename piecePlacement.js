@@ -3,6 +3,7 @@ let PP_playerCount = 1;
 let PP_chessboardSize = 8;
 let PP_pieceCounter = 1;
 let PP_hoverShade = "#00FF00";
+let PP_hoverActive = 1;
 
 //initializing variables for piece movement after initial placement
 let PP_blockActive = 0;
@@ -25,7 +26,8 @@ class PP_Chessboard
         this.PP_block_separation = this.PP_block_size;
         this.PP_block_idRow = _PP_block_idRow;
         this.PP_block_idCol = _PP_block_idCol;
-        this.PP_block_fillColor = color(255);
+        this.PP_block_fillColor;
+        this.PP_block_visibility = 0;
         
         this.PP_block_hoverFlag = 0;
         this.PP_block_occupiedFlag = 0;
@@ -39,18 +41,51 @@ class PP_Chessboard
 
         // conditional statements to alternate b/w white & red shades for the blocks
         // also to change fill color dynamically on mouse-hover
-        if(this.PP_block_idRow%2 == 0)
+        // block visibility variable checks which player side is presently active, and makes other blocks translucent
+        if(this.PP_block_visibility == 1)
         {
-            if(this.PP_block_idCol%2 != 0 && this.PP_block_hoverFlag == 0)
+            if(this.PP_block_idRow%2 == 0)
             {
-                this.PP_block_fillColor = PS_redShade;
+                if(this.PP_block_idCol%2 != 0 && this.PP_block_hoverFlag == 0)
+                {
+                    this.PP_block_fillColor = PS_redShade;
+                }
+            }
+            else
+            {
+                if(this.PP_block_idCol%2 == 0 && this.PP_block_hoverFlag == 0)
+                {
+                    this.PP_block_fillColor = PS_redShade;
+                }
             }
         }
-        else
+        //block fillcolor code to run when blocks are marked as "non-active"
+        else if(this.PP_block_visibility == 0)
         {
-            if(this.PP_block_idCol%2 == 0 && this.PP_block_hoverFlag == 0)
+            if(this.PP_block_hoverFlag == 0)
             {
-                this.PP_block_fillColor = PS_redShade;
+                if(this.PP_block_idRow%2 == 0)
+                {
+                    if(this.PP_block_idCol%2 != 0)
+                    {
+                        this.PP_block_fillColor = color(255,0,0,50);
+                    }
+                    else
+                    {
+                        this.PP_block_fillColor = color(255,50);
+                    }
+                }                
+                else
+                {
+                    if(this.PP_block_idCol%2 == 0)
+                    {
+                        this.PP_block_fillColor = color(255,0,0,50);
+                    }
+                    else
+                    {
+                        this.PP_block_fillColor = color(255,50);
+                    }
+                }  
             }
         }
 
@@ -63,7 +98,10 @@ class PP_Chessboard
             }
             else
             {
-                this.PP_block_fillColor = color(0);
+                if(this.PP_block_visibility == 1)
+                {
+                    this.PP_block_fillColor = color(0);
+                }
             }
         }
 
@@ -76,12 +114,23 @@ class PP_Chessboard
         if(mouseX <= this.PP_block_xPos+this.PP_block_size/2 && mouseX >= this.PP_block_xPos-this.PP_block_size/2 && mouseY <= this.PP_block_yPos+this.PP_block_size/2 && mouseY >= this.PP_block_yPos-this.PP_block_size/2)
         {
             this.PP_block_hoverFlag = 1;
-            this.PP_block_fillColor = PP_hoverShade;
         }
         else
         {
             this.PP_block_hoverFlag = 0;
-            this.PP_block_fillColor = color(255);
+        }
+
+        //function to disable/enable block color change on mouse-hover
+        if(PP_hoverActive == 1)
+        {
+            if(this.PP_block_hoverFlag == 1)
+            {
+                this.PP_block_fillColor = PP_hoverShade;
+            }
+            else
+            {
+                this.PP_block_fillColor = color(255);
+            }
         }
     }    
 }
@@ -121,8 +170,9 @@ function piecePlacement()
         {
             for(let PP_blockCol=0; PP_blockCol<PP_chessboardSize; PP_blockCol++)
             {
-                //draw chessboard on-screen
+                //draw chessboard on-screen and initializing all blocks as non-active in the beginning
                 PP_blocksArray[PP_blockRow][PP_blockCol].PP_drawBlock();
+                PP_blocksArray[PP_blockRow][PP_blockCol].PP_block_visibility = 0;
                 
                 //calculate mousehover loop start/end depending on player number
                 let PP_hoverBlock_Start, PP_hoverBlock_End;
@@ -141,6 +191,9 @@ function piecePlacement()
                 for(let i=PP_hoverBlock_Start; i<PP_hoverBlock_End; i++)
                 {
                     PP_blocksArray[PP_blockRow][i].PP_hoverBlock();
+                    
+                    //make only those blocks opaque where players can position their pieces
+                    PP_blocksArray[PP_blockRow][i].PP_block_visibility = 1;
 
                     //running loop for total no.of pieces (5)
                     if(PP_pieceCounter <= PS_totalCards)
@@ -170,17 +223,16 @@ function piecePlacement()
                             //increment piece counter once a piece has been placed & refresh screen graphics
                             mouseIsPressed = false;
                             keyIsPressed = false;
-                            background(PS_backgroundImage);
                             PP_pieceCounter++;
                         }
                     }
                     else if(PP_pieceCounter > PS_totalCards)
                     {
                         //finalize piece positions for player and increment counter on pressing enter
-                        //reset piececounter variable for next player
-                        if(keyCode == ENTER && keyIsPressed == true)
+                        //reset piececounter variable for next player and re-activate block color change on mousehover
+                        if(keyCode == ENTER && keyIsPressed == true && PP_blockActive != 1)
                         {
-                            background(PS_backgroundImage);
+                            PP_hoverActive = 1;
                             PP_playerCount++;
                             PP_pieceCounter = 1;
                         }
@@ -189,6 +241,9 @@ function piecePlacement()
                             //code to run when no block is selected
                             if(PP_blockActive == 0)
                             {
+                                //disable block color change on mousehover
+                                PP_hoverActive = 0;
+
                                 //toggling selected flag value when clicking on an occupied block
                                 if(mouseButton == LEFT && mouseIsPressed == true && PP_blocksArray[PP_blockRow][i].PP_block_hoverFlag == 1 && PP_blocksArray[PP_blockRow][i].PP_block_occupiedFlag == 1 && PP_blocksArray[PP_blockRow][i].PP_block_selectedFlag == 0)
                                 {
@@ -197,7 +252,8 @@ function piecePlacement()
                                     PP_prev_blockRow = PP_blockRow;
                                     PP_prev_blockCol = i;
 
-                                    //toggle flag to mark that a block has been selected
+                                    //toggle flag to mark that a block has been selected & re-activate block color change on mousehover
+                                    PP_hoverActive = 1;
                                     PP_blockActive = 1;
                                     mouseIsPressed = false;
                                 }
@@ -295,6 +351,76 @@ function piecePlacement()
 //function to display page text and card images
 function PP_playerTextDisplay()
 {
+    background(PS_backgroundImage);
+    textAlign(LEFT,CENTER);
+    textFont(PS_fontBody);
+    fill(255);
+    if(PP_pieceCounter <= PS_totalCards)
+    {
+        //generating text relative to the chessboard's position
+        text("Please place your pieces onto the grid", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, PP_blocksArray[0][0].PP_block_yPos-PP_blocksArray[0][0].PP_block_size/2);
+
+        fill(PS_redShade);
+        text("CURRENTLY PLACING:", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, PP_blocksArray[0][0].PP_block_yPos-5);
+
+        //generating card images while placing the particular piece
+        imageMode(CORNER);
+        if(PP_playerCount == 1)
+        {
+            image(PP_showCardImage(PS_P1_Cards[PP_pieceCounter-1]), width/1.55, height/3.15, PS_cards_size*1.2, (PS_cards_size*1.2)/0.64);
+        }
+        else
+        {
+            image(PP_showCardImage(PS_P2_Cards[PP_pieceCounter-1]), width/1.55, height/3.15, PS_cards_size*1.2, (PS_cards_size*1.2)/0.64);
+        }
+    }
+    else
+    {
+        //generating instructional text when player has placed all pieces
+        fill(PS_redShade);
+        text("You've placed all your pieces!", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/2);
+        
+        fill(255);
+        textSize(22);
+        text("Modify a piece's position by clicking on it, and then clicking on an empty cell.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.8);
+        
+        fill(PS_redShade);
+        text("OR", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.72);
+        
+        fill(255);
+        text("Press [ENTER] if you're ready to proceed.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.65);
+
+        //code to display image of piece that has been selected for modifying position
+        if(PP_blockActive == 1)
+        {
+            background(PS_backgroundImage);
+
+            textSize(32);
+            fill(PS_redShade);
+            text("CURRENTLY MODIFYING:", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, PP_blocksArray[0][0].PP_block_yPos-PP_blocksArray[0][0].PP_block_size/2);
+
+            //displaying image of piece that is currently selected for position modification
+            for(let i=0; i<PS_totalCards; i++)
+            {
+                if(PP_playerCount == 1)
+                {
+                    if(PP_P1_piecesArray[i].PP_piecePosition_idRow == PP_prev_blockRow && PP_P1_piecesArray[i].PP_piecePosition_idCol == PP_prev_blockCol)
+                    {
+                        image(PP_showCardImage(PP_P1_piecesArray[i].PP_pieceType), width/1.55, height/3.15, PS_cards_size*1.2, (PS_cards_size*1.2)/0.64);
+                    }
+                }
+                else
+                {
+                    if(PP_P2_piecesArray[i].PP_piecePosition_idRow == PP_prev_blockRow && PP_P2_piecesArray[i].PP_piecePosition_idCol == PP_prev_blockCol)
+                    {
+                        image(PP_showCardImage(PP_P2_piecesArray[i].PP_pieceType), width/1.55, height/3.15, PS_cards_size*1.2, (PS_cards_size*1.2)/0.64);
+                    }
+                }
+            }
+        }
+    }
+
+    //rendering page heading - it is here because this needs to be the top-most layer, and not get affected by above code
     textAlign(CENTER,CENTER);
     textFont(PS_fontAccent);
     textSize(32);
@@ -309,34 +435,6 @@ function PP_playerTextDisplay()
     //generating divider line in middle of screen
     rectMode(CORNER);
     rect(PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size, PP_blocksArray[0][0].PP_block_yPos-PP_blocksArray[0][0].PP_block_size/2, 2, PP_blocksArray[0][0].PP_block_size*PP_chessboardSize);
-
-    textAlign(LEFT,CENTER);
-    textFont(PS_fontBody);
-    if(PP_pieceCounter <= PS_totalCards)
-    {
-        //generating text relative to the chessboard's position
-        text("Please place your pieces onto the grid", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, PP_blocksArray[0][0].PP_block_yPos-PP_blocksArray[0][0].PP_block_size/2);
-
-        fill(PS_redShade);
-        text("CURRENTLY PLACING:", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, PP_blocksArray[0][0].PP_block_yPos-5);
-
-        //generating card images while placing the particular piece
-        imageMode(CORNER);
-        if(PP_playerCount == 1)
-        {
-            image(PP_showCardImage(PS_P1_Cards[PP_pieceCounter-1]), width/1.55, height/3.1, PS_cards_size*1.2, (PS_cards_size*1.2)/0.64);
-        }
-        else
-        {
-            image(PP_showCardImage(PS_P2_Cards[PP_pieceCounter-1]), width/1.55, height/3.1, PS_cards_size*1.2, (PS_cards_size*1.2)/0.64);
-        }
-    }
-    else
-    {
-        //generating text when player has placed all pieces
-        text("You've placed all your pieces!", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.95);
-        text("Press [ENTER] to finalize & proceed.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.82);
-    }
 }
 
 //function to generate card images depending on piece-type value found in the player piece arrays
