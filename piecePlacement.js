@@ -89,22 +89,6 @@ class PP_Chessboard
             }
         }
 
-        //change block fill color to black once block becomes occupied
-        if(this.PP_block_occupiedFlag == 1)
-        {
-            if(this.PP_block_selectedFlag == 1)
-            {
-                this.PP_block_fillColor = color(255,255,0);
-            }
-            else
-            {
-                if(this.PP_block_visibility == 1)
-                {
-                    this.PP_block_fillColor = color(0);
-                }
-            }
-        }
-
         fill(this.PP_block_fillColor);
         rect(this.PP_block_xPos, this.PP_block_yPos, this.PP_block_size);
     }
@@ -195,6 +179,40 @@ function piecePlacement()
                     //make only those blocks opaque where players can position their pieces
                     PP_blocksArray[PP_blockRow][i].PP_block_visibility = 1;
 
+                    //generating piece thumbnails for every block that is occupied
+                    imageMode(CENTER);
+                    if(PP_blocksArray[PP_blockRow][i].PP_block_occupiedFlag == 1)
+                    {
+                        for(let k=0; k<PS_totalCards; k++)
+                        {
+                            if(PP_playerCount == 1)
+                            {
+                                //checking whether piece coordinates are equal to the block coordinates
+                                if(PP_P1_piecesArray[k].PP_piecePosition_idRow == PP_blocksArray[PP_blockRow][i].PP_block_idRow && PP_P1_piecesArray[k].PP_piecePosition_idCol == PP_blocksArray[PP_blockRow][i].PP_block_idCol)
+                                {
+                                    //pass piece type letter to image display function and place image when block is occupied
+                                    image(PP_showCardImage(PP_P1_piecesArray[k].PP_pieceType), PP_blocksArray[PP_blockRow][i].PP_block_xPos, PP_blocksArray[PP_blockRow][i].PP_block_yPos, PP_blocksArray[PP_blockRow][i].PP_block_size, PP_blocksArray[PP_blockRow][i].PP_block_size);
+                                }
+                            }
+                            else if(PP_playerCount == 2)
+                            {
+                                if(PP_P2_piecesArray[k].PP_piecePosition_idRow == PP_blocksArray[PP_blockRow][i].PP_block_idRow && PP_P2_piecesArray[k].PP_piecePosition_idCol == PP_blocksArray[PP_blockRow][i].PP_block_idCol)
+                                {
+                                    image(PP_showCardImage(PP_P2_piecesArray[k].PP_pieceType), PP_blocksArray[PP_blockRow][i].PP_block_xPos, PP_blocksArray[PP_blockRow][i].PP_block_yPos, PP_blocksArray[PP_blockRow][i].PP_block_size, PP_blocksArray[PP_blockRow][i].PP_block_size);
+                                } 
+                            }
+                        }
+                        
+                        //highlight image when it is selected during piece placement modification step
+                        if(PP_blocksArray[PP_blockRow][i].PP_block_selectedFlag == 1)
+                        {
+                            //generating highlighter box over image when a player selects a piece
+                            fill(255,255,0,100);
+                            rect(PP_blocksArray[PP_blockRow][i].PP_block_xPos, PP_blocksArray[PP_blockRow][i].PP_block_yPos, PP_blocksArray[PP_blockRow][i].PP_block_size)
+                        }
+                    }
+
+                    imageMode(CORNER);
                     //running loop for total no.of pieces (5)
                     if(PP_pieceCounter <= PS_totalCards)
                     {
