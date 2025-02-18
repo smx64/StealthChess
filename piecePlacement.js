@@ -191,7 +191,7 @@ function piecePlacement()
                 for(let i=PP_hoverBlock_Start; i<PP_hoverBlock_End; i++)
                 {
                     PP_blocksArray[PP_blockRow][i].PP_hoverBlock();
-                    
+
                     //make only those blocks opaque where players can position their pieces
                     PP_blocksArray[PP_blockRow][i].PP_block_visibility = 1;
 
@@ -388,7 +388,7 @@ function PP_playerTextDisplay()
         text("OR", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.72);
         
         fill(255);
-        text("Press [ENTER] if you're ready to proceed.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.65);
+        text("Press [ ENTER ] if you're ready to proceed.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.65);
 
         //code to display image of piece that has been selected for modifying position
         if(PP_blockActive == 1)
@@ -406,17 +406,23 @@ function PP_playerTextDisplay()
                 {
                     if(PP_P1_piecesArray[i].PP_piecePosition_idRow == PP_prev_blockRow && PP_P1_piecesArray[i].PP_piecePosition_idCol == PP_prev_blockCol)
                     {
-                        image(PP_showCardImage(PP_P1_piecesArray[i].PP_pieceType), width/1.55, height/3.15, PS_cards_size*1.2, (PS_cards_size*1.2)/0.64);
+                        image(PP_showCardImage(PP_P1_piecesArray[i].PP_pieceType), width/1.55, height/3.55, PS_cards_size, PS_cards_size/0.64);
                     }
                 }
                 else
                 {
                     if(PP_P2_piecesArray[i].PP_piecePosition_idRow == PP_prev_blockRow && PP_P2_piecesArray[i].PP_piecePosition_idCol == PP_prev_blockCol)
                     {
-                        image(PP_showCardImage(PP_P2_piecesArray[i].PP_pieceType), width/1.55, height/3.15, PS_cards_size*1.2, (PS_cards_size*1.2)/0.64);
+                        image(PP_showCardImage(PP_P2_piecesArray[i].PP_pieceType), width/1.55, height/3.55, PS_cards_size, PS_cards_size/0.64);
                     }
                 }
             }
+
+            textSize(22);
+            fill(255);
+            text("- Click on an empty cell to move the piece there.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.2);
+            text("- To deselect, click on the same piece again.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.16);
+            text("- Press [ ENTER ] ONLY when you've finalized, and are ready to proceed.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.12);
         }
     }
 
