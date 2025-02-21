@@ -68,7 +68,7 @@ function setup()
 
     //setting card height to scale according to screen-height
     PS_cards_size = height/3;
-    PS_cards_separation = 325;
+    PS_cards_separation = width/4.75;
 
     //generating chessboard for piece placement segment -- runs in piecePlacement.js file
     let PP_init_block_yPos = int(height/3.75);

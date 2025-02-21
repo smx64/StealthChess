@@ -33,6 +33,7 @@ class PP_Chessboard
         this.PP_block_occupiedFlag = 0;
         this.PP_block_selectedFlag = 0;
         this.PP_block_playerNumber = 0;
+        this.PP_block_pieceType = '';
     }
     //function to generate individual blocks on-screen
     PP_drawBlock()
@@ -187,8 +188,8 @@ function piecePlacement()
                         {
                             if(PP_playerCount == 1)
                             {
-                                //checking whether piece coordinates are equal to the block coordinates
-                                if(PP_P1_piecesArray[k].PP_piecePosition_idRow == PP_blocksArray[PP_blockRow][i].PP_block_idRow && PP_P1_piecesArray[k].PP_piecePosition_idCol == PP_blocksArray[PP_blockRow][i].PP_block_idCol)
+                                //checking whether array piece type is equal to the block piece type
+                                if(PP_P1_piecesArray[k].PP_pieceType == PP_blocksArray[PP_blockRow][i].PP_block_pieceType)
                                 {
                                     //pass piece type letter to image display function and place image when block is occupied
                                     image(PP_showCardImage(PP_P1_piecesArray[k].PP_pieceType), PP_blocksArray[PP_blockRow][i].PP_block_xPos, PP_blocksArray[PP_blockRow][i].PP_block_yPos, PP_blocksArray[PP_blockRow][i].PP_block_size, PP_blocksArray[PP_blockRow][i].PP_block_size);
@@ -196,7 +197,7 @@ function piecePlacement()
                             }
                             else if(PP_playerCount == 2)
                             {
-                                if(PP_P2_piecesArray[k].PP_piecePosition_idRow == PP_blocksArray[PP_blockRow][i].PP_block_idRow && PP_P2_piecesArray[k].PP_piecePosition_idCol == PP_blocksArray[PP_blockRow][i].PP_block_idCol)
+                                if(PP_P2_piecesArray[k].PP_pieceType == PP_blocksArray[PP_blockRow][i].PP_block_pieceType)
                                 {
                                     image(PP_showCardImage(PP_P2_piecesArray[k].PP_pieceType), PP_blocksArray[PP_blockRow][i].PP_block_xPos, PP_blocksArray[PP_blockRow][i].PP_block_yPos, PP_blocksArray[PP_blockRow][i].PP_block_size, PP_blocksArray[PP_blockRow][i].PP_block_size);
                                 } 
@@ -222,10 +223,12 @@ function piecePlacement()
                             //toggle occupiedFlag for specific block
                             PP_blocksArray[PP_blockRow][i].PP_block_occupiedFlag = 1;
 
-                            //insert piece position into piece-array depending on player number && set player number for block
+                            //insert piece position into piece-array based on player && set player number & piece type for block
                             if(PP_playerCount == 1)
                             {
                                 PP_blocksArray[PP_blockRow][i].PP_block_playerNumber = 1;
+                                PP_blocksArray[PP_blockRow][i].PP_block_pieceType = PS_P1_Cards[PP_pieceCounter-1];
+
                                 PP_P1_piecesArray[PP_pieceCounter-1].PP_pieceType = PS_P1_Cards[PP_pieceCounter-1];
                                 PP_P1_piecesArray[PP_pieceCounter-1].PP_piecePosition_idRow = PP_blockRow;
                                 PP_P1_piecesArray[PP_pieceCounter-1].PP_piecePosition_idCol = i;
@@ -233,6 +236,8 @@ function piecePlacement()
                             else if(PP_playerCount == 2)
                             {
                                 PP_blocksArray[PP_blockRow][i].PP_block_playerNumber = 2;
+                                PP_blocksArray[PP_blockRow][i].PP_block_pieceType = PS_P2_Cards[PP_pieceCounter-1];
+
                                 PP_P2_piecesArray[PP_pieceCounter-1].PP_pieceType = PS_P2_Cards[PP_pieceCounter-1];
                                 PP_P2_piecesArray[PP_pieceCounter-1].PP_piecePosition_idRow = PP_blockRow;
                                 PP_P2_piecesArray[PP_pieceCounter-1].PP_piecePosition_idCol = i;
@@ -313,11 +318,13 @@ function piecePlacement()
                                         //toggling occupied flag and setting player number for the new block
                                         PP_blocksArray[PP_blockRow][i].PP_block_occupiedFlag = 1;
                                         PP_blocksArray[PP_blockRow][i].PP_block_playerNumber = PP_playerCount;
+                                        PP_blocksArray[PP_blockRow][i].PP_block_pieceType = PP_blocksArray[PP_prev_blockRow][PP_prev_blockCol].PP_block_pieceType;
                                         
                                         //resetting flags & player number for the previously selected block
                                         PP_blocksArray[PP_prev_blockRow][PP_prev_blockCol].PP_block_occupiedFlag = 0;
                                         PP_blocksArray[PP_prev_blockRow][PP_prev_blockCol].PP_block_selectedFlag = 0;
                                         PP_blocksArray[PP_prev_blockRow][PP_prev_blockCol].PP_block_playerNumber = 0;
+                                        PP_blocksArray[PP_prev_blockRow][PP_prev_blockCol].PP_block_pieceType = '';
 
                                         //checking piece array for the previous block's coordinates for updating values
                                         for(let j=0; j<PS_totalCards; j++)
@@ -356,13 +363,10 @@ function piecePlacement()
             }
         }
     }
-    //code to run after piece placement has finished for both players
+    //proceed to actual gameplay after piece placement has finished for both players
     else if(PP_playerCount > PS_totalPlayers)
     {
-        background(PS_backgroundImage);
-        console.log(PP_P1_piecesArray);
-        console.log(PP_P2_piecesArray);
-        noLoop();
+        gamePlay();
     }
 }
 
