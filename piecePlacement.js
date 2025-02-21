@@ -192,14 +192,14 @@ function piecePlacement()
                                 if(PP_P1_piecesArray[k].PP_pieceType == PP_blocksArray[PP_blockRow][i].PP_block_pieceType)
                                 {
                                     //pass piece type letter to image display function and place image when block is occupied
-                                    image(PP_showCardImage(PP_P1_piecesArray[k].PP_pieceType), PP_blocksArray[PP_blockRow][i].PP_block_xPos, PP_blocksArray[PP_blockRow][i].PP_block_yPos, PP_blocksArray[PP_blockRow][i].PP_block_size, PP_blocksArray[PP_blockRow][i].PP_block_size);
+                                    image(PP_showCardThumb(PP_P1_piecesArray[k].PP_pieceType), PP_blocksArray[PP_blockRow][i].PP_block_xPos, PP_blocksArray[PP_blockRow][i].PP_block_yPos, PP_blocksArray[PP_blockRow][i].PP_block_size, PP_blocksArray[PP_blockRow][i].PP_block_size);
                                 }
                             }
                             else if(PP_playerCount == 2)
                             {
                                 if(PP_P2_piecesArray[k].PP_pieceType == PP_blocksArray[PP_blockRow][i].PP_block_pieceType)
                                 {
-                                    image(PP_showCardImage(PP_P2_piecesArray[k].PP_pieceType), PP_blocksArray[PP_blockRow][i].PP_block_xPos, PP_blocksArray[PP_blockRow][i].PP_block_yPos, PP_blocksArray[PP_blockRow][i].PP_block_size, PP_blocksArray[PP_blockRow][i].PP_block_size);
+                                    image(PP_showCardThumb(PP_P2_piecesArray[k].PP_pieceType), PP_blocksArray[PP_blockRow][i].PP_block_xPos, PP_blocksArray[PP_blockRow][i].PP_block_yPos, PP_blocksArray[PP_blockRow][i].PP_block_size, PP_blocksArray[PP_blockRow][i].PP_block_size);
                                 } 
                             }
                         }
@@ -465,7 +465,7 @@ function PP_playerTextDisplay()
     rect(PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size, PP_blocksArray[0][0].PP_block_yPos-PP_blocksArray[0][0].PP_block_size/2, 2, PP_blocksArray[0][0].PP_block_size*PP_chessboardSize);
 }
 
-//function to generate card images depending on piece-type value found in the player piece arrays
+//function to generate card images depending on piece-type value found on the block
 function PP_showCardImage(letterValue)
 {
     if(PP_playerCount == 1)
@@ -501,6 +501,47 @@ function PP_showCardImage(letterValue)
             case 'R': return PS_P2_cardImage_R;
             break;
             case 'P': return PS_P2_cardImage_P;
+            break;
+        }
+    }
+}
+
+//function to generate card thumbnails depending on piece-type value found on the block
+function PP_showCardThumb(letterValue)
+{
+    if(PP_playerCount == 1)
+    {
+        switch(letterValue)
+        {
+            case 'K': return PP_P1_cardThumb_K;
+            break;
+            case 'Q': return PP_P1_cardThumb_Q;
+            break;
+            case 'B': return PP_P1_cardThumb_B;
+            break;
+            case 'N': return PP_P1_cardThumb_N;
+            break;
+            case 'R': return PP_P1_cardThumb_R;
+            break;
+            case 'P': return PP_P1_cardThumb_P;
+            break;
+        }
+    }
+    else if(PP_playerCount == 2)
+    {
+        switch(letterValue)
+        {
+            case 'K': return PP_P2_cardThumb_K;
+            break;
+            case 'Q': return PP_P2_cardThumb_Q;
+            break;
+            case 'B': return PP_P2_cardThumb_B;
+            break;
+            case 'N': return PP_P2_cardThumb_N;
+            break;
+            case 'R': return PP_P2_cardThumb_R;
+            break;
+            case 'P': return PP_P2_cardThumb_P;
             break;
         }
     }
