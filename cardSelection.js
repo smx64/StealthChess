@@ -27,6 +27,7 @@ let PS_P2_Cards = ['K'];
 function preload()
 {
     PS_backgroundImage = loadImage("./Assets/BG_Image.png");
+    GP_gameLogo = loadImage("./Assets/Logo_StealthChess_White.png");
 
     //pre-loading typefaces
     PS_fontHeading = loadFont("./Assets/BlackOpsOne.ttf");
@@ -109,6 +110,22 @@ function setup()
         let PP_P2_Pieces_object = new PP_P2_Pieces();
         PP_P1_piecesArray.push(PP_P1_Pieces_object);
         PP_P2_piecesArray.push(PP_P2_Pieces_object);
+    }
+
+    //generating chessboard for gameplay segment -- runs in gamePlay.js file
+    let GP_init_block_yPos = int(height/3.75);
+    for(let GP_blockRow=0; GP_blockRow<PP_chessboardSize; GP_blockRow++)
+    {
+        let GP_init_block_xPos = int(width/2);
+        GP_blocksArray.push([]);
+
+        for(let GP_blockCol=0; GP_blockCol<PP_chessboardSize; GP_blockCol++)
+        {
+            let GP_Chessboard_object = new GP_Chessboard(GP_init_block_xPos, GP_init_block_yPos, GP_blockRow, GP_blockCol);
+            GP_blocksArray[GP_blockRow].push(GP_Chessboard_object);
+            GP_init_block_xPos += GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_separation;
+        }
+        GP_init_block_yPos += GP_blocksArray[GP_blockRow][GP_blockRow].GP_block_separation;
     }
 }
 
