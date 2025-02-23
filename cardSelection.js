@@ -116,7 +116,17 @@ function setup()
     let GP_init_block_yPos = int(height/4.3);
     for(let GP_blockRow=0; GP_blockRow<PP_chessboardSize; GP_blockRow++)
     {
-        let GP_init_block_xPos = int(width/3.05);
+        let GP_init_block_xPos;
+        
+        //determining chessboard start-point depending on window-height
+        if(height <= 800)
+        {
+            GP_init_block_xPos = int(width/3.05);
+        }
+        else
+        {
+            GP_init_block_xPos = int(width/3.2);
+        }
         GP_blocksArray.push([]);
 
         for(let GP_blockCol=0; GP_blockCol<PP_chessboardSize; GP_blockCol++)

@@ -3280,10 +3280,17 @@
 //         }
 //     ]
 // ];
-//-----------------------------------------------------------------------------------------------------------------------------
+
 
 //initializing all gameplay segment variables
+let GP_totalTurns = 10;
+let GP_turnCount = 1;
 let GP_blocksArray = [];
+
+let GP_blockActive = 0;
+let GP_playerActive = 1;
+let GP_prev_blockRow, GP_prev_blockCol;
+let GP_P1_textFill, GP_P2_textFill;
 
 //class declaration for the main chessboard
 class GP_Chessboard
@@ -3338,6 +3345,18 @@ class GP_Chessboard
         fill(this.GP_block_fillColor);
         rect(this.GP_block_xPos, this.GP_block_yPos, this.GP_block_size);
     }
+    //function to determine which block is being actively hovered-on by the mouse
+    GP_hoverBlock()
+    {
+        if(mouseX <= this.GP_block_xPos+this.GP_block_size/2 && mouseX >= this.GP_block_xPos-this.GP_block_size/2 && mouseY <= this.GP_block_yPos+this.GP_block_size/2 && mouseY >= this.GP_block_yPos-this.GP_block_size/2)
+        {
+            this.GP_block_hoverFlag = 1;
+        }
+        else
+        {
+            this.GP_block_hoverFlag = 0;
+        }
+    }
 }
 
 //main function where everything runs
@@ -3363,13 +3382,74 @@ function gamePlay()
     {
         for(let GP_blockCol=0; GP_blockCol<PP_chessboardSize; GP_blockCol++)
         {
-            //function call to display individual blocks making up the chessboard
+            //function call to display individual blocks making up the chessboard & start hoverblock function
             GP_blocksArray[GP_blockRow][GP_blockCol].GP_drawBlock();
+            GP_blocksArray[GP_blockRow][GP_blockCol].GP_hoverBlock();
 
             //generating piece thumbnails on the chessboard
             if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag == 1)
             {
                 image(GP_showCardThumb(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber), GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size);
+            }
+
+            //display highlighter square on top of occupied block when it is selected
+            if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag == 1)
+            {
+                fill(255,255,0,100);
+                rect(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size);
+            }
+
+            //code to execute gameplay movements as long as turn-counter is within the total no.of moves
+            if(GP_turnCount <= GP_totalTurns)
+            {
+                //condition to enable mouse-click only on occupied blocks of the active player
+                if(mouseButton == LEFT && mouseIsPressed == true && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_hoverFlag == 1 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber == GP_playerActive)
+                {
+                    //code to run when no block is selected
+                    if(GP_blockActive == 0)
+                    {
+                        //toggle selected flag for that particular block & store coordinates into separate variables
+                        GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag = 1;
+                        GP_prev_blockRow = GP_blockRow;
+                        GP_prev_blockCol = GP_blockCol;
+
+                        //toggle flag to denote that a block is currently active
+                        GP_blockActive = 1;
+                        mouseIsPressed = false;
+                    }
+                    //code to run when a block is selected
+                    else if(GP_blockActive == 1)
+                    {
+                        //resetting selected flag if the same selected block is clicked again
+                        if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag == 1)
+                        {
+                            //reset selected flag and remove values stored in variables
+                            GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag = 0;
+                            GP_prev_blockRow = '';
+                            GP_prev_blockCol = '';
+
+                            //toggle flag to denote that no block is currently active
+                            GP_blockActive = 0;
+                            mouseIsPressed = false;
+                        }
+                        //code to move selection to another occupied block if that is clicked
+                        else if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag == 1 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag != 1)
+                        {
+                            //toggle selected flags for both blocks and replace values in variables with the new block's coordinates
+                            GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag = 1;
+                            GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_selectedFlag = 0;
+                            GP_prev_blockRow = GP_blockRow;
+                            GP_prev_blockCol = GP_blockCol;
+
+                            mouseIsPressed = false;
+                        }
+                    }
+                }
+            }
+            //code to run when all player turns have finished
+            else if(GP_turnCount > GP_totalTurns)
+            {
+                //CODE TO RUN WHEN ALL TURNS ARE OVER
             }
         }
     }   
@@ -3385,9 +3465,29 @@ function GP_playerTextDisplay()
     GP_logoWidth = width/6;
     imageMode(CENTER);
     image(GP_gameLogo, width/2, height/12, GP_logoWidth, GP_logoWidth/4);
+
+    textFont(PS_fontHeading);
+    textAlign(CENTER,CENTER)
+    textSize(25);
+
+    //changing player text fillcolor based on which player is active
+    if(GP_playerActive == 1)
+    {
+        GP_P1_textFill = PS_redShade;
+        GP_P2_textFill = color(255);
+    }
+    else if(GP_playerActive == 2)
+    {
+        GP_P1_textFill = color(255);
+        GP_P2_textFill = PS_redShade;
+    }
+    fill(GP_P1_textFill);
+    text("PLAYER 1: "+PS_playerNames[0], width/7, GP_blocksArray[0][0].GP_block_yPos);
+    fill(GP_P2_textFill);
+    text("PLAYER 2: "+PS_playerNames[1], width-(width/7.25), GP_blocksArray[0][0].GP_block_yPos);
 }
 
-//function to generate card thumbnails depending on piece-type value found on the block
+//function to generate card thumbnails depending on piece-type & player number value found on the block
 function GP_showCardThumb(letterValue, playerValue)
 {
     if(playerValue == 1)
