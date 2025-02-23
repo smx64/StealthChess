@@ -113,10 +113,10 @@ function setup()
     }
 
     //generating chessboard for gameplay segment -- runs in gamePlay.js file
-    let GP_init_block_yPos = int(height/3.75);
+    let GP_init_block_yPos = int(height/4.3);
     for(let GP_blockRow=0; GP_blockRow<PP_chessboardSize; GP_blockRow++)
     {
-        let GP_init_block_xPos = int(width/2);
+        let GP_init_block_xPos = int(width/3.05);
         GP_blocksArray.push([]);
 
         for(let GP_blockCol=0; GP_blockCol<PP_chessboardSize; GP_blockCol++)
@@ -214,7 +214,7 @@ function draw()
     {
         PS_nameField.hide();
 
-        // function to proceed to piece placement step
+        //function to proceed to piece placement step
         piecePlacement();
     }
 }
