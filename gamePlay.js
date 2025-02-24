@@ -934,7 +934,7 @@
 //             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
 //             "PP_block_playerNumber": 1,
-//             "PP_block_pieceType": "B",
+//             "PP_block_pieceType": "N",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -3552,6 +3552,46 @@ function validMovesChecker(letterValue, thisRow, thisColumn)
                 if(thisRow+1 < PP_chessboardSize && thisColumn-1 >= 0 && GP_blocksArray[thisRow+1][thisColumn-1].GP_block_playerNumber == 1)
                 {
                     GP_blocksArray[thisRow+1][thisColumn-1].GP_block_validFlag = 1;
+                }
+            }
+        break;
+
+        //checking for piece - knight
+        case 'N':
+            //running loop for plus/minus 2 rows
+            for(let i=thisRow-2; i<=thisRow+2; i++)
+            {
+                //running loop for plus/minus 2 columns
+                for(let j=thisColumn-2; j<=thisColumn+2; j++)
+                {
+                    //checking whether blocks are within chessboard bounds
+                    if(i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize)
+                    {
+                        //absolute difference of rows should be 1 & absolute difference of columns should be 2
+                        //or absolute difference of rows should be 2 & absolute difference of columns should be 1
+                        if((abs(i-thisRow)==1 && abs(j-thisColumn)==2) || (abs(i-thisRow)==2 && abs(j-thisColumn)==1))
+                        {
+                            //checking whether block is empty
+                            if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
+                            {
+                                GP_blocksArray[i][j].GP_block_validFlag = 1;
+                            }
+                            //code to run when block is not empty
+                            else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
+                            {
+                                //checking whether block has opponent piece
+                                if(GP_blocksArray[i][j].GP_block_playerNumber != GP_playerActive)
+                                {
+                                    GP_blocksArray[i][j].GP_block_validFlag = 1;
+                                }
+                                //code to run when same player's piece is found
+                                else if(GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
+                                {
+                                    GP_blocksArray[i][j].GP_block_validFlag = 0;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         break;
