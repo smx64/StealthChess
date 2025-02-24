@@ -366,10 +366,10 @@
 //             "PP_block_idCol": 7,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
+//             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
+//             "PP_block_playerNumber": 1,
+//             "PP_block_pieceType": "P",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -880,10 +880,10 @@
 //             "PP_block_idCol": 1,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
+//             "PP_block_occupiedFlag": 0,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 1,
-//             "PP_block_pieceType": "K",
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -931,10 +931,10 @@
 //             "PP_block_idCol": 2,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
+//             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
+//             "PP_block_playerNumber": 1,
+//             "PP_block_pieceType": "B",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -1239,10 +1239,10 @@
 //             "PP_block_idCol": 0,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
+//             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
+//             "PP_block_playerNumber": 2,
+//             "PP_block_pieceType": "Q",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -1494,10 +1494,10 @@
 //             "PP_block_idCol": 5,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
+//             "PP_block_occupiedFlag": 0,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 2,
-//             "PP_block_pieceType": "N",
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -1545,10 +1545,10 @@
 //             "PP_block_idCol": 6,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
+//             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
+//             "PP_block_playerNumber": 2,
+//             "PP_block_pieceType": "B",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -1596,10 +1596,10 @@
 //             "PP_block_idCol": 7,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
+//             "PP_block_occupiedFlag": 0,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 2,
-//             "PP_block_pieceType": "R",
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -1904,10 +1904,10 @@
 //             "PP_block_idCol": 5,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
+//             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
+//             "PP_block_playerNumber": 1,
+//             "PP_block_pieceType": "Q",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -3236,10 +3236,10 @@
 //             "PP_block_idCol": 7,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
+//             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
+//             "PP_block_playerNumber": 2,
+//             "PP_block_pieceType": "P",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -3311,6 +3311,7 @@ class GP_Chessboard
         this.GP_block_occupiedFlag = 0;
         this.GP_block_hoverFlag = 0;
         this.GP_block_selectedFlag = 0;
+        this.GP_block_validFlag = 0;
     }
     //function to generate individual blocks on-screen
     GP_drawBlock()
@@ -3341,6 +3342,11 @@ class GP_Chessboard
                 this.GP_block_fillColor = color(255);
             }
         }
+
+        // if(this.GP_block_validFlag == 1)
+        // {
+        //     this.GP_block_fillColor = PP_hoverShade;
+        // }
 
         fill(this.GP_block_fillColor);
         rect(this.GP_block_xPos, this.GP_block_yPos, this.GP_block_size);
@@ -3399,9 +3405,35 @@ function gamePlay()
                 rect(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size);
             }
 
+            //display markers on all blocks that are valid moves for a particular piece
+            if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_validFlag == 1)
+            {
+                if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag != 1)
+                {
+                    ellipseMode(CENTER);
+                    fill(0);
+                    ellipse(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size/4);
+                }
+                else
+                {
+                    rectMode(CENTER);
+                    fill(255,0,0,100);
+                    ellipse(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size);
+                }
+            }
+
             //code to execute gameplay movements as long as turn-counter is within the total no.of moves
             if(GP_turnCount <= GP_totalTurns)
             {
+                if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag == 1)
+                {
+                    validMovesChecker(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType, GP_blockRow, GP_blockCol);
+                }
+                else
+                {
+                    GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_validFlag = 0;
+                }
+
                 //condition to enable mouse-click only on occupied blocks of the active player
                 if(mouseButton == LEFT && mouseIsPressed == true && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_hoverFlag == 1 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber == GP_playerActive)
                 {
@@ -3453,6 +3485,259 @@ function gamePlay()
             }
         }
     }   
+}
+
+//
+function validMovesChecker(letterValue, thisRow, thisColumn)
+{
+    //running valid moves checker based on piece type value received
+    //toggle valid flag for blocks where a piece can legally move
+    switch(letterValue)
+    {
+        //checking for piece - queen
+        case 'Q':
+            GP_bishopMoves(thisRow, thisColumn);
+            GP_rookMoves(thisRow, thisColumn);
+        break;
+
+        //checking for piece - bishop
+        case 'B':
+            GP_bishopMoves(thisRow, thisColumn);
+        break;
+
+        //checking for piece - rook
+        case 'R':
+            GP_rookMoves(thisRow, thisColumn);
+        break;
+
+        //checking for piece - pawn
+        case 'P':
+            //when player 1 is active
+            if(GP_playerActive == 1)
+            {
+                //checking for empty block on the immediate right
+                if(thisColumn+1 < PP_chessboardSize && GP_blocksArray[thisRow][thisColumn+1].GP_block_occupiedFlag != 1)
+                {
+                    GP_blocksArray[thisRow][thisColumn+1].GP_block_validFlag = 1;
+                }
+
+                //checking whether top-right block is having enemy piece or not
+                if(thisRow-1 >=0 && thisColumn+1 < PP_chessboardSize && GP_blocksArray[thisRow-1][thisColumn+1].GP_block_playerNumber == 2)
+                {
+                    GP_blocksArray[thisRow-1][thisColumn+1].GP_block_validFlag = 1;
+                }
+                
+                //checking whether bottom-right block is having enemy piece or not
+                if(thisRow+1 < PP_chessboardSize && thisColumn+1 < PP_chessboardSize && GP_blocksArray[thisRow+1][thisColumn+1].GP_block_playerNumber == 2)
+                {
+                    GP_blocksArray[thisRow+1][thisColumn+1].GP_block_validFlag = 1;
+                }
+            }
+            //when player 2 is active
+            else if(GP_playerActive == 2)
+            {
+                //checking for empty block on the immediate left
+                if(thisColumn-1 >=0 && GP_blocksArray[thisRow][thisColumn-1].GP_block_occupiedFlag != 1)
+                {
+                    GP_blocksArray[thisRow][thisColumn-1].GP_block_validFlag = 1;
+                }
+
+                //checking whether top-left block is having enemy piece or not
+                if(thisRow-1 >=0 && thisColumn-1 >=0 && GP_blocksArray[thisRow-1][thisColumn-1].GP_block_playerNumber == 1)
+                {
+                    GP_blocksArray[thisRow-1][thisColumn-1].GP_block_validFlag = 1;
+                }
+                
+                //checking whether bottom-left block is having enemy piece or not
+                if(thisRow+1 < PP_chessboardSize && thisColumn-1 >= 0 && GP_blocksArray[thisRow+1][thisColumn-1].GP_block_playerNumber == 1)
+                {
+                    GP_blocksArray[thisRow+1][thisColumn-1].GP_block_validFlag = 1;
+                }
+            }
+        break;
+    }
+}
+
+function GP_bishopMoves(thisRow, thisColumn)
+{
+    //code to check blocks towards top-left diagonally
+    for(let i=thisRow-1, j=thisColumn-1; (i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize); i--, j--)
+    {
+        if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[i][j].GP_block_validFlag = 1;
+        }
+        else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
+        {
+            if(GP_blocksArray[i][j].GP_block_playerNumber != GP_playerActive)
+            {
+                GP_blocksArray[i][j].GP_block_validFlag = 1;
+                break;
+            }
+            else if(GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[i][j].GP_block_validFlag = 0;
+                break;
+            }
+        }
+    }
+
+    //code to check blocks towards top-right diagonally
+    for(let i=thisRow-1, j=thisColumn+1; (i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize); i--, j++)
+    {
+        if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[i][j].GP_block_validFlag = 1;
+        }
+        else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
+        {
+            if(GP_blocksArray[i][j].GP_block_playerNumber != GP_playerActive)
+            {
+                GP_blocksArray[i][j].GP_block_validFlag = 1;
+                break;
+            }
+            else if(GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[i][j].GP_block_validFlag = 0;
+                break;
+            }
+        }
+    }
+
+    //code to check blocks towards bottom-left diagonally
+    for(let i=thisRow+1, j=thisColumn-1; (i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize); i++, j--)
+    {
+        if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[i][j].GP_block_validFlag = 1;
+        }
+        else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
+        {
+            if(GP_blocksArray[i][j].GP_block_playerNumber != GP_playerActive)
+            {
+                GP_blocksArray[i][j].GP_block_validFlag = 1;
+                break;
+            }
+            else if(GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[i][j].GP_block_validFlag = 0;
+                break;
+            }
+        }
+    }
+
+    //code to check blocks towards bottom-right diagonally
+    for(let i=thisRow+1, j=thisColumn+1; (i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize); i++, j++)
+    {
+        if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[i][j].GP_block_validFlag = 1;
+        }
+        else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
+        {
+            if(GP_blocksArray[i][j].GP_block_playerNumber != GP_playerActive)
+            {
+                GP_blocksArray[i][j].GP_block_validFlag = 1;
+                break;
+            }
+            else if(GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[i][j].GP_block_validFlag = 0;
+                break;
+            }
+        }
+    }
+}
+
+function GP_rookMoves(thisRow, thisColumn)
+{
+    //code to check blocks towards the right
+    for(let i=thisColumn+1; i<PP_chessboardSize; i++)
+    {
+        if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[thisRow][i].GP_block_validFlag = 1;
+        }
+        else if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag == 1)
+        {
+            if(GP_blocksArray[thisRow][i].GP_block_playerNumber != GP_playerActive)
+            {
+                GP_blocksArray[thisRow][i].GP_block_validFlag = 1;
+                break;
+            }
+            else if(GP_blocksArray[thisRow][i].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[thisRow][i].GP_block_validFlag = 0;
+                break;
+            }
+        }
+    }
+
+    //code to check blocks towards the left
+    for(let i=thisColumn-1; i>=0; i--)
+    {
+        if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[thisRow][i].GP_block_validFlag = 1;
+        }
+        else if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag == 1)
+        {
+            if(GP_blocksArray[thisRow][i].GP_block_playerNumber != GP_playerActive)
+            {
+                GP_blocksArray[thisRow][i].GP_block_validFlag = 1;
+                break;
+            }
+            else if(GP_blocksArray[thisRow][i].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[thisRow][i].GP_block_validFlag = 0;
+                break;
+            }
+        }
+    }
+
+    //code to check blocks towards the bottom
+    for(let i=thisRow+1; i<PP_chessboardSize; i++)
+    {
+        if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[i][thisColumn].GP_block_validFlag = 1;
+        }
+        else if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag == 1)
+        {
+            if(GP_blocksArray[i][thisColumn].GP_block_playerNumber != GP_playerActive)
+            {
+                GP_blocksArray[i][thisColumn].GP_block_validFlag = 1;
+                break;
+            }
+            else if(GP_blocksArray[i][thisColumn].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[i][thisColumn].GP_block_validFlag = 0;
+                break;
+            }
+        }
+    }
+
+    //code to check blocks towards the top
+    for(let i=thisRow-1; i>=0; i--)
+    {
+        if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[i][thisColumn].GP_block_validFlag = 1;
+        }
+        else if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag == 1)
+        {
+            if(GP_blocksArray[i][thisColumn].GP_block_playerNumber != GP_playerActive)
+            {
+                GP_blocksArray[i][thisColumn].GP_block_validFlag = 1;
+                break;
+            }
+            else if(GP_blocksArray[i][thisColumn].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[i][thisColumn].GP_block_validFlag = 0;
+                break;
+            }
+        }
+    }
 }
 
 //function to display text rendered on gameplay page
