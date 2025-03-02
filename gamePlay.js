@@ -1033,10 +1033,10 @@
 //             "PP_block_idCol": 4,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
+//             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
+//             "PP_block_playerNumber": 2,
+//             "PP_block_pieceType": "N",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -1084,10 +1084,10 @@
 //             "PP_block_idCol": 5,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
+//             "PP_block_occupiedFlag": 0,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 2,
-//             "PP_block_pieceType": "B",
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -3341,15 +3341,15 @@
 //     },
 //     {
 //         "PP_piecePlayerNumber": 2,
-//         "PP_pieceType": "B",
+//         "PP_pieceType": "N",
 //         "PP_piecePosition_idRow": 2,
-//         "PP_piecePosition_idCol": 5
+//         "PP_piecePosition_idCol": 4
 //     }
 // ];
 
 
 //initializing all gameplay segment variables
-let GP_totalTurns = 10;
+let GP_totalTurns = PS_totalCards*2;
 let GP_turnCount = 1;
 let GP_blocksArray = [];
 let GP_initClass = 0;
@@ -3359,6 +3359,10 @@ let GP_playerActive = 1;
 let GP_prev_blockRow, GP_prev_blockCol;
 let GP_P1_textFill, GP_P2_textFill;
 
+//initializing player-specific variables
+let GP_P1_moveCounter = PS_totalCards;
+let GP_P2_moveCounter = PS_totalCards;
+
 //class declaration for the main chessboard
 class GP_Chessboard
 {
@@ -3367,7 +3371,7 @@ class GP_Chessboard
     {
         this.GP_block_xPos = _GP_block_xPos;
         this.GP_block_yPos = _GP_block_yPos;
-        this.GP_block_size = height/10.5;
+        this.GP_block_size = int(height/10.5);
         this.GP_block_separation = this.GP_block_size;
         this.GP_block_idRow = _GP_block_idRow;
         this.GP_block_idCol = _GP_block_idCol;
@@ -3379,6 +3383,7 @@ class GP_Chessboard
         this.GP_block_hoverFlag = 0;
         this.GP_block_selectedFlag = 0;
         this.GP_block_validFlag = 0;
+        this.GP_block_checkFlag = 0;
     }
     //function to generate individual blocks on-screen
     GP_drawBlock()
@@ -3408,6 +3413,12 @@ class GP_Chessboard
             {
                 this.GP_block_fillColor = color(255);
             }
+        }
+
+        //changing block color on mouse-hover when it's valid flag is active
+        if(this.GP_block_hoverFlag == 1 && this.GP_block_validFlag == 1)
+        {
+            this.GP_block_fillColor = PP_hoverShade;
         }
 
         fill(this.GP_block_fillColor);
@@ -3473,6 +3484,14 @@ function gamePlay()
                 rect(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size);
             }
 
+            //TESTING PURPOSE ONLY: write C on top of every block that has an active check flag
+            // if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_checkFlag == 1)
+            // {
+            //     fill(0);
+            //     textAlign(CENTER,CENTER);
+            //     text("C", GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos);
+            // }
+
             //display markers on all blocks that are valid moves for a particular piece
             if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_validFlag == 1 && GP_blockActive == 1)
             {
@@ -3489,12 +3508,40 @@ function gamePlay()
                     rectMode(CENTER);
                     fill(255,0,0,100);
                     ellipse(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size);
+
+                    //highlighting block during mouse-hover
+                    if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_hoverFlag == 1)
+                    {
+                        rectMode(CENTER);
+                        fill(0,255,0,100);
+                        rect(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size);
+                    }
                 }
             }
 
             //code to execute gameplay movements as long as turn-counter is within the total no.of moves
             if(GP_turnCount <= GP_totalTurns)
             {
+                //determining all the blocks that are being checked based on opponent piece positions
+                for(let i=0; i<PS_totalCards; i++)
+                {
+                    //checking for all pieces in player array except for the ones that have been cut during gameplay
+                    if(GP_playerActive == 1)
+                    {
+                        if(PP_P2_piecesArray[i].PP_piecePosition_idRow != 'X')
+                        {
+                            GP_checkedBlocks(PP_P2_piecesArray[i].PP_pieceType, PP_P2_piecesArray[i].PP_piecePosition_idRow, PP_P2_piecesArray[i].PP_piecePosition_idCol);
+                        }
+                    }
+                    else if(GP_playerActive == 2)
+                    {
+                        if(PP_P1_piecesArray[i].PP_piecePosition_idRow != 'X')
+                        {
+                            GP_checkedBlocks(PP_P1_piecesArray[i].PP_pieceType, PP_P1_piecesArray[i].PP_piecePosition_idRow, PP_P1_piecesArray[i].PP_piecePosition_idCol);
+                        }
+                    }
+                }
+
                 //resetting all valid flags after de-selecting a block to restart the process
                 if(GP_blockActive == 0)
                 {
@@ -3513,7 +3560,7 @@ function gamePlay()
                         GP_prev_blockCol = GP_blockCol;
 
                         //function call to check which all blocks the selected piece can move to
-                        validMovesChecker(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType, GP_blockRow, GP_blockCol);
+                        GP_validMovesChecker(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType, GP_blockRow, GP_blockCol);
 
                         //toggle flag to denote that a block is currently active
                         GP_blockActive = 1;
@@ -3556,7 +3603,7 @@ function gamePlay()
                             }
 
                             //function call to check which all blocks the selected piece can move to
-                            validMovesChecker(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType, GP_blockRow, GP_blockCol);
+                            GP_validMovesChecker(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType, GP_blockRow, GP_blockCol);
                             mouseIsPressed = false;
                         }
                         //code to move pieces to a particular block only if its valid flag is true
@@ -3588,8 +3635,8 @@ function gamePlay()
                                     //removing piece coordinates from opponent's piece array if it gets captured
                                     if(PP_P2_piecesArray[i].PP_piecePosition_idRow == GP_blockRow && PP_P2_piecesArray[i].PP_piecePosition_idCol == GP_blockCol)
                                     {
-                                        PP_P2_piecesArray[i].PP_piecePosition_idRow = '';
-                                        PP_P2_piecesArray[i].PP_piecePosition_idCol = '';
+                                        PP_P2_piecesArray[i].PP_piecePosition_idRow = 'X';
+                                        PP_P2_piecesArray[i].PP_piecePosition_idCol = 'X';
                                     }
                                 }
                                 else if(GP_playerActive == 2)
@@ -3604,8 +3651,8 @@ function gamePlay()
                                     //removing piece coordinates from opponent's piece array if it gets captured
                                     if(PP_P1_piecesArray[i].PP_piecePosition_idRow == GP_blockRow && PP_P1_piecesArray[i].PP_piecePosition_idCol == GP_blockCol)
                                     {
-                                        PP_P1_piecesArray[i].PP_piecePosition_idRow = '';
-                                        PP_P1_piecesArray[i].PP_piecePosition_idCol = '';
+                                        PP_P1_piecesArray[i].PP_piecePosition_idRow = 'X';
+                                        PP_P1_piecesArray[i].PP_piecePosition_idCol = 'X';
                                     }
                                 }
                             }
@@ -3618,11 +3665,22 @@ function gamePlay()
                             //alternating player turns
                             if(GP_playerActive == 1)
                             {
+                                GP_P1_moveCounter--;
                                 GP_playerActive = 2;
                             }
                             else if(GP_playerActive == 2)
                             {
+                                GP_P2_moveCounter--;
                                 GP_playerActive = 1;
+                            }
+
+                            //resetting check flags for all blocks after every turn
+                            for(let i=0; i<PP_chessboardSize; i++)
+                            {
+                                for(let j=0; j<PP_chessboardSize; j++)
+                                {
+                                    GP_blocksArray[i][j].GP_block_checkFlag = 0;
+                                }
                             }
                         }
                     }
@@ -3637,8 +3695,8 @@ function gamePlay()
     }   
 }
 
-//
-function validMovesChecker(letterValue, thisRow, thisColumn)
+//function to check all valid moves a particular piece can make
+function GP_validMovesChecker(letterValue, thisRow, thisColumn)
 {
     //running valid moves checker based on piece type value received
     //toggle valid flag for blocks where a piece can legally move
@@ -3658,6 +3716,44 @@ function validMovesChecker(letterValue, thisRow, thisColumn)
         //checking for piece - rook
         case 'R':
             GP_rookMoves(thisRow, thisColumn);
+        break;
+
+        //checking for piece - king
+        case 'K':
+            //checking for plus/minus 1 row
+            for(let i=thisRow-1; i<=thisRow+1; i++)
+            {
+                //checking for plus/minus 1 column
+                for(let j=thisColumn-1; j<=thisColumn+1; j++)
+                {
+                    //checking whether the coordinates are within the chessboard
+                    if(i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize)
+                    {
+                        //ignoring block where king is currently placed
+                        if(i == thisRow && j == thisColumn)
+                        {
+                            GP_blocksArray[i][j].GP_block_validFlag = 0;
+                        }
+                        //code for rest of the blocks
+                        else
+                        {
+                            //toggling flag if block is empty and is not being checked
+                            if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1 && GP_blocksArray[i][j].GP_block_checkFlag != 1)
+                            {
+                                GP_blocksArray[i][j].GP_block_validFlag = 1;
+                            }
+                            else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
+                            {
+                                //toggling flag if block is occupied by opponent piece and is not being checked
+                                if(GP_blocksArray[i][j].GP_block_playerNumber != GP_playerActive && GP_blocksArray[i][j].GP_block_checkFlag != 1)
+                                {
+                                    GP_blocksArray[i][j].GP_block_validFlag = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         break;
 
         //checking for piece - pawn
@@ -3748,6 +3844,7 @@ function validMovesChecker(letterValue, thisRow, thisColumn)
     }
 }
 
+//function to check all valid moves for bishop
 function GP_bishopMoves(thisRow, thisColumn)
 {
     //code to check blocks towards top-left diagonally
@@ -3839,6 +3936,7 @@ function GP_bishopMoves(thisRow, thisColumn)
     }
 }
 
+//function to check all valid moves for rook
 function GP_rookMoves(thisRow, thisColumn)
 {
     //code to check blocks towards the right
@@ -3930,16 +4028,249 @@ function GP_rookMoves(thisRow, thisColumn)
     }
 }
 
+//function to determine which all blocks are being checked by a particular piece
+function GP_checkedBlocks(letterValue, thisRow, thisColumn)
+{
+    //toggling check flags of blocks where opponent's pieces can legally move
+    switch(letterValue)
+    {
+        //checking for piece - queen
+        case 'Q':
+            GP_bishopChecks(thisRow, thisColumn);
+            GP_rookChecks(thisRow, thisColumn);
+        break;
+
+        //checking for piece - bishop
+        case 'B':
+            GP_bishopChecks(thisRow, thisColumn);
+        break;
+
+        //checking for piece - rook
+        case 'R':
+            GP_rookChecks(thisRow, thisColumn);
+        break;
+
+        //checking for piece - king
+        case 'K':
+            //checking for plus/minus 1 row
+            for(let i=thisRow-1; i<=thisRow+1; i++)
+            {
+                //checking for plus/minus 1 column
+                for(let j=thisColumn-1; j<=thisColumn+1; j++)
+                {
+                    //checking whether the coordinates are within the chessboard
+                    if(i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize)
+                    {
+                        //ignoring block where king is currently placed
+                        if(i == thisRow && j == thisColumn)
+                        {
+                            GP_blocksArray[i][j].GP_block_checkFlag = 0;
+                        }
+                        //toggling check flag for all other blocks
+                        else
+                        {
+                            GP_blocksArray[i][j].GP_block_checkFlag = 1;
+                        }
+                    }
+                }
+            }
+        break;
+
+        // checking for piece - pawn
+        case 'P':
+            //when player 1 is active
+            if(GP_playerActive == 2)
+            {
+                //checking for empty block on the immediate right
+                if(thisColumn+1 < PP_chessboardSize && GP_blocksArray[thisRow][thisColumn+1].GP_block_occupiedFlag != 1)
+                {
+                    GP_blocksArray[thisRow][thisColumn+1].GP_block_checkFlag = 1;
+                }
+
+                //checking whether top-right block is having enemy piece or not
+                if(thisRow-1 >=0 && thisColumn+1 < PP_chessboardSize && GP_blocksArray[thisRow-1][thisColumn+1].GP_block_playerNumber == 2)
+                {
+                    GP_blocksArray[thisRow-1][thisColumn+1].GP_block_checkFlag = 1;
+                }
+                
+                //checking whether bottom-right block is having enemy piece or not
+                if(thisRow+1 < PP_chessboardSize && thisColumn+1 < PP_chessboardSize && GP_blocksArray[thisRow+1][thisColumn+1].GP_block_playerNumber == 2)
+                {
+                    GP_blocksArray[thisRow+1][thisColumn+1].GP_block_checkFlag = 1;
+                }
+            }
+            //when player 2 is active
+            else if(GP_playerActive == 1)
+            {
+                //checking for empty block on the immediate left
+                if(thisColumn-1 >=0 && GP_blocksArray[thisRow][thisColumn-1].GP_block_occupiedFlag != 1)
+                {
+                    GP_blocksArray[thisRow][thisColumn-1].GP_block_checkFlag = 1;
+                }
+
+                //checking whether top-left block is having enemy piece or not
+                if(thisRow-1 >=0 && thisColumn-1 >=0 && GP_blocksArray[thisRow-1][thisColumn-1].GP_block_playerNumber == 1)
+                {
+                    GP_blocksArray[thisRow-1][thisColumn-1].GP_block_checkFlag = 1;
+                }
+                
+                //checking whether bottom-left block is having enemy piece or not
+                if(thisRow+1 < PP_chessboardSize && thisColumn-1 >= 0 && GP_blocksArray[thisRow+1][thisColumn-1].GP_block_playerNumber == 1)
+                {
+                    GP_blocksArray[thisRow+1][thisColumn-1].GP_block_checkFlag = 1;
+                }
+            }
+        break;
+
+        //checking for piece - knight
+        case 'N':
+            //running loop for plus/minus 2 rows
+            for(let i=thisRow-2; i<=thisRow+2; i++)
+            {
+                //running loop for plus/minus 2 columns
+                for(let j=thisColumn-2; j<=thisColumn+2; j++)
+                {
+                    //checking whether blocks are within chessboard bounds
+                    if(i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize)
+                    {
+                        //absolute difference of rows should be 1 & absolute difference of columns should be 2
+                        //or absolute difference of rows should be 2 & absolute difference of columns should be 1
+                        if((abs(i-thisRow)==1 && abs(j-thisColumn)==2) || (abs(i-thisRow)==2 && abs(j-thisColumn)==1))
+                        {
+                            GP_blocksArray[i][j].GP_block_checkFlag = 1;                            
+                        }
+                    }
+                }
+            }
+        break;
+    }
+}
+
+//function to determine blocks being checked by bishop
+function GP_bishopChecks(thisRow, thisColumn)
+{
+    //code to check blocks towards top-left diagonally
+    for(let i=thisRow-1, j=thisColumn-1; (i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize); i--, j--)
+    {
+        if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[i][j].GP_block_checkFlag = 1;
+        }
+        else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
+        {
+            GP_blocksArray[i][j].GP_block_checkFlag = 1;
+            break;                        
+        }
+    }
+
+    //code to check blocks towards top-right diagonally
+    for(let i=thisRow-1, j=thisColumn+1; (i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize); i--, j++)
+    {
+        if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[i][j].GP_block_checkFlag = 1;
+        }
+        else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
+        {
+            GP_blocksArray[i][j].GP_block_checkFlag = 1;
+            break;
+        }
+    }
+
+    //code to check blocks towards bottom-left diagonally
+    for(let i=thisRow+1, j=thisColumn-1; (i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize); i++, j--)
+    {
+        if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[i][j].GP_block_checkFlag = 1;
+        }
+        else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
+        {
+            GP_blocksArray[i][j].GP_block_checkFlag = 1;
+            break;            
+        }
+    }
+
+    //code to check blocks towards bottom-right diagonally
+    for(let i=thisRow+1, j=thisColumn+1; (i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize); i++, j++)
+    {
+        if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[i][j].GP_block_checkFlag = 1;
+        }
+        else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
+        {
+            GP_blocksArray[i][j].GP_block_checkFlag = 1;
+            break;            
+        }
+    }
+}
+
+//function to determine blocks being checked by rook
+function GP_rookChecks(thisRow, thisColumn)
+{
+    //code to check blocks towards the right
+    for(let i=thisColumn+1; i<PP_chessboardSize; i++)
+    {
+        if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+        }
+        else if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag == 1)
+        {
+            GP_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+            break;
+        }
+    }
+
+    //code to check blocks towards the left
+    for(let i=thisColumn-1; i>=0; i--)
+    {
+        if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+        }
+        else if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag == 1)
+        {
+            GP_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+            break;
+        }
+    }
+
+    //code to check blocks towards the bottom
+    for(let i=thisRow+1; i<PP_chessboardSize; i++)
+    {
+        if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+        }
+        else if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag == 1)
+        {
+            GP_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+            break;
+        }
+    }
+
+    //code to check blocks towards the top
+    for(let i=thisRow-1; i>=0; i--)
+    {
+        if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag != 1)
+        {
+            GP_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+        }
+        else if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag == 1)
+        {            
+            GP_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+            break;
+        }
+    }
+}
+
 //function to display text rendered on gameplay page
 function GP_playerTextDisplay()
 {
     imageMode(CORNER);
     background(PS_backgroundImage);
-
-    //displaying the game logo on top
-    GP_logoWidth = width/6;
-    imageMode(CENTER);
-    image(GP_gameLogo, width/2, height/12, GP_logoWidth, GP_logoWidth/4);
 
     textFont(PS_fontHeading);
     textAlign(CENTER,CENTER)
@@ -3950,16 +4281,47 @@ function GP_playerTextDisplay()
     {
         GP_P1_textFill = PS_redShade;
         GP_P2_textFill = color(255);
+        
+        rectMode(CORNER);
+        fill(255,0,0,35);
+        rect(0,0,width/2,height);
     }
     else if(GP_playerActive == 2)
     {
         GP_P1_textFill = color(255);
         GP_P2_textFill = PS_redShade;
+
+        rectMode(CORNER);
+        fill(255,0,0,35);
+        rect(width/2,0,width/2,height);
     }
+    
+    //displaying player 1 details and game stats
     fill(GP_P1_textFill);
     text("PLAYER 1: "+PS_playerNames[0], width/7, GP_blocksArray[0][0].GP_block_yPos);
+    textFont(PS_fontAccent);
+    textSize(200);
+    text(GP_P1_moveCounter, width/7.5, height/2.75);
+    textSize(20);
+    fill(255);
+    text("MOVES LEFT", width/7.5, height/1.87);
+
+    //displaying player 2 details and game stats
+    textFont(PS_fontHeading);
+    textSize(25);
     fill(GP_P2_textFill);
     text("PLAYER 2: "+PS_playerNames[1], width-(width/7.25), GP_blocksArray[0][0].GP_block_yPos);
+    textFont(PS_fontAccent);
+    textSize(200);
+    text(GP_P2_moveCounter, width/1.16, height/2.75);
+    textSize(20);
+    fill(255);
+    text("MOVES LEFT", width/1.16, height/1.87);
+
+    //displaying the game logo on top
+    GP_logoWidth = width/6;
+    imageMode(CENTER);
+    image(GP_gameLogo, width/2, height/12, GP_logoWidth, GP_logoWidth/4);
 }
 
 //function to generate card thumbnails depending on piece-type & player number value found on the block

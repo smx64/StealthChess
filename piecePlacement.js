@@ -22,7 +22,7 @@ class PP_Chessboard
     {
         this.PP_block_xPos = _PP_block_xPos;
         this.PP_block_yPos = _PP_block_yPos;
-        this.PP_block_size = height/11;
+        this.PP_block_size = int(height/11);
         this.PP_block_separation = this.PP_block_size;
         this.PP_block_idRow = _PP_block_idRow;
         this.PP_block_idCol = _PP_block_idCol;
