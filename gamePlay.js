@@ -9,10 +9,10 @@
 //             "PP_block_idCol": 0,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
+//             "PP_block_occupiedFlag": 0,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 1,
-//             "PP_block_pieceType": "Q",
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -315,10 +315,10 @@
 //             "PP_block_idCol": 6,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
+//             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
+//             "PP_block_playerNumber": 2,
+//             "PP_block_pieceType": "Q",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -365,6 +365,981 @@
 //             "PP_block_idRow": 0,
 //             "PP_block_idCol": 7,
 //             "PP_block_visibility": 1,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     1
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     255
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         }
+//     ],
+//     [
+//         {
+//             "PP_block_xPos": 121,
+//             "PP_block_yPos": 264.45454545454544,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 1,
+//             "PP_block_idCol": 0,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     0,
+//                     0,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     0,
+//                     0,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 188.45454545454544,
+//             "PP_block_yPos": 264.45454545454544,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 1,
+//             "PP_block_idCol": 1,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 1,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 1,
+//             "PP_block_pieceType": "R",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 255.90909090909088,
+//             "PP_block_yPos": 264.45454545454544,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 1,
+//             "PP_block_idCol": 2,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     0,
+//                     0,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     0,
+//                     0,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 323.3636363636363,
+//             "PP_block_yPos": 264.45454545454544,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 1,
+//             "PP_block_idCol": 3,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 390.81818181818176,
+//             "PP_block_yPos": 264.45454545454544,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 1,
+//             "PP_block_idCol": 4,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     0,
+//                     0,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     0,
+//                     0,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 458.2727272727272,
+//             "PP_block_yPos": 264.45454545454544,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 1,
+//             "PP_block_idCol": 5,
+//             "PP_block_visibility": 1,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     1
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     255
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 525.7272727272726,
+//             "PP_block_yPos": 264.45454545454544,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 1,
+//             "PP_block_idCol": 6,
+//             "PP_block_visibility": 1,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     1
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     255
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 593.1818181818181,
+//             "PP_block_yPos": 264.45454545454544,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 1,
+//             "PP_block_idCol": 7,
+//             "PP_block_visibility": 1,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     1
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     255
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         }
+//     ],
+//     [
+//         {
+//             "PP_block_xPos": 121,
+//             "PP_block_yPos": 331.9090909090909,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 2,
+//             "PP_block_idCol": 0,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 188.45454545454544,
+//             "PP_block_yPos": 331.9090909090909,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 2,
+//             "PP_block_idCol": 1,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     0,
+//                     0,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     0,
+//                     0,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 255.90909090909088,
+//             "PP_block_yPos": 331.9090909090909,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 2,
+//             "PP_block_idCol": 2,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 323.3636363636363,
+//             "PP_block_yPos": 331.9090909090909,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 2,
+//             "PP_block_idCol": 3,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     0,
+//                     0,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     0,
+//                     0,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 390.81818181818176,
+//             "PP_block_yPos": 331.9090909090909,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 2,
+//             "PP_block_idCol": 4,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 458.2727272727272,
+//             "PP_block_yPos": 331.9090909090909,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 2,
+//             "PP_block_idCol": 5,
+//             "PP_block_visibility": 1,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 1,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 2,
+//             "PP_block_pieceType": "B",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     1
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     255
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 525.7272727272726,
+//             "PP_block_yPos": 331.9090909090909,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 2,
+//             "PP_block_idCol": 6,
+//             "PP_block_visibility": 1,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     1
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     255
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 593.1818181818181,
+//             "PP_block_yPos": 331.9090909090909,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 2,
+//             "PP_block_idCol": 7,
+//             "PP_block_visibility": 1,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     1
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     255
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         }
+//     ],
+//     [
+//         {
+//             "PP_block_xPos": 121,
+//             "PP_block_yPos": 399.3636363636363,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 3,
+//             "PP_block_idCol": 0,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 1,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 1,
+//             "PP_block_pieceType": "K",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     0,
+//                     0,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     0,
+//                     0,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 188.45454545454544,
+//             "PP_block_yPos": 399.3636363636363,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 3,
+//             "PP_block_idCol": 1,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 255.90909090909088,
+//             "PP_block_yPos": 399.3636363636363,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 3,
+//             "PP_block_idCol": 2,
+//             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
 //             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
@@ -394,161 +1369,6 @@
 //                 },
 //                 "_array": [
 //                     1,
-//                     1,
-//                     1,
-//                     1
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     255
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         }
-//     ],
-//     [
-//         {
-//             "PP_block_xPos": 121,
-//             "PP_block_yPos": 264.45454545454544,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 1,
-//             "PP_block_idCol": 0,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     0,
-//                     0,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     0,
-//                     0,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 188.45454545454544,
-//             "PP_block_yPos": 264.45454545454544,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 1,
-//             "PP_block_idCol": 1,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 255.90909090909088,
-//             "PP_block_yPos": 264.45454545454544,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 1,
-//             "PP_block_idCol": 2,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
 //                     0,
 //                     0,
 //                     0.19607843137254902
@@ -565,10 +1385,10 @@
 //         },
 //         {
 //             "PP_block_xPos": 323.3636363636363,
-//             "PP_block_yPos": 264.45454545454544,
+//             "PP_block_yPos": 399.3636363636363,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 1,
+//             "PP_block_idRow": 3,
 //             "PP_block_idCol": 3,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
@@ -616,10 +1436,10 @@
 //         },
 //         {
 //             "PP_block_xPos": 390.81818181818176,
-//             "PP_block_yPos": 264.45454545454544,
+//             "PP_block_yPos": 399.3636363636363,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 1,
+//             "PP_block_idRow": 3,
 //             "PP_block_idCol": 4,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
@@ -667,10 +1487,10 @@
 //         },
 //         {
 //             "PP_block_xPos": 458.2727272727272,
-//             "PP_block_yPos": 264.45454545454544,
+//             "PP_block_yPos": 399.3636363636363,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 1,
+//             "PP_block_idRow": 3,
 //             "PP_block_idCol": 5,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
@@ -718,420 +1538,10 @@
 //         },
 //         {
 //             "PP_block_xPos": 525.7272727272726,
-//             "PP_block_yPos": 264.45454545454544,
+//             "PP_block_yPos": 399.3636363636363,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 1,
-//             "PP_block_idCol": 6,
-//             "PP_block_visibility": 1,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     1
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     255
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 593.1818181818181,
-//             "PP_block_yPos": 264.45454545454544,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 1,
-//             "PP_block_idCol": 7,
-//             "PP_block_visibility": 1,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     1
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     255
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         }
-//     ],
-//     [
-//         {
-//             "PP_block_xPos": 121,
-//             "PP_block_yPos": 331.9090909090909,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 2,
-//             "PP_block_idCol": 0,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 188.45454545454544,
-//             "PP_block_yPos": 331.9090909090909,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 2,
-//             "PP_block_idCol": 1,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     0,
-//                     0,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     0,
-//                     0,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 255.90909090909088,
-//             "PP_block_yPos": 331.9090909090909,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 2,
-//             "PP_block_idCol": 2,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 1,
-//             "PP_block_pieceType": "N",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 323.3636363636363,
-//             "PP_block_yPos": 331.9090909090909,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 2,
-//             "PP_block_idCol": 3,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     0,
-//                     0,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     0,
-//                     0,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 390.81818181818176,
-//             "PP_block_yPos": 331.9090909090909,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 2,
-//             "PP_block_idCol": 4,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 458.2727272727272,
-//             "PP_block_yPos": 331.9090909090909,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 2,
-//             "PP_block_idCol": 5,
-//             "PP_block_visibility": 1,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     1
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     255
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 525.7272727272726,
-//             "PP_block_yPos": 331.9090909090909,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 2,
+//             "PP_block_idRow": 3,
 //             "PP_block_idCol": 6,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
@@ -1179,10 +1589,10 @@
 //         },
 //         {
 //             "PP_block_xPos": 593.1818181818181,
-//             "PP_block_yPos": 331.9090909090909,
+//             "PP_block_yPos": 399.3636363636363,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 2,
+//             "PP_block_idRow": 3,
 //             "PP_block_idCol": 7,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
@@ -1232,17 +1642,17 @@
 //     [
 //         {
 //             "PP_block_xPos": 121,
-//             "PP_block_yPos": 399.3636363636363,
+//             "PP_block_yPos": 466.81818181818176,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 3,
+//             "PP_block_idRow": 4,
 //             "PP_block_idCol": 0,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
+//             "PP_block_occupiedFlag": 0,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 2,
-//             "PP_block_pieceType": "Q",
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -1267,14 +1677,14 @@
 //                 },
 //                 "_array": [
 //                     1,
-//                     0,
-//                     0,
+//                     1,
+//                     1,
 //                     0.19607843137254902
 //                 ],
 //                 "levels": [
 //                     255,
-//                     0,
-//                     0,
+//                     255,
+//                     255,
 //                     50
 //                 ],
 //                 "hsla": null,
@@ -1283,10 +1693,10 @@
 //         },
 //         {
 //             "PP_block_xPos": 188.45454545454544,
-//             "PP_block_yPos": 399.3636363636363,
+//             "PP_block_yPos": 466.81818181818176,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 3,
+//             "PP_block_idRow": 4,
 //             "PP_block_idCol": 1,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
@@ -1318,14 +1728,14 @@
 //                 },
 //                 "_array": [
 //                     1,
-//                     1,
-//                     1,
+//                     0,
+//                     0,
 //                     0.19607843137254902
 //                 ],
 //                 "levels": [
 //                     255,
-//                     255,
-//                     255,
+//                     0,
+//                     0,
 //                     50
 //                 ],
 //                 "hsla": null,
@@ -1334,17 +1744,17 @@
 //         },
 //         {
 //             "PP_block_xPos": 255.90909090909088,
-//             "PP_block_yPos": 399.3636363636363,
+//             "PP_block_yPos": 466.81818181818176,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 3,
+//             "PP_block_idRow": 4,
 //             "PP_block_idCol": 2,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
+//             "PP_block_occupiedFlag": 0,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 1,
-//             "PP_block_pieceType": "R",
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -1369,14 +1779,14 @@
 //                 },
 //                 "_array": [
 //                     1,
-//                     0,
-//                     0,
+//                     1,
+//                     1,
 //                     0.19607843137254902
 //                 ],
 //                 "levels": [
 //                     255,
-//                     0,
-//                     0,
+//                     255,
+//                     255,
 //                     50
 //                 ],
 //                 "hsla": null,
@@ -1385,10 +1795,10 @@
 //         },
 //         {
 //             "PP_block_xPos": 323.3636363636363,
-//             "PP_block_yPos": 399.3636363636363,
+//             "PP_block_yPos": 466.81818181818176,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 3,
+//             "PP_block_idRow": 4,
 //             "PP_block_idCol": 3,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
@@ -1420,14 +1830,14 @@
 //                 },
 //                 "_array": [
 //                     1,
-//                     1,
-//                     1,
+//                     0,
+//                     0,
 //                     0.19607843137254902
 //                 ],
 //                 "levels": [
 //                     255,
-//                     255,
-//                     255,
+//                     0,
+//                     0,
 //                     50
 //                 ],
 //                 "hsla": null,
@@ -1436,10 +1846,10 @@
 //         },
 //         {
 //             "PP_block_xPos": 390.81818181818176,
-//             "PP_block_yPos": 399.3636363636363,
+//             "PP_block_yPos": 466.81818181818176,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 3,
+//             "PP_block_idRow": 4,
 //             "PP_block_idCol": 4,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
@@ -1471,14 +1881,14 @@
 //                 },
 //                 "_array": [
 //                     1,
-//                     0,
-//                     0,
+//                     1,
+//                     1,
 //                     0.19607843137254902
 //                 ],
 //                 "levels": [
 //                     255,
-//                     0,
-//                     0,
+//                     255,
+//                     255,
 //                     50
 //                 ],
 //                 "hsla": null,
@@ -1487,10 +1897,10 @@
 //         },
 //         {
 //             "PP_block_xPos": 458.2727272727272,
-//             "PP_block_yPos": 399.3636363636363,
+//             "PP_block_yPos": 466.81818181818176,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 3,
+//             "PP_block_idRow": 4,
 //             "PP_block_idCol": 5,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
@@ -1538,16 +1948,171 @@
 //         },
 //         {
 //             "PP_block_xPos": 525.7272727272726,
-//             "PP_block_yPos": 399.3636363636363,
+//             "PP_block_yPos": 466.81818181818176,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 3,
+//             "PP_block_idRow": 4,
 //             "PP_block_idCol": 6,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     1
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     255
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 593.1818181818181,
+//             "PP_block_yPos": 466.81818181818176,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 4,
+//             "PP_block_idCol": 7,
+//             "PP_block_visibility": 1,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     1
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     255
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         }
+//     ],
+//     [
+//         {
+//             "PP_block_xPos": 121,
+//             "PP_block_yPos": 534.2727272727273,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 5,
+//             "PP_block_idCol": 0,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     0,
+//                     0,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     0,
+//                     0,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 188.45454545454544,
+//             "PP_block_yPos": 534.2727272727273,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 5,
+//             "PP_block_idCol": 1,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
 //             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 2,
+//             "PP_block_playerNumber": 1,
 //             "PP_block_pieceType": "B",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
@@ -1575,167 +2140,12 @@
 //                     1,
 //                     1,
 //                     1,
-//                     1
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     255
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 593.1818181818181,
-//             "PP_block_yPos": 399.3636363636363,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 3,
-//             "PP_block_idCol": 7,
-//             "PP_block_visibility": 1,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     1
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     255
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         }
-//     ],
-//     [
-//         {
-//             "PP_block_xPos": 121,
-//             "PP_block_yPos": 466.81818181818176,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 4,
-//             "PP_block_idCol": 0,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
 //                     0.19607843137254902
 //                 ],
 //                 "levels": [
 //                     255,
 //                     255,
 //                     255,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 188.45454545454544,
-//             "PP_block_yPos": 466.81818181818176,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 4,
-//             "PP_block_idCol": 1,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     0,
-//                     0,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     0,
-//                     0,
 //                     50
 //                 ],
 //                 "hsla": null,
@@ -1744,10 +2154,10 @@
 //         },
 //         {
 //             "PP_block_xPos": 255.90909090909088,
-//             "PP_block_yPos": 466.81818181818176,
+//             "PP_block_yPos": 534.2727272727273,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 4,
+//             "PP_block_idRow": 5,
 //             "PP_block_idCol": 2,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
@@ -1779,14 +2189,14 @@
 //                 },
 //                 "_array": [
 //                     1,
-//                     1,
-//                     1,
+//                     0,
+//                     0,
 //                     0.19607843137254902
 //                 ],
 //                 "levels": [
 //                     255,
-//                     255,
-//                     255,
+//                     0,
+//                     0,
 //                     50
 //                 ],
 //                 "hsla": null,
@@ -1795,10 +2205,10 @@
 //         },
 //         {
 //             "PP_block_xPos": 323.3636363636363,
-//             "PP_block_yPos": 466.81818181818176,
+//             "PP_block_yPos": 534.2727272727273,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 4,
+//             "PP_block_idRow": 5,
 //             "PP_block_idCol": 3,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
@@ -1830,14 +2240,14 @@
 //                 },
 //                 "_array": [
 //                     1,
-//                     0,
-//                     0,
+//                     1,
+//                     1,
 //                     0.19607843137254902
 //                 ],
 //                 "levels": [
 //                     255,
-//                     0,
-//                     0,
+//                     255,
+//                     255,
 //                     50
 //                 ],
 //                 "hsla": null,
@@ -1846,10 +2256,10 @@
 //         },
 //         {
 //             "PP_block_xPos": 390.81818181818176,
-//             "PP_block_yPos": 466.81818181818176,
+//             "PP_block_yPos": 534.2727272727273,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 4,
+//             "PP_block_idRow": 5,
 //             "PP_block_idCol": 4,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
@@ -1881,14 +2291,14 @@
 //                 },
 //                 "_array": [
 //                     1,
-//                     1,
-//                     1,
+//                     0,
+//                     0,
 //                     0.19607843137254902
 //                 ],
 //                 "levels": [
 //                     255,
-//                     255,
-//                     255,
+//                     0,
+//                     0,
 //                     50
 //                 ],
 //                 "hsla": null,
@@ -1897,17 +2307,17 @@
 //         },
 //         {
 //             "PP_block_xPos": 458.2727272727272,
-//             "PP_block_yPos": 466.81818181818176,
+//             "PP_block_yPos": 534.2727272727273,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 4,
+//             "PP_block_idRow": 5,
 //             "PP_block_idCol": 5,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
+//             "PP_block_occupiedFlag": 0,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 1,
-//             "PP_block_pieceType": "Q",
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -1948,10 +2358,10 @@
 //         },
 //         {
 //             "PP_block_xPos": 525.7272727272726,
-//             "PP_block_yPos": 466.81818181818176,
+//             "PP_block_yPos": 534.2727272727273,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 4,
+//             "PP_block_idRow": 5,
 //             "PP_block_idCol": 6,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
@@ -1999,10 +2409,420 @@
 //         },
 //         {
 //             "PP_block_xPos": 593.1818181818181,
-//             "PP_block_yPos": 466.81818181818176,
+//             "PP_block_yPos": 534.2727272727273,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 4,
+//             "PP_block_idRow": 5,
+//             "PP_block_idCol": 7,
+//             "PP_block_visibility": 1,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 1,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 2,
+//             "PP_block_pieceType": "R",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     1
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     255
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         }
+//     ],
+//     [
+//         {
+//             "PP_block_xPos": 121,
+//             "PP_block_yPos": 601.7272727272727,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 6,
+//             "PP_block_idCol": 0,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 188.45454545454544,
+//             "PP_block_yPos": 601.7272727272727,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 6,
+//             "PP_block_idCol": 1,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     0,
+//                     0,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     0,
+//                     0,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 255.90909090909088,
+//             "PP_block_yPos": 601.7272727272727,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 6,
+//             "PP_block_idCol": 2,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 323.3636363636363,
+//             "PP_block_yPos": 601.7272727272727,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 6,
+//             "PP_block_idCol": 3,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     0,
+//                     0,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     0,
+//                     0,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 390.81818181818176,
+//             "PP_block_yPos": 601.7272727272727,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 6,
+//             "PP_block_idCol": 4,
+//             "PP_block_visibility": 0,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     0.19607843137254902
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     50
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 458.2727272727272,
+//             "PP_block_yPos": 601.7272727272727,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 6,
+//             "PP_block_idCol": 5,
+//             "PP_block_visibility": 1,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     1
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     255
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 525.7272727272726,
+//             "PP_block_yPos": 601.7272727272727,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 6,
+//             "PP_block_idCol": 6,
+//             "PP_block_visibility": 1,
+//             "PP_block_hoverFlag": 0,
+//             "PP_block_occupiedFlag": 0,
+//             "PP_block_selectedFlag": 0,
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
+//             "PP_block_fillColor": {
+//                 "mode": "rgb",
+//                 "maxes": {
+//                     "rgb": [
+//                         255,
+//                         255,
+//                         255,
+//                         255
+//                     ],
+//                     "hsb": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ],
+//                     "hsl": [
+//                         360,
+//                         100,
+//                         100,
+//                         1
+//                     ]
+//                 },
+//                 "_array": [
+//                     1,
+//                     1,
+//                     1,
+//                     1
+//                 ],
+//                 "levels": [
+//                     255,
+//                     255,
+//                     255,
+//                     255
+//                 ],
+//                 "hsla": null,
+//                 "hsba": null
+//             }
+//         },
+//         {
+//             "PP_block_xPos": 593.1818181818181,
+//             "PP_block_yPos": 601.7272727272727,
+//             "PP_block_size": 67.45454545454545,
+//             "PP_block_separation": 67.45454545454545,
+//             "PP_block_idRow": 6,
 //             "PP_block_idCol": 7,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
@@ -2052,62 +2872,11 @@
 //     [
 //         {
 //             "PP_block_xPos": 121,
-//             "PP_block_yPos": 534.2727272727273,
+//             "PP_block_yPos": 669.1818181818182,
 //             "PP_block_size": 67.45454545454545,
 //             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 5,
+//             "PP_block_idRow": 7,
 //             "PP_block_idCol": 0,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     0,
-//                     0,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     0,
-//                     0,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 188.45454545454544,
-//             "PP_block_yPos": 534.2727272727273,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 5,
-//             "PP_block_idCol": 1,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
 //             "PP_block_occupiedFlag": 1,
@@ -2138,775 +2907,6 @@
 //                 },
 //                 "_array": [
 //                     1,
-//                     1,
-//                     1,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 255.90909090909088,
-//             "PP_block_yPos": 534.2727272727273,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 5,
-//             "PP_block_idCol": 2,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     0,
-//                     0,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     0,
-//                     0,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 323.3636363636363,
-//             "PP_block_yPos": 534.2727272727273,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 5,
-//             "PP_block_idCol": 3,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 390.81818181818176,
-//             "PP_block_yPos": 534.2727272727273,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 5,
-//             "PP_block_idCol": 4,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     0,
-//                     0,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     0,
-//                     0,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 458.2727272727272,
-//             "PP_block_yPos": 534.2727272727273,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 5,
-//             "PP_block_idCol": 5,
-//             "PP_block_visibility": 1,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     1
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     255
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 525.7272727272726,
-//             "PP_block_yPos": 534.2727272727273,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 5,
-//             "PP_block_idCol": 6,
-//             "PP_block_visibility": 1,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 2,
-//             "PP_block_pieceType": "P",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     1
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     255
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 593.1818181818181,
-//             "PP_block_yPos": 534.2727272727273,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 5,
-//             "PP_block_idCol": 7,
-//             "PP_block_visibility": 1,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     1
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     255
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         }
-//     ],
-//     [
-//         {
-//             "PP_block_xPos": 121,
-//             "PP_block_yPos": 601.7272727272727,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 6,
-//             "PP_block_idCol": 0,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 1,
-//             "PP_block_pieceType": "B",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 188.45454545454544,
-//             "PP_block_yPos": 601.7272727272727,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 6,
-//             "PP_block_idCol": 1,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     0,
-//                     0,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     0,
-//                     0,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 255.90909090909088,
-//             "PP_block_yPos": 601.7272727272727,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 6,
-//             "PP_block_idCol": 2,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 323.3636363636363,
-//             "PP_block_yPos": 601.7272727272727,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 6,
-//             "PP_block_idCol": 3,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     0,
-//                     0,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     0,
-//                     0,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 390.81818181818176,
-//             "PP_block_yPos": 601.7272727272727,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 6,
-//             "PP_block_idCol": 4,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     0.19607843137254902
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     50
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 458.2727272727272,
-//             "PP_block_yPos": 601.7272727272727,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 6,
-//             "PP_block_idCol": 5,
-//             "PP_block_visibility": 1,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     1
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     255
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 525.7272727272726,
-//             "PP_block_yPos": 601.7272727272727,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 6,
-//             "PP_block_idCol": 6,
-//             "PP_block_visibility": 1,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     1
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     255
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         },
-//         {
-//             "PP_block_xPos": 593.1818181818181,
-//             "PP_block_yPos": 601.7272727272727,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 6,
-//             "PP_block_idCol": 7,
-//             "PP_block_visibility": 1,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 2,
-//             "PP_block_pieceType": "P",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
-//                     1,
-//                     1,
-//                     1
-//                 ],
-//                 "levels": [
-//                     255,
-//                     255,
-//                     255,
-//                     255
-//                 ],
-//                 "hsla": null,
-//                 "hsba": null
-//             }
-//         }
-//     ],
-//     [
-//         {
-//             "PP_block_xPos": 121,
-//             "PP_block_yPos": 669.1818181818182,
-//             "PP_block_size": 67.45454545454545,
-//             "PP_block_separation": 67.45454545454545,
-//             "PP_block_idRow": 7,
-//             "PP_block_idCol": 0,
-//             "PP_block_visibility": 0,
-//             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
-//             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
-//             "PP_block_fillColor": {
-//                 "mode": "rgb",
-//                 "maxes": {
-//                     "rgb": [
-//                         255,
-//                         255,
-//                         255,
-//                         255
-//                     ],
-//                     "hsb": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ],
-//                     "hsl": [
-//                         360,
-//                         100,
-//                         100,
-//                         1
-//                     ]
-//                 },
-//                 "_array": [
-//                     1,
 //                     0,
 //                     0,
 //                     0.19607843137254902
@@ -3134,10 +3134,10 @@
 //             "PP_block_idCol": 5,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
+//             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
+//             "PP_block_playerNumber": 2,
+//             "PP_block_pieceType": "P",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -3236,10 +3236,10 @@
 //             "PP_block_idCol": 7,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
+//             "PP_block_occupiedFlag": 0,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 2,
-//             "PP_block_pieceType": "P",
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -3281,11 +3281,78 @@
 //     ]
 // ];
 
+// PP_P1_piecesArray = [
+//     {
+//         "PP_piecePlayerNumber": 1,
+//         "PP_pieceType": "K",
+//         "PP_piecePosition_idRow": 3,
+//         "PP_piecePosition_idCol": 0
+//     },
+//     {
+//         "PP_piecePlayerNumber": 1,
+//         "PP_pieceType": "R",
+//         "PP_piecePosition_idRow": 1,
+//         "PP_piecePosition_idCol": 1
+//     },
+//     {
+//         "PP_piecePlayerNumber": 1,
+//         "PP_pieceType": "P",
+//         "PP_piecePosition_idRow": 3,
+//         "PP_piecePosition_idCol": 2
+//     },
+//     {
+//         "PP_piecePlayerNumber": 1,
+//         "PP_pieceType": "B",
+//         "PP_piecePosition_idRow": 5,
+//         "PP_piecePosition_idCol": 1
+//     },
+//     {
+//         "PP_piecePlayerNumber": 1,
+//         "PP_pieceType": "N",
+//         "PP_piecePosition_idRow": 7,
+//         "PP_piecePosition_idCol": 0
+//     }
+// ];
+
+// PP_P2_piecesArray = [
+//     {
+//         "PP_piecePlayerNumber": 2,
+//         "PP_pieceType": "K",
+//         "PP_piecePosition_idRow": 3,
+//         "PP_piecePosition_idCol": 6
+//     },
+//     {
+//         "PP_piecePlayerNumber": 2,
+//         "PP_pieceType": "Q",
+//         "PP_piecePosition_idRow": 0,
+//         "PP_piecePosition_idCol": 6
+//     },
+//     {
+//         "PP_piecePlayerNumber": 2,
+//         "PP_pieceType": "R",
+//         "PP_piecePosition_idRow": 5,
+//         "PP_piecePosition_idCol": 7
+//     },
+//     {
+//         "PP_piecePlayerNumber": 2,
+//         "PP_pieceType": "P",
+//         "PP_piecePosition_idRow": 7,
+//         "PP_piecePosition_idCol": 5
+//     },
+//     {
+//         "PP_piecePlayerNumber": 2,
+//         "PP_pieceType": "B",
+//         "PP_piecePosition_idRow": 2,
+//         "PP_piecePosition_idCol": 5
+//     }
+// ];
+
 
 //initializing all gameplay segment variables
 let GP_totalTurns = 10;
 let GP_turnCount = 1;
 let GP_blocksArray = [];
+let GP_initClass = 0;
 
 let GP_blockActive = 0;
 let GP_playerActive = 1;
@@ -3343,11 +3410,6 @@ class GP_Chessboard
             }
         }
 
-        // if(this.GP_block_validFlag == 1)
-        // {
-        //     this.GP_block_fillColor = PP_hoverShade;
-        // }
-
         fill(this.GP_block_fillColor);
         rect(this.GP_block_xPos, this.GP_block_yPos, this.GP_block_size);
     }
@@ -3368,19 +3430,25 @@ class GP_Chessboard
 //main function where everything runs
 function gamePlay()
 {
-    //looping to copy all player piece data on chessboard from piece placement chessboard to gameplay chessboard
-    for(let GP_blockRow=0; GP_blockRow<PP_chessboardSize; GP_blockRow++)
+    //to make sure that gameplay chessboard initialization runs only once
+    //this flag enables only single instance of chessboard initialization
+    if(GP_initClass == 0)
     {
-        for(let GP_blockCol=0; GP_blockCol<PP_chessboardSize; GP_blockCol++)
+        //looping to copy all player piece data on chessboard from piece placement chessboard to gameplay chessboard
+        for(let GP_blockRow=0; GP_blockRow<PP_chessboardSize; GP_blockRow++)
         {
-            //copying block player number, piece type, and occupied flag values from piece placement to gameplay chessboard
-            GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber = PP_blocksArray[GP_blockRow][GP_blockCol].PP_block_playerNumber;
-            GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType = PP_blocksArray[GP_blockRow][GP_blockCol].PP_block_pieceType;
-            GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag = PP_blocksArray[GP_blockRow][GP_blockCol].PP_block_occupiedFlag;
+            for(let GP_blockCol=0; GP_blockCol<PP_chessboardSize; GP_blockCol++)
+            {
+                //copying block player number, piece type, and occupied flag values from piece placement to gameplay chessboard
+                GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber = PP_blocksArray[GP_blockRow][GP_blockCol].PP_block_playerNumber;
+                GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType = PP_blocksArray[GP_blockRow][GP_blockCol].PP_block_pieceType;
+                GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag = PP_blocksArray[GP_blockRow][GP_blockCol].PP_block_occupiedFlag;
+            }
         }
-    }
+    }    
 
-    //function call for displaying on-screen text
+    //toggling chessboard initialization flag & calling function for displaying on-screen text
+    GP_initClass = 1;
     GP_playerTextDisplay();
 
     //generating chessboard and running all functionalities
@@ -3390,7 +3458,7 @@ function gamePlay()
         {
             //function call to display individual blocks making up the chessboard & start hoverblock function
             GP_blocksArray[GP_blockRow][GP_blockCol].GP_drawBlock();
-            GP_blocksArray[GP_blockRow][GP_blockCol].GP_hoverBlock();
+            GP_blocksArray[GP_blockRow][GP_blockCol].GP_hoverBlock();      
 
             //generating piece thumbnails on the chessboard
             if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag == 1)
@@ -3406,14 +3474,16 @@ function gamePlay()
             }
 
             //display markers on all blocks that are valid moves for a particular piece
-            if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_validFlag == 1)
+            if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_validFlag == 1 && GP_blockActive == 1)
             {
+                //displaying black dots on empty blocks
                 if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag != 1)
                 {
                     ellipseMode(CENTER);
                     fill(0);
                     ellipse(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size/4);
                 }
+                //displaying red circles over opponent's pieces
                 else
                 {
                     rectMode(CENTER);
@@ -3425,32 +3495,35 @@ function gamePlay()
             //code to execute gameplay movements as long as turn-counter is within the total no.of moves
             if(GP_turnCount <= GP_totalTurns)
             {
-                if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag == 1)
-                {
-                    validMovesChecker(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType, GP_blockRow, GP_blockCol);
-                }
-                else
+                //resetting all valid flags after de-selecting a block to restart the process
+                if(GP_blockActive == 0)
                 {
                     GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_validFlag = 0;
                 }
 
-                //condition to enable mouse-click only on occupied blocks of the active player
-                if(mouseButton == LEFT && mouseIsPressed == true && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_hoverFlag == 1 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber == GP_playerActive)
+                //code to run when no block is selected
+                if(GP_blockActive == 0)
                 {
-                    //code to run when no block is selected
-                    if(GP_blockActive == 0)
+                    //condition to enable mouse-click only on occupied & non-selected blocks of the active player
+                    if(mouseButton == LEFT && mouseIsPressed == true && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_hoverFlag == 1 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag == 1 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag == 0 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber == GP_playerActive)
                     {
                         //toggle selected flag for that particular block & store coordinates into separate variables
                         GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag = 1;
                         GP_prev_blockRow = GP_blockRow;
                         GP_prev_blockCol = GP_blockCol;
 
+                        //function call to check which all blocks the selected piece can move to
+                        validMovesChecker(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType, GP_blockRow, GP_blockCol);
+
                         //toggle flag to denote that a block is currently active
                         GP_blockActive = 1;
                         mouseIsPressed = false;
                     }
-                    //code to run when a block is selected
-                    else if(GP_blockActive == 1)
+                }
+                //code to run when a block is selected
+                else if(GP_blockActive == 1)
+                {
+                    if(mouseButton == LEFT && mouseIsPressed == true && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_hoverFlag == 1)
                     {
                         //resetting selected flag if the same selected block is clicked again
                         if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag == 1)
@@ -3465,7 +3538,7 @@ function gamePlay()
                             mouseIsPressed = false;
                         }
                         //code to move selection to another occupied block if that is clicked
-                        else if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag == 1 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag != 1)
+                        else if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag == 1 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag != 1 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber == GP_playerActive)
                         {
                             //toggle selected flags for both blocks and replace values in variables with the new block's coordinates
                             GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag = 1;
@@ -3473,7 +3546,84 @@ function gamePlay()
                             GP_prev_blockRow = GP_blockRow;
                             GP_prev_blockCol = GP_blockCol;
 
+                            //resetting valid flag for all previous blocks before checking for new ones
+                            for(let i=0; i<PP_chessboardSize; i++)
+                            {
+                                for(let j=0; j<PP_chessboardSize; j++)
+                                {
+                                    GP_blocksArray[i][j].GP_block_validFlag = 0;
+                                }
+                            }
+
+                            //function call to check which all blocks the selected piece can move to
+                            validMovesChecker(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType, GP_blockRow, GP_blockCol);
                             mouseIsPressed = false;
+                        }
+                        //code to move pieces to a particular block only if its valid flag is true
+                        else if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_validFlag == 1)
+                        {
+                            //toggling flag and copying previous block's details to the new block on mouse-click
+                            GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag = 1;
+                            GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber = GP_playerActive;
+                            GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType = GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_pieceType;
+
+                            //resetting previous block's flags & values
+                            GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_occupiedFlag = 0;
+                            GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_selectedFlag = 0;
+                            GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_playerNumber = 0;
+                            GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_pieceType = '';
+
+                            //modifying player piece arrays to reflect new positions and piece captures
+                            for(let i=0; i<PS_totalCards; i++)
+                            {
+                                if(GP_playerActive == 1)
+                                {
+                                    //updating piece's position in player piece array
+                                    if(PP_P1_piecesArray[i].PP_piecePosition_idRow == GP_prev_blockRow && PP_P1_piecesArray[i].PP_piecePosition_idCol == GP_prev_blockCol)
+                                    {
+                                        PP_P1_piecesArray[i].PP_piecePosition_idRow = GP_blockRow;
+                                        PP_P1_piecesArray[i].PP_piecePosition_idCol = GP_blockCol;
+                                    }
+
+                                    //removing piece coordinates from opponent's piece array if it gets captured
+                                    if(PP_P2_piecesArray[i].PP_piecePosition_idRow == GP_blockRow && PP_P2_piecesArray[i].PP_piecePosition_idCol == GP_blockCol)
+                                    {
+                                        PP_P2_piecesArray[i].PP_piecePosition_idRow = '';
+                                        PP_P2_piecesArray[i].PP_piecePosition_idCol = '';
+                                    }
+                                }
+                                else if(GP_playerActive == 2)
+                                {
+                                    //updating piece's position in player piece array
+                                    if(PP_P2_piecesArray[i].PP_piecePosition_idRow == GP_prev_blockRow && PP_P2_piecesArray[i].PP_piecePosition_idCol == GP_prev_blockCol)
+                                    {
+                                        PP_P2_piecesArray[i].PP_piecePosition_idRow = GP_blockRow;
+                                        PP_P2_piecesArray[i].PP_piecePosition_idCol = GP_blockCol;
+                                    }
+
+                                    //removing piece coordinates from opponent's piece array if it gets captured
+                                    if(PP_P1_piecesArray[i].PP_piecePosition_idRow == GP_blockRow && PP_P1_piecesArray[i].PP_piecePosition_idCol == GP_blockCol)
+                                    {
+                                        PP_P1_piecesArray[i].PP_piecePosition_idRow = '';
+                                        PP_P1_piecesArray[i].PP_piecePosition_idCol = '';
+                                    }
+                                }
+                            }
+                            
+                            //incrementing turn counter and de-selecting blocks
+                            GP_turnCount++;
+                            GP_blockActive = 0;
+                            mouseIsPressed = false;
+
+                            //alternating player turns
+                            if(GP_playerActive == 1)
+                            {
+                                GP_playerActive = 2;
+                            }
+                            else if(GP_playerActive == 2)
+                            {
+                                GP_playerActive = 1;
+                            }
                         }
                     }
                 }

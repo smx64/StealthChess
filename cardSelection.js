@@ -276,7 +276,7 @@ function PS_playerTextDisplay()
             fill(255);
             textFont(PS_fontBody);
             textSize(25);
-            text("Done! Press [SPACE] to continue.", width/2, height-(height/15));
+            text("Done! Press [ SPACE ] to continue.", width/2, height-(height/15));
         }
     }
 }
