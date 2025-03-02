@@ -3348,7 +3348,7 @@
 // ];
 
 
-//initializing all gameplay segment variables
+// initializing all gameplay segment variables
 let GP_totalTurns = PS_totalCards*2;
 let GP_turnCount = 1;
 let GP_blocksArray = [];
@@ -4034,7 +4034,7 @@ function GP_checkedBlocks(letterValue, thisRow, thisColumn)
     //toggling check flags of blocks where opponent's pieces can legally move
     switch(letterValue)
     {
-        //checking for piece - queen
+        // checking for piece - queen
         case 'Q':
             GP_bishopChecks(thisRow, thisColumn);
             GP_rookChecks(thisRow, thisColumn);
@@ -4081,20 +4081,14 @@ function GP_checkedBlocks(letterValue, thisRow, thisColumn)
             //when player 1 is active
             if(GP_playerActive == 2)
             {
-                //checking for empty block on the immediate right
-                if(thisColumn+1 < PP_chessboardSize && GP_blocksArray[thisRow][thisColumn+1].GP_block_occupiedFlag != 1)
-                {
-                    GP_blocksArray[thisRow][thisColumn+1].GP_block_checkFlag = 1;
-                }
-
                 //checking whether top-right block is having enemy piece or not
-                if(thisRow-1 >=0 && thisColumn+1 < PP_chessboardSize && GP_blocksArray[thisRow-1][thisColumn+1].GP_block_playerNumber == 2)
+                if(thisRow-1 >=0 && thisColumn+1 < PP_chessboardSize)
                 {
                     GP_blocksArray[thisRow-1][thisColumn+1].GP_block_checkFlag = 1;
                 }
                 
                 //checking whether bottom-right block is having enemy piece or not
-                if(thisRow+1 < PP_chessboardSize && thisColumn+1 < PP_chessboardSize && GP_blocksArray[thisRow+1][thisColumn+1].GP_block_playerNumber == 2)
+                if(thisRow+1 < PP_chessboardSize && thisColumn+1 < PP_chessboardSize)
                 {
                     GP_blocksArray[thisRow+1][thisColumn+1].GP_block_checkFlag = 1;
                 }
@@ -4102,20 +4096,14 @@ function GP_checkedBlocks(letterValue, thisRow, thisColumn)
             //when player 2 is active
             else if(GP_playerActive == 1)
             {
-                //checking for empty block on the immediate left
-                if(thisColumn-1 >=0 && GP_blocksArray[thisRow][thisColumn-1].GP_block_occupiedFlag != 1)
-                {
-                    GP_blocksArray[thisRow][thisColumn-1].GP_block_checkFlag = 1;
-                }
-
                 //checking whether top-left block is having enemy piece or not
-                if(thisRow-1 >=0 && thisColumn-1 >=0 && GP_blocksArray[thisRow-1][thisColumn-1].GP_block_playerNumber == 1)
+                if(thisRow-1 >=0 && thisColumn-1 >=0)
                 {
                     GP_blocksArray[thisRow-1][thisColumn-1].GP_block_checkFlag = 1;
                 }
                 
                 //checking whether bottom-left block is having enemy piece or not
-                if(thisRow+1 < PP_chessboardSize && thisColumn-1 >= 0 && GP_blocksArray[thisRow+1][thisColumn-1].GP_block_playerNumber == 1)
+                if(thisRow+1 < PP_chessboardSize && thisColumn-1 >= 0)
                 {
                     GP_blocksArray[thisRow+1][thisColumn-1].GP_block_checkFlag = 1;
                 }
@@ -4158,8 +4146,16 @@ function GP_bishopChecks(thisRow, thisColumn)
         }
         else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
         {
-            GP_blocksArray[i][j].GP_block_checkFlag = 1;
-            break;                        
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_blocksArray[i][j].GP_block_pieceType == 'K' && GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[i][j].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_blocksArray[i][j].GP_block_checkFlag = 1;
+                break;
+            }                        
         }
     }
 
@@ -4172,8 +4168,16 @@ function GP_bishopChecks(thisRow, thisColumn)
         }
         else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
         {
-            GP_blocksArray[i][j].GP_block_checkFlag = 1;
-            break;
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_blocksArray[i][j].GP_block_pieceType == 'K' && GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[i][j].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_blocksArray[i][j].GP_block_checkFlag = 1;
+                break;
+            }
         }
     }
 
@@ -4186,8 +4190,16 @@ function GP_bishopChecks(thisRow, thisColumn)
         }
         else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
         {
-            GP_blocksArray[i][j].GP_block_checkFlag = 1;
-            break;            
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_blocksArray[i][j].GP_block_pieceType == 'K' && GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[i][j].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_blocksArray[i][j].GP_block_checkFlag = 1;
+                break;
+            }           
         }
     }
 
@@ -4200,8 +4212,16 @@ function GP_bishopChecks(thisRow, thisColumn)
         }
         else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
         {
-            GP_blocksArray[i][j].GP_block_checkFlag = 1;
-            break;            
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_blocksArray[i][j].GP_block_pieceType == 'K' && GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[i][j].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_blocksArray[i][j].GP_block_checkFlag = 1;
+                break;
+            }            
         }
     }
 }
@@ -4218,8 +4238,16 @@ function GP_rookChecks(thisRow, thisColumn)
         }
         else if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag == 1)
         {
-            GP_blocksArray[thisRow][i].GP_block_checkFlag = 1;
-            break;
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_blocksArray[thisRow][i].GP_block_pieceType == 'K' && GP_blocksArray[thisRow][i].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+                break;
+            }
         }
     }
 
@@ -4232,8 +4260,16 @@ function GP_rookChecks(thisRow, thisColumn)
         }
         else if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag == 1)
         {
-            GP_blocksArray[thisRow][i].GP_block_checkFlag = 1;
-            break;
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_blocksArray[thisRow][i].GP_block_pieceType == 'K' && GP_blocksArray[thisRow][i].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+                break;
+            }
         }
     }
 
@@ -4246,8 +4282,16 @@ function GP_rookChecks(thisRow, thisColumn)
         }
         else if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag == 1)
         {
-            GP_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
-            break;
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_blocksArray[i][thisColumn].GP_block_pieceType == 'K' && GP_blocksArray[i][thisColumn].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+                break;
+            }
         }
     }
 
@@ -4259,9 +4303,17 @@ function GP_rookChecks(thisRow, thisColumn)
             GP_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
         }
         else if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag == 1)
-        {            
-            GP_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
-            break;
+        {
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_blocksArray[i][thisColumn].GP_block_pieceType == 'K' && GP_blocksArray[i][thisColumn].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+                break;
+            }
         }
     }
 }
