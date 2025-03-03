@@ -3083,10 +3083,10 @@
 //             "PP_block_idCol": 4,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
+//             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
+//             "PP_block_playerNumber": 2,
+//             "PP_block_pieceType": "B",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -3134,10 +3134,10 @@
 //             "PP_block_idCol": 5,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
+//             "PP_block_occupiedFlag": 0,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 2,
-//             "PP_block_pieceType": "P",
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -3335,9 +3335,9 @@
 //     },
 //     {
 //         "PP_piecePlayerNumber": 2,
-//         "PP_pieceType": "P",
+//         "PP_pieceType": "B",
 //         "PP_piecePosition_idRow": 7,
-//         "PP_piecePosition_idCol": 5
+//         "PP_piecePosition_idCol": 4
 //     },
 //     {
 //         "PP_piecePlayerNumber": 2,
@@ -3349,19 +3349,23 @@
 
 
 // initializing all gameplay segment variables
-let GP_totalTurns = PS_totalCards*2;
-let GP_turnCount = 1;
+let GP_totalTurns = 20;
 let GP_blocksArray = [];
+let GP_turnCount = 1;
 let GP_initClass = 0;
+let GP_checkActive = 0;
 
 let GP_blockActive = 0;
 let GP_playerActive = 1;
 let GP_prev_blockRow, GP_prev_blockCol;
 let GP_P1_textFill, GP_P2_textFill;
 
-//initializing player-specific variables
-let GP_P1_moveCounter = PS_totalCards;
-let GP_P2_moveCounter = PS_totalCards;
+//initializing player or chess piece specific variables
+let GP_P1_moveCounter = GP_totalTurns/2;
+let GP_P2_moveCounter = GP_totalTurns/2;
+let GP_P1_cutArray_xPos, GP_P2_cutArray_xPos;
+let GP_P1_cutArray = [];
+let GP_P2_cutArray = [];
 
 //class declaration for the main chessboard
 class GP_Chessboard
@@ -3542,6 +3546,12 @@ function gamePlay()
                     }
                 }
 
+                //checking whether king is being checked by any piece
+                if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType == 'K' && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber == GP_playerActive && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_checkFlag == 1)
+                {
+                    GP_checkActive = 1;
+                }
+
                 //resetting all valid flags after de-selecting a block to restart the process
                 if(GP_blockActive == 0)
                 {
@@ -3637,6 +3647,9 @@ function gamePlay()
                                     {
                                         PP_P2_piecesArray[i].PP_piecePosition_idRow = 'X';
                                         PP_P2_piecesArray[i].PP_piecePosition_idCol = 'X';
+
+                                        //sending piece type value to player cut array for thumbnail generation
+                                        GP_P2_cutArray.push(PP_P2_piecesArray[i].PP_pieceType);
                                     }
                                 }
                                 else if(GP_playerActive == 2)
@@ -3653,16 +3666,20 @@ function gamePlay()
                                     {
                                         PP_P1_piecesArray[i].PP_piecePosition_idRow = 'X';
                                         PP_P1_piecesArray[i].PP_piecePosition_idCol = 'X';
+
+                                        //sending piece type value to player cut array for thumbnail generation
+                                        GP_P1_cutArray.push(PP_P1_piecesArray[i].PP_pieceType);
                                     }
                                 }
                             }
                             
-                            //incrementing turn counter and de-selecting blocks
+                            //incrementing turn counter & resetting block selection and king check
                             GP_turnCount++;
                             GP_blockActive = 0;
+                            GP_checkActive = 0;
                             mouseIsPressed = false;
 
-                            //alternating player turns
+                            //alternating player turns & decrementing player move counters
                             if(GP_playerActive == 1)
                             {
                                 GP_P1_moveCounter--;
@@ -4325,7 +4342,7 @@ function GP_playerTextDisplay()
     background(PS_backgroundImage);
 
     textFont(PS_fontHeading);
-    textAlign(CENTER,CENTER)
+    textAlign(LEFT,CENTER)
     textSize(25);
 
     //changing player text fillcolor based on which player is active
@@ -4350,25 +4367,80 @@ function GP_playerTextDisplay()
     
     //displaying player 1 details and game stats
     fill(GP_P1_textFill);
-    text("PLAYER 1: "+PS_playerNames[0], width/7, GP_blocksArray[0][0].GP_block_yPos);
-    textFont(PS_fontAccent);
-    textSize(200);
-    text(GP_P1_moveCounter, width/7.5, height/2.75);
+    text("PLAYER 1: "+PS_playerNames[0], width/20, GP_blocksArray[0][0].GP_block_yPos);
     textSize(20);
     fill(255);
-    text("MOVES LEFT", width/7.5, height/1.87);
+    textFont(PS_fontAccent);
+    text("MOVES LEFT", width/20, height/3.5);
+    textFont(PS_fontHeading);
+    fill(GP_P1_textFill);
+    textSize(200);
+    text(GP_P1_moveCounter, width/22, height/2.75);
 
     //displaying player 2 details and game stats
+    textAlign(RIGHT, CENTER);
     textFont(PS_fontHeading);
     textSize(25);
     fill(GP_P2_textFill);
-    text("PLAYER 2: "+PS_playerNames[1], width-(width/7.25), GP_blocksArray[0][0].GP_block_yPos);
+    text("PLAYER 2: "+PS_playerNames[1], width/1.05, GP_blocksArray[0][0].GP_block_yPos);
     textFont(PS_fontAccent);
-    textSize(200);
-    text(GP_P2_moveCounter, width/1.16, height/2.75);
     textSize(20);
     fill(255);
-    text("MOVES LEFT", width/1.16, height/1.87);
+    text("MOVES LEFT", width/1.05, height/3.5);
+    textFont(PS_fontHeading);
+    fill(GP_P2_textFill);
+    textSize(200);
+    text(GP_P2_moveCounter, width/1.04, height/2.75);
+
+    //generating dynamic notification when a player is checked
+    if(GP_checkActive == 1)
+    {
+        rectMode(CORNER);
+        fill(PS_redShade);        
+        textAlign(CENTER,CENTER);
+        textFont(PS_fontHeading);
+        textSize(20);
+
+        if(GP_playerActive == 1)
+        {
+            rect(width/20, height/1.9, width/5.25, height/18);
+            fill(255);
+            noStroke();
+            text("YOU'VE BEEN CHECKED !", width/6.9, height/1.815);
+        }
+        else if(GP_playerActive == 2)
+        {
+            rect(width/1.315, height/1.9, width/5.25, height/18);
+            fill(255);
+            noStroke();
+            text("YOU'VE BEEN CHECKED !", width/1.17, height/1.815);
+        }
+    }
+
+    textAlign(LEFT,CENTER);
+    textFont(PS_fontAccent);
+    textSize(16);
+    fill(255);
+    text("PIECES CAPTURED", width/21, height/1.57);
+    textAlign(RIGHT,CENTER);
+    text("PIECES CAPTURED", width/1.05, height/1.57);
+
+    //generating piece thumbnails of all the pieces that have been captured
+    imageMode(CORNER);
+    GP_P1_cutArray_xPos = width/1.09;
+    GP_P2_cutArray_xPos = width/21;
+
+    for(let i=0; i<GP_P1_cutArray.length; i++)
+    {
+        image(GP_showCardThumb(GP_P1_cutArray[i], 1), GP_P1_cutArray_xPos, height/1.5, GP_blocksArray[0][0].GP_block_size/1.25, GP_blocksArray[0][0].GP_block_size/1.25);
+        GP_P1_cutArray_xPos-=GP_blocksArray[0][0].GP_block_size/1.15;
+    }
+
+    for(let i=0; i<GP_P2_cutArray.length; i++)
+    {
+        image(GP_showCardThumb(GP_P2_cutArray[i], 2), GP_P2_cutArray_xPos, height/1.5, GP_blocksArray[0][0].GP_block_size/1.25, GP_blocksArray[0][0].GP_block_size/1.25);
+        GP_P2_cutArray_xPos+=GP_blocksArray[0][0].GP_block_size/1.15;
+    }
 
     //displaying the game logo on top
     GP_logoWidth = width/6;
