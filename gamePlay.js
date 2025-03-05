@@ -3364,8 +3364,31 @@ let GP_P1_textFill, GP_P2_textFill;
 let GP_P1_moveCounter = GP_totalTurns/2;
 let GP_P2_moveCounter = GP_totalTurns/2;
 let GP_P1_cutArray_xPos, GP_P2_cutArray_xPos;
+
+//initializing arrays for storing values of player's captured pieces
 let GP_P1_cutArray = [];
 let GP_P2_cutArray = [];
+
+//initializing variables for temp chessboard - to determine valid moves of pieces when king is in active check
+let GP_piece_validMoves = [];
+let GP_temp_blocksArray = [];
+let GP_tempRow, GP_tempCol;
+
+//class declaration for temporary chessboard for validating piece movements while king is checked
+class GP_Chessboard_Temp
+{
+    //constructor function for initializing all temp chessboard-related flags
+    constructor(_GP_block_idRow, _GP_block_idCol)
+    {
+        this.GP_block_idRow = _GP_block_idRow;
+        this.GP_block_idCol = _GP_block_idCol;
+
+        this.GP_block_playerNumber = 0;
+        this.GP_block_pieceType = '';
+        this.GP_block_occupiedFlag = 0;
+        this.GP_block_checkFlag = 0;
+    }
+}
 
 //class declaration for the main chessboard
 class GP_Chessboard
@@ -3529,7 +3552,7 @@ function gamePlay()
                 //determining all the blocks that are being checked based on opponent piece positions
                 for(let i=0; i<PS_totalCards; i++)
                 {
-                    //checking for all pieces in player array except for the ones that have been cut during gameplay
+                    //checking for all pieces in player array except for the ones that have been captured during gameplay
                     if(GP_playerActive == 1)
                     {
                         if(PP_P2_piecesArray[i].PP_piecePosition_idRow != 'X')
@@ -3546,7 +3569,7 @@ function gamePlay()
                     }
                 }
 
-                //checking whether king is being checked by any piece
+                //checking whether king is being checked by any piece & toggling the check active flag
                 if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType == 'K' && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber == GP_playerActive && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_checkFlag == 1)
                 {
                     GP_checkActive = 1;
@@ -3591,6 +3614,7 @@ function gamePlay()
                             GP_prev_blockCol = '';
 
                             //toggle flag to denote that no block is currently active
+                            GP_piece_validMoves = [];
                             GP_blockActive = 0;
                             mouseIsPressed = false;
                         }
@@ -3782,18 +3806,26 @@ function GP_validMovesChecker(letterValue, thisRow, thisColumn)
                 if(thisColumn+1 < PP_chessboardSize && GP_blocksArray[thisRow][thisColumn+1].GP_block_occupiedFlag != 1)
                 {
                     GP_blocksArray[thisRow][thisColumn+1].GP_block_validFlag = 1;
+                    
+                    //pushing the valid move coordinates into array for checking valid movements if king gets checked
+                    GP_piece_validMoves.push(thisRow);
+                    GP_piece_validMoves.push(thisColumn+1);
                 }
 
                 //checking whether top-right block is having enemy piece or not
                 if(thisRow-1 >=0 && thisColumn+1 < PP_chessboardSize && GP_blocksArray[thisRow-1][thisColumn+1].GP_block_playerNumber == 2)
                 {
                     GP_blocksArray[thisRow-1][thisColumn+1].GP_block_validFlag = 1;
+                    GP_piece_validMoves.push(thisRow-1);
+                    GP_piece_validMoves.push(thisColumn+1);
                 }
                 
                 //checking whether bottom-right block is having enemy piece or not
                 if(thisRow+1 < PP_chessboardSize && thisColumn+1 < PP_chessboardSize && GP_blocksArray[thisRow+1][thisColumn+1].GP_block_playerNumber == 2)
                 {
                     GP_blocksArray[thisRow+1][thisColumn+1].GP_block_validFlag = 1;
+                    GP_piece_validMoves.push(thisRow+1);
+                    GP_piece_validMoves.push(thisColumn+1);
                 }
             }
             //when player 2 is active
@@ -3803,19 +3835,31 @@ function GP_validMovesChecker(letterValue, thisRow, thisColumn)
                 if(thisColumn-1 >=0 && GP_blocksArray[thisRow][thisColumn-1].GP_block_occupiedFlag != 1)
                 {
                     GP_blocksArray[thisRow][thisColumn-1].GP_block_validFlag = 1;
+                    GP_piece_validMoves.push(thisRow);
+                    GP_piece_validMoves.push(thisColumn-1);
                 }
 
                 //checking whether top-left block is having enemy piece or not
                 if(thisRow-1 >=0 && thisColumn-1 >=0 && GP_blocksArray[thisRow-1][thisColumn-1].GP_block_playerNumber == 1)
                 {
                     GP_blocksArray[thisRow-1][thisColumn-1].GP_block_validFlag = 1;
+                    GP_piece_validMoves.push(thisRow-1);
+                    GP_piece_validMoves.push(thisColumn-1);
                 }
                 
                 //checking whether bottom-left block is having enemy piece or not
                 if(thisRow+1 < PP_chessboardSize && thisColumn-1 >= 0 && GP_blocksArray[thisRow+1][thisColumn-1].GP_block_playerNumber == 1)
                 {
                     GP_blocksArray[thisRow+1][thisColumn-1].GP_block_validFlag = 1;
+                    GP_piece_validMoves.push(thisRow+1);
+                    GP_piece_validMoves.push(thisColumn-1);
                 }
+            }
+
+            //function to execute when king is in active check
+            if(GP_checkActive == 1)
+            {
+                GP_validMovesChecker_whileChecked(thisRow, thisColumn);
             }
         break;
 
@@ -3838,6 +3882,8 @@ function GP_validMovesChecker(letterValue, thisRow, thisColumn)
                             if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
                             {
                                 GP_blocksArray[i][j].GP_block_validFlag = 1;
+                                GP_piece_validMoves.push(i);
+                                GP_piece_validMoves.push(j);
                             }
                             //code to run when block is not empty
                             else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
@@ -3846,6 +3892,8 @@ function GP_validMovesChecker(letterValue, thisRow, thisColumn)
                                 if(GP_blocksArray[i][j].GP_block_playerNumber != GP_playerActive)
                                 {
                                     GP_blocksArray[i][j].GP_block_validFlag = 1;
+                                    GP_piece_validMoves.push(i);
+                                    GP_piece_validMoves.push(j);
                                 }
                                 //code to run when same player's piece is found
                                 else if(GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
@@ -3857,8 +3905,106 @@ function GP_validMovesChecker(letterValue, thisRow, thisColumn)
                     }
                 }
             }
+
+            //function to execute when king is in active check
+            if(GP_checkActive == 1)
+            {
+                GP_validMovesChecker_whileChecked(thisRow, thisColumn);
+            }
         break;
     }
+}
+
+//function to determine what all movements are valid for selected pieces when king is in active check
+//loop through all valid move coordinates for selected piece and see whether king still remains in check or not
+//if yes, set valid flag to zero for those coordinates in the main chessboard
+function GP_validMovesChecker_whileChecked(thisRow, thisColumn)
+{
+    //looping for all values in the valid moves array
+    for(let i=0; i<GP_piece_validMoves.length; i+=2)
+    {
+        //storing row & column coordinates into temporary variables
+        GP_tempRow = GP_piece_validMoves[i];
+        GP_tempCol = GP_piece_validMoves[i+1];
+
+        //copying flag and piece values onto temporary chessboard from the main chessboard
+        //setting all check flags to zero to determine values for potential valid coordinates
+        for(let j=0; j<PP_chessboardSize; j++)
+        {
+            for(let k=0; k<PP_chessboardSize; k++)
+            {
+                //copying block piece details from main chessboard onto temp chessboard
+                GP_temp_blocksArray[j][k].GP_block_playerNumber = GP_blocksArray[j][k].GP_block_playerNumber;
+                GP_temp_blocksArray[j][k].GP_block_pieceType = GP_blocksArray[j][k].GP_block_pieceType;
+                GP_temp_blocksArray[j][k].GP_block_occupiedFlag = GP_blocksArray[j][k].GP_block_occupiedFlag;
+                GP_temp_blocksArray[j][k].GP_block_checkFlag = 0;
+            }
+        }
+
+        //trying out one set of coordinates by occupying that block in the temp chessboard
+        GP_temp_blocksArray[GP_tempRow][GP_tempCol].GP_block_occupiedFlag = 1;
+        GP_temp_blocksArray[GP_tempRow][GP_tempCol].GP_block_playerNumber = GP_playerActive;
+        GP_temp_blocksArray[GP_tempRow][GP_tempCol].GP_block_pieceType = GP_temp_blocksArray[thisRow][thisColumn].GP_block_pieceType;
+
+        //remove selected piece from its original position in the temp chessboard
+        GP_temp_blocksArray[thisRow][thisColumn].GP_block_occupiedFlag = 0;
+        GP_temp_blocksArray[thisRow][thisColumn].GP_block_playerNumber = 0;
+        GP_temp_blocksArray[thisRow][thisColumn].GP_block_pieceType = '';
+
+        //loop through player piece arrays to determine which all blocks are getting checked
+        for(let j=0; j<PS_totalCards; j++)
+        {
+            if(GP_playerActive == 1)
+            {                
+                //if piece's new position comes on top of opponent piece, then don't check for "checks" for those coordinates
+                //simulating piece capture in temporary chessboard
+                if(PP_P2_piecesArray[j].PP_piecePosition_idRow != 'X')
+                {
+                    if(PP_P2_piecesArray[j].PP_piecePosition_idRow == GP_tempRow && PP_P2_piecesArray[j].PP_piecePosition_idCol == GP_tempCol)
+                    {
+                        //ignore these coordinates
+                        //this is determining whether a piece can capture opponent piece to remove king from check
+                    }
+                    //run temp check function for rest of coordinates
+                    else
+                    {
+                        GP_temp_checkedBlocks(PP_P2_piecesArray[j].PP_pieceType, PP_P2_piecesArray[j].PP_piecePosition_idRow, PP_P2_piecesArray[j].PP_piecePosition_idCol);
+                    }
+                }
+            }
+            else if(GP_playerActive == 2)
+            {
+                if(PP_P1_piecesArray[j].PP_piecePosition_idRow != 'X')
+                {
+                    if(PP_P1_piecesArray[j].PP_piecePosition_idRow == GP_tempRow && PP_P1_piecesArray[j].PP_piecePosition_idCol == GP_tempCol)
+                    {
+                        //ignore these coordinates
+                    }
+                    else
+                    {
+                        GP_temp_checkedBlocks(PP_P1_piecesArray[j].PP_pieceType, PP_P1_piecesArray[j].PP_piecePosition_idRow, PP_P1_piecesArray[j].PP_piecePosition_idCol);
+                    }
+                }  
+            }
+        }
+
+        //looping through temp chessboard and checking whether player king is still in check or not
+        for(let j=0; j<PP_chessboardSize; j++)
+        {
+            for(let k=0; k<PP_chessboardSize; k++)
+            {
+                //if the king is still in check, mark those "valid move" block's valid flag to zero
+                if(GP_temp_blocksArray[j][k].GP_block_pieceType == 'K' && GP_temp_blocksArray[j][k].GP_block_playerNumber == GP_playerActive && GP_temp_blocksArray[j][k].GP_block_checkFlag == 1)
+                {
+                    GP_blocksArray[GP_tempRow][GP_tempCol].GP_block_validFlag = 0;
+                    break;
+                }
+            }
+        }
+    }
+
+    //reset valid moves array to store only fresh values
+    GP_piece_validMoves = [];
 }
 
 //function to check all valid moves for bishop
@@ -3870,12 +4016,18 @@ function GP_bishopMoves(thisRow, thisColumn)
         if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
         {
             GP_blocksArray[i][j].GP_block_validFlag = 1;
+
+            //pushing the valid move coordinates into array for checking valid movements if king gets checked
+            GP_piece_validMoves.push(i);
+            GP_piece_validMoves.push(j);
         }
         else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
         {
             if(GP_blocksArray[i][j].GP_block_playerNumber != GP_playerActive)
             {
                 GP_blocksArray[i][j].GP_block_validFlag = 1;
+                GP_piece_validMoves.push(i);
+                GP_piece_validMoves.push(j);
                 break;
             }
             else if(GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
@@ -3892,12 +4044,16 @@ function GP_bishopMoves(thisRow, thisColumn)
         if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
         {
             GP_blocksArray[i][j].GP_block_validFlag = 1;
+            GP_piece_validMoves.push(i);
+            GP_piece_validMoves.push(j);
         }
         else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
         {
             if(GP_blocksArray[i][j].GP_block_playerNumber != GP_playerActive)
             {
                 GP_blocksArray[i][j].GP_block_validFlag = 1;
+                GP_piece_validMoves.push(i);
+                GP_piece_validMoves.push(j);
                 break;
             }
             else if(GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
@@ -3914,12 +4070,16 @@ function GP_bishopMoves(thisRow, thisColumn)
         if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
         {
             GP_blocksArray[i][j].GP_block_validFlag = 1;
+            GP_piece_validMoves.push(i);
+            GP_piece_validMoves.push(j);
         }
         else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
         {
             if(GP_blocksArray[i][j].GP_block_playerNumber != GP_playerActive)
             {
                 GP_blocksArray[i][j].GP_block_validFlag = 1;
+                GP_piece_validMoves.push(i);
+                GP_piece_validMoves.push(j);
                 break;
             }
             else if(GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
@@ -3936,12 +4096,16 @@ function GP_bishopMoves(thisRow, thisColumn)
         if(GP_blocksArray[i][j].GP_block_occupiedFlag != 1)
         {
             GP_blocksArray[i][j].GP_block_validFlag = 1;
+            GP_piece_validMoves.push(i);
+            GP_piece_validMoves.push(j);
         }
         else if(GP_blocksArray[i][j].GP_block_occupiedFlag == 1)
         {
             if(GP_blocksArray[i][j].GP_block_playerNumber != GP_playerActive)
             {
                 GP_blocksArray[i][j].GP_block_validFlag = 1;
+                GP_piece_validMoves.push(i);
+                GP_piece_validMoves.push(j);
                 break;
             }
             else if(GP_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
@@ -3950,6 +4114,12 @@ function GP_bishopMoves(thisRow, thisColumn)
                 break;
             }
         }
+    }
+
+    //function to execute when king is in active check
+    if(GP_checkActive == 1)
+    {
+        GP_validMovesChecker_whileChecked(thisRow, thisColumn);
     }
 }
 
@@ -3962,12 +4132,18 @@ function GP_rookMoves(thisRow, thisColumn)
         if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag != 1)
         {
             GP_blocksArray[thisRow][i].GP_block_validFlag = 1;
+
+            //pushing the valid move coordinates into array for checking valid movements if king gets checked
+            GP_piece_validMoves.push(thisRow);
+            GP_piece_validMoves.push(i);
         }
         else if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag == 1)
         {
             if(GP_blocksArray[thisRow][i].GP_block_playerNumber != GP_playerActive)
             {
                 GP_blocksArray[thisRow][i].GP_block_validFlag = 1;
+                GP_piece_validMoves.push(thisRow);
+                GP_piece_validMoves.push(i);
                 break;
             }
             else if(GP_blocksArray[thisRow][i].GP_block_playerNumber == GP_playerActive)
@@ -3984,12 +4160,16 @@ function GP_rookMoves(thisRow, thisColumn)
         if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag != 1)
         {
             GP_blocksArray[thisRow][i].GP_block_validFlag = 1;
+            GP_piece_validMoves.push(thisRow);
+            GP_piece_validMoves.push(i);
         }
         else if(GP_blocksArray[thisRow][i].GP_block_occupiedFlag == 1)
         {
             if(GP_blocksArray[thisRow][i].GP_block_playerNumber != GP_playerActive)
             {
                 GP_blocksArray[thisRow][i].GP_block_validFlag = 1;
+                GP_piece_validMoves.push(thisRow);
+                GP_piece_validMoves.push(i);
                 break;
             }
             else if(GP_blocksArray[thisRow][i].GP_block_playerNumber == GP_playerActive)
@@ -4006,12 +4186,16 @@ function GP_rookMoves(thisRow, thisColumn)
         if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag != 1)
         {
             GP_blocksArray[i][thisColumn].GP_block_validFlag = 1;
+            GP_piece_validMoves.push(i);
+            GP_piece_validMoves.push(thisColumn);
         }
         else if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag == 1)
         {
             if(GP_blocksArray[i][thisColumn].GP_block_playerNumber != GP_playerActive)
             {
                 GP_blocksArray[i][thisColumn].GP_block_validFlag = 1;
+                GP_piece_validMoves.push(i);
+                GP_piece_validMoves.push(thisColumn);
                 break;
             }
             else if(GP_blocksArray[i][thisColumn].GP_block_playerNumber == GP_playerActive)
@@ -4028,12 +4212,16 @@ function GP_rookMoves(thisRow, thisColumn)
         if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag != 1)
         {
             GP_blocksArray[i][thisColumn].GP_block_validFlag = 1;
+            GP_piece_validMoves.push(i);
+            GP_piece_validMoves.push(thisColumn);
         }
         else if(GP_blocksArray[i][thisColumn].GP_block_occupiedFlag == 1)
         {
             if(GP_blocksArray[i][thisColumn].GP_block_playerNumber != GP_playerActive)
             {
                 GP_blocksArray[i][thisColumn].GP_block_validFlag = 1;
+                GP_piece_validMoves.push(i);
+                GP_piece_validMoves.push(thisColumn);
                 break;
             }
             else if(GP_blocksArray[i][thisColumn].GP_block_playerNumber == GP_playerActive)
@@ -4043,9 +4231,15 @@ function GP_rookMoves(thisRow, thisColumn)
             }
         }
     }
+
+    //function to execute when king is in active check
+    if(GP_checkActive == 1)
+    {
+        GP_validMovesChecker_whileChecked(thisRow, thisColumn);
+    }
 }
 
-//function to determine which all blocks are being checked by a particular piece
+//function to determine which all blocks are being checked by a particular piece in the main chessboard
 function GP_checkedBlocks(letterValue, thisRow, thisColumn)
 {
     //toggling check flags of blocks where opponent's pieces can legally move
@@ -4151,7 +4345,7 @@ function GP_checkedBlocks(letterValue, thisRow, thisColumn)
     }
 }
 
-//function to determine blocks being checked by bishop
+//function to determine blocks being checked by bishop in the main chessboard
 function GP_bishopChecks(thisRow, thisColumn)
 {
     //code to check blocks towards top-left diagonally
@@ -4243,7 +4437,7 @@ function GP_bishopChecks(thisRow, thisColumn)
     }
 }
 
-//function to determine blocks being checked by rook
+//function to determine blocks being checked by rook in the main chessboard
 function GP_rookChecks(thisRow, thisColumn)
 {
     //code to check blocks towards the right
@@ -4331,6 +4525,300 @@ function GP_rookChecks(thisRow, thisColumn)
                 GP_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
                 break;
             }
+        }
+    }
+}
+
+//function to determine which all blocks are being checked by a particular piece in the temp chessboard
+//thisrow & thiscolumn variables store the actual coordinates of the selected piece
+function GP_temp_checkedBlocks(letterValue, thisRow, thisColumn)
+{
+    //toggling check flags of blocks where opponent's pieces can legally move
+    //replacing all functions with temp functions for checking in the temp chessboard
+    switch(letterValue)
+    {
+        // checking for piece - queen
+        case 'Q':
+            GP_temp_bishopChecks(thisRow, thisColumn);
+            GP_temp_rookChecks(thisRow, thisColumn);
+        break;
+
+        //checking for piece - bishop
+        case 'B':
+            GP_temp_bishopChecks(thisRow, thisColumn);
+        break;
+
+        //checking for piece - rook
+        case 'R':
+            GP_temp_rookChecks(thisRow, thisColumn);
+        break;
+
+        //checking for piece - king
+        case 'K':
+            //checking for plus/minus 1 row
+            for(let i=thisRow-1; i<=thisRow+1; i++)
+            {
+                //checking for plus/minus 1 column
+                for(let j=thisColumn-1; j<=thisColumn+1; j++)
+                {
+                    //checking whether the coordinates are within the chessboard
+                    if(i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize)
+                    {
+                        //ignoring block where king is currently placed
+                        if(i == thisRow && j == thisColumn)
+                        {
+                            GP_temp_blocksArray[i][j].GP_block_checkFlag = 0;
+                        }
+                        //toggling check flag for all other blocks
+                        else
+                        {
+                            GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
+                        }
+                    }
+                }
+            }
+        break;
+
+        // checking for piece - pawn
+        case 'P':
+            //when player 1 is active
+            if(GP_playerActive == 2)
+            {
+                //checking whether top-right block is having enemy piece or not
+                if(thisRow-1 >=0 && thisColumn+1 < PP_chessboardSize)
+                {
+                    GP_temp_blocksArray[thisRow-1][thisColumn+1].GP_block_checkFlag = 1;
+                }
+                
+                //checking whether bottom-right block is having enemy piece or not
+                if(thisRow+1 < PP_chessboardSize && thisColumn+1 < PP_chessboardSize)
+                {
+                    GP_temp_blocksArray[thisRow+1][thisColumn+1].GP_block_checkFlag = 1;
+                }
+            }
+            //when player 2 is active
+            else if(GP_playerActive == 1)
+            {
+                //checking whether top-left block is having enemy piece or not
+                if(thisRow-1 >=0 && thisColumn-1 >=0)
+                {
+                    GP_temp_blocksArray[thisRow-1][thisColumn-1].GP_block_checkFlag = 1;
+                }
+                
+                //checking whether bottom-left block is having enemy piece or not
+                if(thisRow+1 < PP_chessboardSize && thisColumn-1 >= 0)
+                {
+                    GP_temp_blocksArray[thisRow+1][thisColumn-1].GP_block_checkFlag = 1;
+                }
+            }
+        break;
+
+        //checking for piece - knight
+        case 'N':
+            //running loop for plus/minus 2 rows
+            for(let i=thisRow-2; i<=thisRow+2; i++)
+            {
+                //running loop for plus/minus 2 columns
+                for(let j=thisColumn-2; j<=thisColumn+2; j++)
+                {
+                    //checking whether blocks are within chessboard bounds
+                    if(i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize)
+                    {
+                        //absolute difference of rows should be 1 & absolute difference of columns should be 2
+                        //or absolute difference of rows should be 2 & absolute difference of columns should be 1
+                        if((abs(i-thisRow)==1 && abs(j-thisColumn)==2) || (abs(i-thisRow)==2 && abs(j-thisColumn)==1))
+                        {
+                            GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;                            
+                        }
+                    }
+                }
+            }
+        break;
+    }
+}
+
+//function to determine blocks being checked by rook in the temp chessboard
+function GP_temp_rookChecks(thisRow, thisColumn)
+{
+    //code to check blocks towards the right
+    //replacing all mentions of main chessboard with the temp ones for this function
+    for(let i=thisColumn+1; i<PP_chessboardSize; i++)
+    {
+        if(GP_temp_blocksArray[thisRow][i].GP_block_occupiedFlag != 1)
+        {
+            GP_temp_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+        }
+        else if(GP_temp_blocksArray[thisRow][i].GP_block_occupiedFlag == 1)
+        {
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_temp_blocksArray[thisRow][i].GP_block_pieceType == 'K' && GP_temp_blocksArray[thisRow][i].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_temp_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_temp_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+                break;
+            }
+        }
+    }
+
+    //code to check blocks towards the left
+    for(let i=thisColumn-1; i>=0; i--)
+    {
+        if(GP_temp_blocksArray[thisRow][i].GP_block_occupiedFlag != 1)
+        {
+            GP_temp_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+        }
+        else if(GP_temp_blocksArray[thisRow][i].GP_block_occupiedFlag == 1)
+        {
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_temp_blocksArray[thisRow][i].GP_block_pieceType == 'K' && GP_temp_blocksArray[thisRow][i].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_temp_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_temp_blocksArray[thisRow][i].GP_block_checkFlag = 1;
+                break;
+            }
+        }
+    }
+
+    //code to check blocks towards the bottom
+    for(let i=thisRow+1; i<PP_chessboardSize; i++)
+    {
+        if(GP_temp_blocksArray[i][thisColumn].GP_block_occupiedFlag != 1)
+        {
+            GP_temp_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+        }
+        else if(GP_temp_blocksArray[i][thisColumn].GP_block_occupiedFlag == 1)
+        {
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_temp_blocksArray[i][thisColumn].GP_block_pieceType == 'K' && GP_temp_blocksArray[i][thisColumn].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_temp_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_temp_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+                break;
+            }
+        }
+    }
+
+    //code to check blocks towards the top
+    for(let i=thisRow-1; i>=0; i--)
+    {
+        if(GP_temp_blocksArray[i][thisColumn].GP_block_occupiedFlag != 1)
+        {
+            GP_temp_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+        }
+        else if(GP_temp_blocksArray[i][thisColumn].GP_block_occupiedFlag == 1)
+        {
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_temp_blocksArray[i][thisColumn].GP_block_pieceType == 'K' && GP_temp_blocksArray[i][thisColumn].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_temp_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_temp_blocksArray[i][thisColumn].GP_block_checkFlag = 1;
+                break;
+            }
+        }
+    }
+}
+
+//function to determine blocks being checked by bishop in the main chessboard
+function GP_temp_bishopChecks(thisRow, thisColumn)
+{
+    //code to check blocks towards top-left diagonally
+    //replacing all mentions of main chessboard with the temp ones for this function
+    for(let i=thisRow-1, j=thisColumn-1; (i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize); i--, j--)
+    {
+        if(GP_temp_blocksArray[i][j].GP_block_occupiedFlag != 1)
+        {
+            GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
+        }
+        else if(GP_temp_blocksArray[i][j].GP_block_occupiedFlag == 1)
+        {
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_temp_blocksArray[i][j].GP_block_pieceType == 'K' && GP_temp_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
+                break;
+            }                        
+        }
+    }
+
+    //code to check blocks towards top-right diagonally
+    for(let i=thisRow-1, j=thisColumn+1; (i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize); i--, j++)
+    {
+        if(GP_temp_blocksArray[i][j].GP_block_occupiedFlag != 1)
+        {
+            GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
+        }
+        else if(GP_temp_blocksArray[i][j].GP_block_occupiedFlag == 1)
+        {
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_temp_blocksArray[i][j].GP_block_pieceType == 'K' && GP_temp_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
+                break;
+            }
+        }
+    }
+
+    //code to check blocks towards bottom-left diagonally
+    for(let i=thisRow+1, j=thisColumn-1; (i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize); i++, j--)
+    {
+        if(GP_temp_blocksArray[i][j].GP_block_occupiedFlag != 1)
+        {
+            GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
+        }
+        else if(GP_temp_blocksArray[i][j].GP_block_occupiedFlag == 1)
+        {
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_temp_blocksArray[i][j].GP_block_pieceType == 'K' && GP_temp_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
+                break;
+            }           
+        }
+    }
+
+    //code to check blocks towards bottom-right diagonally
+    for(let i=thisRow+1, j=thisColumn+1; (i>=0 && i<PP_chessboardSize && j>=0 && j<PP_chessboardSize); i++, j++)
+    {
+        if(GP_temp_blocksArray[i][j].GP_block_occupiedFlag != 1)
+        {
+            GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
+        }
+        else if(GP_temp_blocksArray[i][j].GP_block_occupiedFlag == 1)
+        {
+            //code to not stop check-block checking if opponent's king is encountered
+            if(GP_temp_blocksArray[i][j].GP_block_pieceType == 'K' && GP_temp_blocksArray[i][j].GP_block_playerNumber == GP_playerActive)
+            {
+                GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
+            }
+            else
+            {
+                GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
+                break;
+            }            
         }
     }
 }

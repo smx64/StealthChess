@@ -112,7 +112,7 @@ function setup()
         PP_P2_piecesArray.push(PP_P2_Pieces_object);
     }
 
-    //generating chessboard for gameplay segment -- runs in gamePlay.js file
+    //generating the main chessboard for gameplay segment -- runs in gamePlay.js file
     let GP_init_block_yPos = int(height/4.3);
     for(let GP_blockRow=0; GP_blockRow<PP_chessboardSize; GP_blockRow++)
     {
@@ -136,6 +136,17 @@ function setup()
             GP_init_block_xPos += GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_separation;
         }
         GP_init_block_yPos += GP_blocksArray[GP_blockRow][GP_blockRow].GP_block_separation;
+    }
+
+    //generating temporary chessboard for determining piece movements while king is checked -- runs in gamePlay.js file
+    for(let GP_blockRow=0; GP_blockRow<PP_chessboardSize; GP_blockRow++)
+    {
+        GP_temp_blocksArray.push([]);
+        for(let GP_blockCol=0; GP_blockCol<PP_chessboardSize; GP_blockCol++)
+        {
+            let GP_Chessboard_Temp_object = new GP_Chessboard_Temp(GP_blockRow, GP_blockCol);
+            GP_temp_blocksArray[GP_blockRow].push(GP_Chessboard_Temp_object);
+        }
     }
 }
 
