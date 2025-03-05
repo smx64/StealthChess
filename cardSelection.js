@@ -74,13 +74,13 @@ function setup()
 
     //creating name input field
     PS_nameField = createInput();
-    PS_nameField.size(300, 30);
+    PS_nameField.size(width/5, height/25);
     PS_nameField.position(width/2.5, height/2);
 
     //creating card letter input field
     PS_cardLetterField = createInput();
     PS_cardLetterField.hide();
-    PS_cardLetterField.size(30, 30);
+    PS_cardLetterField.size(width/50, height/25);
     PS_cardLetterField.position(width/1.9, height-(height/8.5));
 
     //setting card height to scale according to screen-height

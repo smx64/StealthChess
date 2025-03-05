@@ -3369,12 +3369,12 @@ let GP_P1_cutArray_xPos, GP_P2_cutArray_xPos;
 let GP_P1_cutArray = [];
 let GP_P2_cutArray = [];
 
-//initializing variables for temp chessboard - to determine valid moves of pieces when king is in active check
+//initializing variables for temp chessboard - to determine valid moves of pieces when king is in active check or pinned
 let GP_piece_validMoves = [];
 let GP_temp_blocksArray = [];
 let GP_tempRow, GP_tempCol;
 
-//class declaration for temporary chessboard for validating piece movements while king is checked
+//class declaration for temporary chessboard for validating piece movements while king is checked or pinned
 class GP_Chessboard_Temp
 {
     //constructor function for initializing all temp chessboard-related flags
@@ -3510,14 +3510,6 @@ function gamePlay()
                 fill(255,255,0,100);
                 rect(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size);
             }
-
-            //TESTING PURPOSE ONLY: write C on top of every block that has an active check flag
-            // if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_checkFlag == 1)
-            // {
-            //     fill(0);
-            //     textAlign(CENTER,CENTER);
-            //     text("C", GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos);
-            // }
 
             //display markers on all blocks that are valid moves for a particular piece
             if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_validFlag == 1 && GP_blockActive == 1)
@@ -3807,7 +3799,7 @@ function GP_validMovesChecker(letterValue, thisRow, thisColumn)
                 {
                     GP_blocksArray[thisRow][thisColumn+1].GP_block_validFlag = 1;
                     
-                    //pushing the valid move coordinates into array for checking valid movements if king gets checked
+                    //pushing the valid move coordinates into array for checking valid movements if king gets checked / pinned
                     GP_piece_validMoves.push(thisRow);
                     GP_piece_validMoves.push(thisColumn+1);
                 }
@@ -3856,11 +3848,9 @@ function GP_validMovesChecker(letterValue, thisRow, thisColumn)
                 }
             }
 
-            //function to execute when king is in active check
-            if(GP_checkActive == 1)
-            {
-                GP_validMovesChecker_whileChecked(thisRow, thisColumn);
-            }
+            //function to execute to check valid moves while king is in check or pinned
+            GP_validMovesChecker_whileChecked(thisRow, thisColumn);
+
         break;
 
         //checking for piece - knight
@@ -3906,16 +3896,13 @@ function GP_validMovesChecker(letterValue, thisRow, thisColumn)
                 }
             }
 
-            //function to execute when king is in active check
-            if(GP_checkActive == 1)
-            {
-                GP_validMovesChecker_whileChecked(thisRow, thisColumn);
-            }
+            //function to execute to check valid moves while king is in check or pinned
+            GP_validMovesChecker_whileChecked(thisRow, thisColumn);
         break;
     }
 }
 
-//function to determine what all movements are valid for selected pieces when king is in active check
+//function to determine what all movements are valid for selected pieces when king is in active check or pinned
 //loop through all valid move coordinates for selected piece and see whether king still remains in check or not
 //if yes, set valid flag to zero for those coordinates in the main chessboard
 function GP_validMovesChecker_whileChecked(thisRow, thisColumn)
@@ -3988,12 +3975,12 @@ function GP_validMovesChecker_whileChecked(thisRow, thisColumn)
             }
         }
 
-        //looping through temp chessboard and checking whether player king is still in check or not
+        //looping through temp chessboard and checking whether player king is still in check or is being pinned
         for(let j=0; j<PP_chessboardSize; j++)
         {
             for(let k=0; k<PP_chessboardSize; k++)
             {
-                //if the king is still in check, mark those "valid move" block's valid flag to zero
+                //if the king is still in check or pinned, mark those "valid move" block's valid flag to zero
                 if(GP_temp_blocksArray[j][k].GP_block_pieceType == 'K' && GP_temp_blocksArray[j][k].GP_block_playerNumber == GP_playerActive && GP_temp_blocksArray[j][k].GP_block_checkFlag == 1)
                 {
                     GP_blocksArray[GP_tempRow][GP_tempCol].GP_block_validFlag = 0;
@@ -4017,7 +4004,7 @@ function GP_bishopMoves(thisRow, thisColumn)
         {
             GP_blocksArray[i][j].GP_block_validFlag = 1;
 
-            //pushing the valid move coordinates into array for checking valid movements if king gets checked
+            //pushing the valid move coordinates into array for checking valid movements if king gets checked / pinned
             GP_piece_validMoves.push(i);
             GP_piece_validMoves.push(j);
         }
@@ -4116,11 +4103,8 @@ function GP_bishopMoves(thisRow, thisColumn)
         }
     }
 
-    //function to execute when king is in active check
-    if(GP_checkActive == 1)
-    {
-        GP_validMovesChecker_whileChecked(thisRow, thisColumn);
-    }
+    //function to execute to check valid moves while king is in check or pinned
+    GP_validMovesChecker_whileChecked(thisRow, thisColumn);
 }
 
 //function to check all valid moves for rook
@@ -4133,7 +4117,7 @@ function GP_rookMoves(thisRow, thisColumn)
         {
             GP_blocksArray[thisRow][i].GP_block_validFlag = 1;
 
-            //pushing the valid move coordinates into array for checking valid movements if king gets checked
+            //pushing the valid move coordinates into array for checking valid movements if king gets checked / pinned
             GP_piece_validMoves.push(thisRow);
             GP_piece_validMoves.push(i);
         }
@@ -4232,11 +4216,8 @@ function GP_rookMoves(thisRow, thisColumn)
         }
     }
 
-    //function to execute when king is in active check
-    if(GP_checkActive == 1)
-    {
-        GP_validMovesChecker_whileChecked(thisRow, thisColumn);
-    }
+    //function to execute to check valid moves while king is in check or pinned
+    GP_validMovesChecker_whileChecked(thisRow, thisColumn);
 }
 
 //function to determine which all blocks are being checked by a particular piece in the main chessboard
@@ -4730,7 +4711,7 @@ function GP_temp_rookChecks(thisRow, thisColumn)
     }
 }
 
-//function to determine blocks being checked by bishop in the main chessboard
+//function to determine blocks being checked by bishop in the temp chessboard
 function GP_temp_bishopChecks(thisRow, thisColumn)
 {
     //code to check blocks towards top-left diagonally
