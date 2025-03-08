@@ -3347,13 +3347,13 @@
 //     }
 // ];
 
-
 // initializing all gameplay segment variables
 let GP_totalTurns = 20;
 let GP_blocksArray = [];
 let GP_turnCount = 1;
 let GP_initClass = 0;
 let GP_checkActive = 0;
+let GP_winFlag = 0;
 
 let GP_blockActive = 0;
 let GP_playerActive = 1;
@@ -3363,11 +3363,13 @@ let GP_P1_textFill, GP_P2_textFill;
 //initializing player or chess piece specific variables
 let GP_P1_moveCounter = GP_totalTurns/2;
 let GP_P2_moveCounter = GP_totalTurns/2;
-let GP_P1_cutArray_xPos, GP_P2_cutArray_xPos;
+let GP_P1_capturedArray_xPos, GP_P2_capturedArray_xPos;
 
-//initializing arrays for storing values of player's captured pieces
-let GP_P1_cutArray = [];
-let GP_P2_cutArray = [];
+//initializing arrays for storing values of player's captured pieces & variables for player points
+let GP_P1_capturedArray = [];
+let GP_P2_capturedArray = [];
+let GP_P1_points = 0;
+let GP_P2_points = 0;
 
 //initializing variables for temp chessboard - to determine valid moves of pieces when king is in active check or pinned
 let GP_piece_validMoves = [];
@@ -3496,7 +3498,7 @@ function gamePlay()
         {
             //function call to display individual blocks making up the chessboard & start hoverblock function
             GP_blocksArray[GP_blockRow][GP_blockCol].GP_drawBlock();
-            GP_blocksArray[GP_blockRow][GP_blockCol].GP_hoverBlock();      
+            GP_blocksArray[GP_blockRow][GP_blockCol].GP_hoverBlock();
 
             //generating piece thumbnails on the chessboard
             if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag == 1)
@@ -3664,8 +3666,9 @@ function gamePlay()
                                         PP_P2_piecesArray[i].PP_piecePosition_idRow = 'X';
                                         PP_P2_piecesArray[i].PP_piecePosition_idCol = 'X';
 
-                                        //sending piece type value to player cut array for thumbnail generation
-                                        GP_P2_cutArray.push(PP_P2_piecesArray[i].PP_pieceType);
+                                        //sending piece type value for thumbnail generation and points calculation
+                                        GP_P1_capturedArray.push(PP_P2_piecesArray[i].PP_pieceType);
+                                        GP_P1_points += GP_piecePointsCalculator(PP_P2_piecesArray[i].PP_pieceType);
                                     }
                                 }
                                 else if(GP_playerActive == 2)
@@ -3683,8 +3686,9 @@ function gamePlay()
                                         PP_P1_piecesArray[i].PP_piecePosition_idRow = 'X';
                                         PP_P1_piecesArray[i].PP_piecePosition_idCol = 'X';
 
-                                        //sending piece type value to player cut array for thumbnail generation
-                                        GP_P1_cutArray.push(PP_P1_piecesArray[i].PP_pieceType);
+                                        //sending piece type value for thumbnail generation and points calculation
+                                        GP_P2_capturedArray.push(PP_P1_piecesArray[i].PP_pieceType);
+                                        GP_P2_points += GP_piecePointsCalculator(PP_P1_piecesArray[i].PP_pieceType);
                                     }
                                 }
                             }
@@ -3718,11 +3722,47 @@ function gamePlay()
                         }
                     }
                 }
+
+                //checking game win condition based on total pieces captured
+                if(GP_P1_capturedArray.length >= (PS_totalCards-1))
+                {
+                    //toggle win flag if player 1 captures all opponent pieces
+                    GP_winFlag = 11;
+                }
+                else if(GP_P2_capturedArray.length >= (PS_totalCards-1))
+                {
+                    //toggle win flag if player 2 captures all opponent pieces
+                    GP_winFlag = 12;
+                }
             }
             //code to run when all player turns have finished
             else if(GP_turnCount > GP_totalTurns)
             {
-                //CODE TO RUN WHEN ALL TURNS ARE OVER
+                //toggle win flag if player 1 captures all opponent pieces
+                if(GP_P1_capturedArray.length >= (PS_totalCards-1))
+                {
+                    GP_winFlag = 11;
+                }
+                //toggle win flag if player 2 captures all opponent pieces
+                else if(GP_P2_capturedArray.length >= (PS_totalCards-1))
+                {
+                    GP_winFlag = 12;
+                }
+                //toggle win flag if player 1 scores more points
+                else if(GP_P1_points > GP_P2_points)
+                {
+                    GP_winFlag = 21;
+                }
+                //toggle win flag if player 2 scores more points
+                else if(GP_P1_points < GP_P2_points)
+                {
+                    GP_winFlag = 22;
+                }
+                //checking tie-breaker conditions
+                else if(GP_P1_points == GP_P2_points)
+                {
+
+                }
             }
         }
     }   
@@ -4317,7 +4357,7 @@ function GP_checkedBlocks(letterValue, thisRow, thisColumn)
                         //or absolute difference of rows should be 2 & absolute difference of columns should be 1
                         if((abs(i-thisRow)==1 && abs(j-thisColumn)==2) || (abs(i-thisRow)==2 && abs(j-thisColumn)==1))
                         {
-                            GP_blocksArray[i][j].GP_block_checkFlag = 1;                            
+                            GP_blocksArray[i][j].GP_block_checkFlag = 1;
                         }
                     }
                 }
@@ -4347,7 +4387,7 @@ function GP_bishopChecks(thisRow, thisColumn)
             {
                 GP_blocksArray[i][j].GP_block_checkFlag = 1;
                 break;
-            }                        
+            }
         }
     }
 
@@ -4391,7 +4431,7 @@ function GP_bishopChecks(thisRow, thisColumn)
             {
                 GP_blocksArray[i][j].GP_block_checkFlag = 1;
                 break;
-            }           
+            }
         }
     }
 
@@ -4413,7 +4453,7 @@ function GP_bishopChecks(thisRow, thisColumn)
             {
                 GP_blocksArray[i][j].GP_block_checkFlag = 1;
                 break;
-            }            
+            }
         }
     }
 }
@@ -4609,7 +4649,7 @@ function GP_temp_checkedBlocks(letterValue, thisRow, thisColumn)
                         //or absolute difference of rows should be 2 & absolute difference of columns should be 1
                         if((abs(i-thisRow)==1 && abs(j-thisColumn)==2) || (abs(i-thisRow)==2 && abs(j-thisColumn)==1))
                         {
-                            GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;                            
+                            GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
                         }
                     }
                 }
@@ -4733,7 +4773,7 @@ function GP_temp_bishopChecks(thisRow, thisColumn)
             {
                 GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
                 break;
-            }                        
+            }
         }
     }
 
@@ -4777,7 +4817,7 @@ function GP_temp_bishopChecks(thisRow, thisColumn)
             {
                 GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
                 break;
-            }           
+            }
         }
     }
 
@@ -4799,7 +4839,7 @@ function GP_temp_bishopChecks(thisRow, thisColumn)
             {
                 GP_temp_blocksArray[i][j].GP_block_checkFlag = 1;
                 break;
-            }            
+            }
         }
     }
 }
@@ -4865,7 +4905,7 @@ function GP_playerTextDisplay()
     if(GP_checkActive == 1)
     {
         rectMode(CORNER);
-        fill(PS_redShade);        
+        fill(PS_redShade);
         textAlign(CENTER,CENTER);
         textFont(PS_fontHeading);
         textSize(20);
@@ -4896,19 +4936,116 @@ function GP_playerTextDisplay()
 
     //generating piece thumbnails of all the pieces that have been captured
     imageMode(CORNER);
-    GP_P1_cutArray_xPos = width/1.09;
-    GP_P2_cutArray_xPos = width/21;
+    GP_P1_capturedArray_xPos = width/21;
+    GP_P2_capturedArray_xPos = width/1.09;
 
-    for(let i=0; i<GP_P1_cutArray.length; i++)
+    for(let i=0; i<GP_P1_capturedArray.length; i++)
     {
-        image(GP_showCardThumb(GP_P1_cutArray[i], 1), GP_P1_cutArray_xPos, height/1.5, GP_blocksArray[0][0].GP_block_size/1.25, GP_blocksArray[0][0].GP_block_size/1.25);
-        GP_P1_cutArray_xPos-=GP_blocksArray[0][0].GP_block_size/1.15;
+        image(GP_showCardThumb(GP_P1_capturedArray[i], 2), GP_P1_capturedArray_xPos, height/1.5, GP_blocksArray[0][0].GP_block_size/1.25, GP_blocksArray[0][0].GP_block_size/1.25);
+        GP_P1_capturedArray_xPos+=GP_blocksArray[0][0].GP_block_size/1.15;
     }
 
-    for(let i=0; i<GP_P2_cutArray.length; i++)
+    for(let i=0; i<GP_P2_capturedArray.length; i++)
     {
-        image(GP_showCardThumb(GP_P2_cutArray[i], 2), GP_P2_cutArray_xPos, height/1.5, GP_blocksArray[0][0].GP_block_size/1.25, GP_blocksArray[0][0].GP_block_size/1.25);
-        GP_P2_cutArray_xPos+=GP_blocksArray[0][0].GP_block_size/1.15;
+        image(GP_showCardThumb(GP_P2_capturedArray[i], 1), GP_P2_capturedArray_xPos, height/1.5, GP_blocksArray[0][0].GP_block_size/1.25, GP_blocksArray[0][0].GP_block_size/1.25);
+        GP_P2_capturedArray_xPos-=GP_blocksArray[0][0].GP_block_size/1.15;
+    }
+
+    //displaying player points
+    textAlign(LEFT,CENTER);
+    text("POINTS ACCUMULATED", width/21, height/1.25);
+    textFont(PS_fontHeading);
+    textSize(30);
+    fill(GP_P1_textFill);
+    text(GP_P1_points, width/21, height/1.2);
+    
+    textAlign(RIGHT,CENTER);
+    textFont(PS_fontAccent);
+    textSize(16);
+    fill(255);
+    text("POINTS ACCUMULATED", width/1.05, height/1.25);
+    textFont(PS_fontHeading);
+    textSize(30);
+    fill(GP_P2_textFill);
+    text(GP_P2_points, width/1.05, height/1.2);
+
+    //displaying text when a particular player wins
+    if(GP_winFlag != 0)
+    {
+        background(PS_backgroundImage);
+        fill(255,0,0,35);
+
+        //display common elements when player 1 wins
+        if(GP_winFlag % 2 == 1)
+        {
+            rect(0,0,width/2,height);
+
+            rectMode(CENTER);
+            fill(PS_redShade);
+            noStroke();
+            rect(width/7.28, height/2.4, width/4.82, height/18);
+            textAlign(CENTER,CENTER);
+            fill(255);
+            text("YOU WON!", width/7.25, height/2.43);
+
+            textFont(PS_fontAccent);
+            textSize(21);
+            fill(PS_redShade);
+            text("CONGRATULATIONS", width/7.5, height/1.9);
+
+            textFont(PS_fontHeading);
+            textSize(26);
+            fill(255);
+            text(PS_playerNames[0], width/7.5, height/1.78);
+        }
+        //display common elements when player 2 wins
+        else if(GP_winFlag % 2 == 0)
+        {
+            rect(width/2,0,width/2,height);
+
+            rectMode(CENTER);
+            fill(PS_redShade);
+            noStroke();
+            rect(width/1.17, height/2.4, width/4.82, height/18);
+            textAlign(CENTER,CENTER);
+            fill(255);
+            text("YOU WON!", width/1.17, height/2.43);
+
+            textFont(PS_fontAccent);
+            textSize(21);
+            fill(PS_redShade);
+            text("CONGRATULATIONS", width/1.17, height/1.9);
+
+            textFont(PS_fontHeading);
+            textSize(26);
+            fill(255);
+            text(PS_playerNames[1], width/1.17, height/1.78);
+        }
+
+        textFont(PS_fontBody);
+        textSize(23);
+        fill(255);
+
+        //text to display when player 1 wins -- captured all pieces
+        if(GP_winFlag == 11)
+        {
+            text("You captured all of "+PS_playerNames[1]+"'s pieces!", width/7.3, height/2.2);
+        }
+        //text to display when player 2 wins -- captured all pieces
+        else if(GP_winFlag == 12)
+        {
+            text("You captured all of "+PS_playerNames[0]+"'s pieces!", width/1.17, height/2.2);
+        }
+        //text to display when player 1 wins -- no more moves, scored more points
+        else if(GP_winFlag == 21)
+        {
+            text("You have more points than "+PS_playerNames[1]+"!", width/7.3, height/2.2);
+        }
+        //text to display when player 1 wins -- no more moves, scored more points
+        else if(GP_winFlag == 22)
+        {
+            text("You have more points than "+PS_playerNames[0]+"!", width/1.17, height/2.2);
+        }
     }
 
     //displaying the game logo on top
@@ -4955,5 +5092,25 @@ function GP_showCardThumb(letterValue, playerValue)
             case 'P': return PP_P2_cardThumb_P;
             break;
         }
+    }
+}
+
+//function to return piece point based on piece letter value received
+function GP_piecePointsCalculator(letterValue)
+{
+    switch(letterValue)
+    {
+        case 'Q': return 9;
+        break;
+        case 'B': return 3;
+        break;
+        case 'N': return 3;
+        break;
+        case 'R': return 5;
+        break;
+        case 'P': return 1;
+        break;
+        default: return 0;
+        break;
     }
 }

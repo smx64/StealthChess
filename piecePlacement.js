@@ -380,7 +380,7 @@ function PP_playerTextDisplay()
     if(PP_pieceCounter <= PS_totalCards)
     {
         //generating text relative to the chessboard's position
-        text("Please place your pieces onto the grid", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, PP_blocksArray[0][0].PP_block_yPos-PP_blocksArray[0][0].PP_block_size/2);
+        text("Please place your pieces on the chessboard", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, PP_blocksArray[0][0].PP_block_yPos-PP_blocksArray[0][0].PP_block_size/2);
 
         fill(PS_redShade);
         text("CURRENTLY PLACING:", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, PP_blocksArray[0][0].PP_block_yPos-5);
