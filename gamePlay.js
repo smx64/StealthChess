@@ -3347,8 +3347,8 @@
 //     }
 // ];
 
-// initializing all gameplay segment variables
-let GP_totalTurns = 20;
+//initializing all gameplay segment variables
+let GP_totalTurns = 16;
 let GP_blocksArray = [];
 let GP_turnCount = 1;
 let GP_initClass = 0;
@@ -3738,6 +3738,14 @@ function gamePlay()
             //code to run when all player turns have finished
             else if(GP_turnCount > GP_totalTurns)
             {
+                //resetting valid flag for all blocks during game-end
+                for(let i=0; i<PP_chessboardSize; i++)
+                {
+                    for(let j=0; j<PP_chessboardSize; j++)
+                    {
+                        GP_blocksArray[i][j].GP_block_validFlag = 0;
+                    }
+                }
                 //toggle win flag if player 1 captures all opponent pieces
                 if(GP_P1_capturedArray.length >= (PS_totalCards-1))
                 {
@@ -3761,7 +3769,7 @@ function gamePlay()
                 //checking tie-breaker conditions
                 else if(GP_P1_points == GP_P2_points)
                 {
-
+                    
                 }
             }
         }
@@ -4926,6 +4934,87 @@ function GP_playerTextDisplay()
         }
     }
 
+    //displaying text when a particular player wins
+    if(GP_winFlag != 0)
+    {
+        background(PS_backgroundImage);
+        fill(255,0,0,35);
+
+        //display common elements when player 1 wins
+        if(GP_winFlag % 2 == 1)
+        {
+            rect(0,0,width/2,height);
+
+            rectMode(CENTER);
+            fill(PS_redShade);
+            noStroke();
+            rect(width/7.28, GP_blocksArray[0][0].GP_block_yPos, width/4.82, height/18);
+            textAlign(CENTER,CENTER);
+            textSize(30);
+            fill(255);
+            text("YOU WON!", width/7.25, GP_blocksArray[0][0].GP_block_yPos/1.02);
+
+            textFont(PS_fontAccent);
+            textSize(21);
+            fill(PS_redShade);
+            text("CONGRATULATIONS", width/7.5, height/2.75);
+
+            textFont(PS_fontHeading);
+            textSize(26);
+            fill(255);
+            text(PS_playerNames[0], width/7.5, height/2.5);
+        }
+        //display common elements when player 2 wins
+        else if(GP_winFlag % 2 == 0)
+        {
+            rect(width/2,0,width/2,height);
+
+            rectMode(CENTER);
+            fill(PS_redShade);
+            noStroke();
+            rect(width/1.17, GP_blocksArray[0][0].GP_block_yPos, width/4.82, height/18);
+            textAlign(CENTER,CENTER);
+            textSize(30);
+            fill(255);
+            text("YOU WON!", width/1.17, GP_blocksArray[0][0].GP_block_yPos/1.02);
+
+            textFont(PS_fontAccent);
+            textSize(21);
+            fill(PS_redShade);
+            text("CONGRATULATIONS", width/1.17, height/2.75);
+
+            textFont(PS_fontHeading);
+            textSize(26);
+            fill(255);
+            text(PS_playerNames[1], width/1.17, height/2.5);
+        }
+
+        textFont(PS_fontBody);
+        textSize(23);
+        fill(255);
+
+        //text to display when player 1 wins -- captured all pieces
+        if(GP_winFlag == 11)
+        {
+            text("You captured all of "+PS_playerNames[1]+"'s pieces!", width/7.3, height/3.7);
+        }
+        //text to display when player 2 wins -- captured all pieces
+        else if(GP_winFlag == 12)
+        {
+            text("You captured all of "+PS_playerNames[0]+"'s pieces!", width/1.17, height/3.7);
+        }
+        //text to display when player 1 wins -- no more moves, scored more points
+        else if(GP_winFlag == 21)
+        {
+            text("You have more points than "+PS_playerNames[1]+"!", width/7.3, height/3.7);
+        }
+        //text to display when player 1 wins -- no more moves, scored more points
+        else if(GP_winFlag == 22)
+        {
+            text("You have more points than "+PS_playerNames[0]+"!", width/1.17, height/3.7);
+        }
+    }
+
     textAlign(LEFT,CENTER);
     textFont(PS_fontAccent);
     textSize(16);
@@ -4956,7 +5045,14 @@ function GP_playerTextDisplay()
     text("POINTS ACCUMULATED", width/21, height/1.25);
     textFont(PS_fontHeading);
     textSize(30);
-    fill(GP_P1_textFill);
+    if(GP_winFlag == 0)
+    {
+        fill(GP_P1_textFill);
+    }
+    else if(GP_winFlag != 0 && GP_winFlag%2 == 1)
+    {
+        fill(PS_redShade);
+    }
     text(GP_P1_points, width/21, height/1.2);
     
     textAlign(RIGHT,CENTER);
@@ -4966,87 +5062,15 @@ function GP_playerTextDisplay()
     text("POINTS ACCUMULATED", width/1.05, height/1.25);
     textFont(PS_fontHeading);
     textSize(30);
-    fill(GP_P2_textFill);
-    text(GP_P2_points, width/1.05, height/1.2);
-
-    //displaying text when a particular player wins
-    if(GP_winFlag != 0)
+    if(GP_winFlag == 0)
     {
-        background(PS_backgroundImage);
-        fill(255,0,0,35);
-
-        //display common elements when player 1 wins
-        if(GP_winFlag % 2 == 1)
-        {
-            rect(0,0,width/2,height);
-
-            rectMode(CENTER);
-            fill(PS_redShade);
-            noStroke();
-            rect(width/7.28, height/2.4, width/4.82, height/18);
-            textAlign(CENTER,CENTER);
-            fill(255);
-            text("YOU WON!", width/7.25, height/2.43);
-
-            textFont(PS_fontAccent);
-            textSize(21);
-            fill(PS_redShade);
-            text("CONGRATULATIONS", width/7.5, height/1.9);
-
-            textFont(PS_fontHeading);
-            textSize(26);
-            fill(255);
-            text(PS_playerNames[0], width/7.5, height/1.78);
-        }
-        //display common elements when player 2 wins
-        else if(GP_winFlag % 2 == 0)
-        {
-            rect(width/2,0,width/2,height);
-
-            rectMode(CENTER);
-            fill(PS_redShade);
-            noStroke();
-            rect(width/1.17, height/2.4, width/4.82, height/18);
-            textAlign(CENTER,CENTER);
-            fill(255);
-            text("YOU WON!", width/1.17, height/2.43);
-
-            textFont(PS_fontAccent);
-            textSize(21);
-            fill(PS_redShade);
-            text("CONGRATULATIONS", width/1.17, height/1.9);
-
-            textFont(PS_fontHeading);
-            textSize(26);
-            fill(255);
-            text(PS_playerNames[1], width/1.17, height/1.78);
-        }
-
-        textFont(PS_fontBody);
-        textSize(23);
-        fill(255);
-
-        //text to display when player 1 wins -- captured all pieces
-        if(GP_winFlag == 11)
-        {
-            text("You captured all of "+PS_playerNames[1]+"'s pieces!", width/7.3, height/2.2);
-        }
-        //text to display when player 2 wins -- captured all pieces
-        else if(GP_winFlag == 12)
-        {
-            text("You captured all of "+PS_playerNames[0]+"'s pieces!", width/1.17, height/2.2);
-        }
-        //text to display when player 1 wins -- no more moves, scored more points
-        else if(GP_winFlag == 21)
-        {
-            text("You have more points than "+PS_playerNames[1]+"!", width/7.3, height/2.2);
-        }
-        //text to display when player 1 wins -- no more moves, scored more points
-        else if(GP_winFlag == 22)
-        {
-            text("You have more points than "+PS_playerNames[0]+"!", width/1.17, height/2.2);
-        }
+        fill(GP_P2_textFill);
     }
+    else if(GP_winFlag != 0 && GP_winFlag%2 == 0)
+    {
+        fill(PS_redShade);
+    }
+    text(GP_P2_points, width/1.05, height/1.2);
 
     //displaying the game logo on top
     GP_logoWidth = width/6;
