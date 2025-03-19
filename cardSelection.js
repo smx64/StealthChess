@@ -14,6 +14,7 @@ let PS_redShade = "#FF0000";
 let PS_fontHeading, PS_fontBody, PS_fontAccent;
 let PS_P1_cardImage_K, PS_P1_cardImage_Q, PS_P1_cardImage_B, PS_P1_cardImage_N, PS_P1_cardImage_R, PS_P1_cardImage_P;
 let PS_P2_cardImage_K, PS_P2_cardImage_Q, PS_P2_cardImage_B, PS_P2_cardImage_N, PS_P2_cardImage_R, PS_P2_cardImage_P;
+let PP_bgm, PP_SFX_pieceClicked, PP_SFX_pieceMoved, GP_bgm;
 
 //initializing input field variables
 let PS_nameField, PS_cardLetterField;
@@ -65,6 +66,13 @@ function preload()
     PP_P2_cardThumb_N = loadImage("./Assets/Player2_Thumbnail_Knight.png");
     PP_P2_cardThumb_R = loadImage("./Assets/Player2_Thumbnail_Rook.png");
     PP_P2_cardThumb_P = loadImage("./Assets/Player2_Thumbnail_Pawn.png");
+
+    //pre-loading background score & sound effects - used in piecePlacement.js & gamePlay.js
+    PP_bgm = loadSound("./Assets/Music_PiecePlacement.mp3");
+    GP_bgm = loadSound("./Assets/Music_Gameplay.mp3");
+    PP_SFX_pieceClicked = loadSound("./Assets/SFX_pieceClicked.mp3");
+    PP_SFX_pieceUnclicked = loadSound("./Assets/SFX_pieceUnclicked.mp3");
+    PP_SFX_pieceMoved = loadSound("./Assets/SFX_pieceMoved.mp3");
 }
 
 function setup()

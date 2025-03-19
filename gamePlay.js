@@ -3470,6 +3470,9 @@ class GP_Chessboard
 //main function where everything runs
 function gamePlay()
 {
+    GP_bgm.playMode('untilDone');
+    GP_bgm.loop();
+
     //to make sure that gameplay chessboard initialization runs only once
     //this flag enables only single instance of chessboard initialization
     if(GP_initClass == 0)
@@ -3591,6 +3594,7 @@ function gamePlay()
 
                         //toggle flag to denote that a block is currently active
                         GP_blockActive = 1;
+                        PP_SFX_pieceClicked.play();
                         mouseIsPressed = false;
                     }
                 }
@@ -3610,6 +3614,7 @@ function gamePlay()
                             //toggle flag to denote that no block is currently active
                             GP_piece_validMoves = [];
                             GP_blockActive = 0;
+                            PP_SFX_pieceClicked.play();
                             mouseIsPressed = false;
                         }
                         //code to move selection to another occupied block if that is clicked
@@ -3632,6 +3637,7 @@ function gamePlay()
 
                             //function call to check which all blocks the selected piece can move to
                             GP_validMovesChecker(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType, GP_blockRow, GP_blockCol);
+                            PP_SFX_pieceClicked.play();
                             mouseIsPressed = false;
                         }
                         //code to move pieces to a particular block only if its valid flag is true
@@ -3697,6 +3703,7 @@ function gamePlay()
                             GP_turnCount++;
                             GP_blockActive = 0;
                             GP_checkActive = 0;
+                            PP_SFX_pieceMoved.play();
                             mouseIsPressed = false;
 
                             //alternating player turns & decrementing player move counters
@@ -3728,16 +3735,20 @@ function gamePlay()
                 {
                     //toggle win flag if player 1 captures all opponent pieces
                     GP_winFlag = 11;
+                    GP_bgm.stop();
                 }
                 else if(GP_P2_capturedArray.length >= (PS_totalCards-1))
                 {
                     //toggle win flag if player 2 captures all opponent pieces
                     GP_winFlag = 12;
+                    GP_bgm.stop();
                 }
             }
             //code to run when all player turns have finished
             else if(GP_turnCount > GP_totalTurns)
             {
+                GP_bgm.stop();
+
                 //resetting valid flag for all blocks during game-end
                 for(let i=0; i<PP_chessboardSize; i++)
                 {
