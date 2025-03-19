@@ -3083,10 +3083,10 @@
 //             "PP_block_idCol": 4,
 //             "PP_block_visibility": 0,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 1,
+//             "PP_block_occupiedFlag": 0,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 2,
-//             "PP_block_pieceType": "B",
+//             "PP_block_playerNumber": 0,
+//             "PP_block_pieceType": "",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -3134,10 +3134,10 @@
 //             "PP_block_idCol": 5,
 //             "PP_block_visibility": 1,
 //             "PP_block_hoverFlag": 0,
-//             "PP_block_occupiedFlag": 0,
+//             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
-//             "PP_block_playerNumber": 0,
-//             "PP_block_pieceType": "",
+//             "PP_block_playerNumber": 2,
+//             "PP_block_pieceType": "B",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -3337,7 +3337,7 @@
 //         "PP_piecePlayerNumber": 2,
 //         "PP_pieceType": "B",
 //         "PP_piecePosition_idRow": 7,
-//         "PP_piecePosition_idCol": 4
+//         "PP_piecePosition_idCol": 5
 //     },
 //     {
 //         "PP_piecePlayerNumber": 2,
@@ -3354,6 +3354,7 @@ let GP_turnCount = 1;
 let GP_initClass = 0;
 let GP_checkActive = 0;
 let GP_winFlag = 0;
+let GP_checkSoundPlayed = false;
 
 let GP_blockActive = 0;
 let GP_playerActive = 1;
@@ -3370,6 +3371,8 @@ let GP_P1_capturedArray = [];
 let GP_P2_capturedArray = [];
 let GP_P1_points = 0;
 let GP_P2_points = 0;
+let GP_P1_checkCounter = 0;
+let GP_P2_checkCounter = 0;
 
 //initializing variables for temp chessboard - to determine valid moves of pieces when king is in active check or pinned
 let GP_piece_validMoves = [];
@@ -3572,6 +3575,24 @@ function gamePlay()
                     GP_checkActive = 1;
                 }
 
+                //toggling king checked sound effect & counting no.of checks given by each player
+                //to prevent looping, if condition checks whether sound has already played before not
+                if(GP_checkActive == 1 && GP_checkSoundPlayed == false)
+                {
+                    GP_SFX_pieceChecked.play();
+                    GP_checkSoundPlayed = true;
+
+                    //keeping track of number of checks given by each player in a match
+                    if(GP_playerActive == 1)
+                    {
+                        GP_P1_checkCounter++;
+                    }
+                    else if(GP_playerActive == 2)
+                    {
+                        GP_P2_checkCounter++;
+                    }
+                }
+
                 //resetting all valid flags after de-selecting a block to restart the process
                 if(GP_blockActive == 0)
                 {
@@ -3704,6 +3725,7 @@ function gamePlay()
                             GP_blockActive = 0;
                             GP_checkActive = 0;
                             PP_SFX_pieceMoved.play();
+                            GP_checkSoundPlayed = false;
                             mouseIsPressed = false;
 
                             //alternating player turns & decrementing player move counters
@@ -3778,7 +3800,7 @@ function gamePlay()
                     GP_winFlag = 22;
                 }
                 //checking tie-breaker conditions
-                else if(GP_P1_points == GP_P2_points)
+                else if((GP_P1_points == GP_P2_points) && (GP_P1_capturedArray.length == GP_P2_capturedArray.length))
                 {
                     
                 }
