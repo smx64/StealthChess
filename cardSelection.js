@@ -71,7 +71,6 @@ function preload()
     PP_bgm = loadSound("./Assets/Music_PiecePlacement.mp3");
     GP_bgm = loadSound("./Assets/Music_Gameplay.mp3");
     PP_SFX_pieceClicked = loadSound("./Assets/SFX_pieceClicked.mp3");
-    PP_SFX_pieceUnclicked = loadSound("./Assets/SFX_pieceUnclicked.mp3");
     PP_SFX_pieceMoved = loadSound("./Assets/SFX_pieceMoved.mp3");
 }
 
