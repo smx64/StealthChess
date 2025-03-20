@@ -3579,7 +3579,7 @@ function gamePlay()
                 //to prevent looping, if condition checks whether sound has already played before not
                 if(GP_checkActive == 1 && GP_checkSoundPlayed == false)
                 {
-                    // GP_SFX_pieceChecked.play();
+                    GP_SFX_pieceChecked.play();
                     GP_checkSoundPlayed = true;
 
                     //keeping track of number of checks given by each player in a match
@@ -3724,7 +3724,7 @@ function gamePlay()
                             GP_turnCount++;
                             GP_blockActive = 0;
                             GP_checkActive = 0;
-                            // PP_SFX_pieceMoved.play();
+                            PP_SFX_pieceMoved.play();
                             GP_checkSoundPlayed = false;
                             mouseIsPressed = false;
 

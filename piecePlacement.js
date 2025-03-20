@@ -361,7 +361,7 @@ function piecePlacement()
                                         
                                         //resetting flag to restart process for a new block
                                         PP_blockActive = 0;
-                                        // PP_SFX_pieceMoved.play();
+                                        PP_SFX_pieceMoved.play();
                                         mouseIsPressed = false;
                                     }
                                 }
