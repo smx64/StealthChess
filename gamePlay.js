@@ -3753,17 +3753,23 @@ function gamePlay()
                 }
 
                 //checking game win condition based on total pieces captured
-                if(GP_P1_capturedArray.length >= (PS_totalCards-1))
+                if(GP_P1_capturedArray.length >= (PS_totalCards-1) && GP_checkActive == 1)
                 {
                     //toggle win flag if player 1 captures all opponent pieces
                     GP_winFlag = 11;
                     GP_bgm.stop();
+
+                    //stopping the game by manually overriding total turns
+                    GP_turnCount += GP_totalTurns;
                 }
-                else if(GP_P2_capturedArray.length >= (PS_totalCards-1))
+                else if(GP_P2_capturedArray.length >= (PS_totalCards-1) && GP_checkActive == 1)
                 {
                     //toggle win flag if player 2 captures all opponent pieces
                     GP_winFlag = 12;
                     GP_bgm.stop();
+
+                    //stopping the game by manually overriding total turns
+                    GP_turnCount += GP_totalTurns;
                 }
             }
             //code to run when all player turns have finished
@@ -3780,12 +3786,12 @@ function gamePlay()
                     }
                 }
                 //toggle win flag if player 1 captures all opponent pieces
-                if(GP_P1_capturedArray.length >= (PS_totalCards-1))
+                if(GP_P1_capturedArray.length >= (PS_totalCards-1) && GP_checkActive == 1)
                 {
                     GP_winFlag = 11;
                 }
                 //toggle win flag if player 2 captures all opponent pieces
-                else if(GP_P2_capturedArray.length >= (PS_totalCards-1))
+                else if(GP_P2_capturedArray.length >= (PS_totalCards-1) && GP_checkActive == 1)
                 {
                     GP_winFlag = 12;
                 }
@@ -3802,7 +3808,16 @@ function gamePlay()
                 //checking tie-breaker conditions
                 else if((GP_P1_points == GP_P2_points) && (GP_P1_capturedArray.length == GP_P2_capturedArray.length))
                 {
-                    
+                    //toggle win flag if player 1 has given more checks
+                    if(GP_P1_checkCounter > GP_P2_checkCounter)
+                    {
+                        GP_winFlag = 31;
+                    }
+                    //toggle win flag if player 2 has given more checks
+                    else if(GP_P1_checkCounter < GP_P2_checkCounter)
+                    {
+                        GP_winFlag = 32;
+                    }
                 }
             }
         }
@@ -5045,6 +5060,15 @@ function GP_playerTextDisplay()
         else if(GP_winFlag == 22)
         {
             text("You have more points than "+PS_playerNames[0]+"!", width/1.17, height/3.7);
+        }
+        else if(GP_winFlag == 31)
+        {
+            text("You gave more checks than "+PS_playerNames[1]+"!", width/7.3, height/3.7);
+        }
+        //text to display when player 1 wins -- no more moves, scored more points
+        else if(GP_winFlag == 32)
+        {
+            text("You gave more checks than "+PS_playerNames[0]+"!", width/1.17, height/3.7);
         }
     }
 
