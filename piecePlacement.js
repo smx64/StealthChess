@@ -226,7 +226,7 @@ function piecePlacement()
                         {
                             //toggle occupiedFlag for specific block
                             PP_blocksArray[PP_blockRow][i].PP_block_occupiedFlag = 1;
-                            // PP_SFX_pieceClicked.play();
+                            PP_SFX_pieceClicked.play();
 
                             //insert piece position into piece-array based on player && set player number & piece type for block
                             if(PP_playerCount == 1)
@@ -283,7 +283,7 @@ function piecePlacement()
                                     //toggle flag to mark that a block has been selected & re-activate block color change on mousehover
                                     PP_hoverActive = 1;
                                     PP_blockActive = 1;
-                                    // PP_SFX_pieceClicked.play();
+                                    PP_SFX_pieceClicked.play();
                                     mouseIsPressed = false;
                                 }
                             }
@@ -303,7 +303,7 @@ function piecePlacement()
 
                                         //toggling flag to reset the block selection process
                                         PP_blockActive = 0;
-                                        // PP_SFX_pieceClicked.play();
+                                        PP_SFX_pieceClicked.play();
                                         mouseIsPressed = false;
                                     }
                                     //move selection to another occupied block when it is clicked
@@ -317,7 +317,7 @@ function piecePlacement()
                                         PP_prev_blockRow = PP_blockRow;
                                         PP_prev_blockCol = i;
                                         PP_blockActive = 1;
-                                        // PP_SFX_pieceClicked.play();
+                                        PP_SFX_pieceClicked.play();
                                         mouseIsPressed = false;
                                     }
                                     //changing the position of a selected block

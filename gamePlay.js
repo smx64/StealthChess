@@ -3615,7 +3615,7 @@ function gamePlay()
 
                         //toggle flag to denote that a block is currently active
                         GP_blockActive = 1;
-                        // PP_SFX_pieceClicked.play();
+                        PP_SFX_pieceClicked.play();
                         mouseIsPressed = false;
                     }
                 }
@@ -3635,7 +3635,7 @@ function gamePlay()
                             //toggle flag to denote that no block is currently active
                             GP_piece_validMoves = [];
                             GP_blockActive = 0;
-                            // PP_SFX_pieceClicked.play();
+                            PP_SFX_pieceClicked.play();
                             mouseIsPressed = false;
                         }
                         //code to move selection to another occupied block if that is clicked
@@ -3658,7 +3658,7 @@ function gamePlay()
 
                             //function call to check which all blocks the selected piece can move to
                             GP_validMovesChecker(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType, GP_blockRow, GP_blockCol);
-                            // PP_SFX_pieceClicked.play();
+                            PP_SFX_pieceClicked.play();
                             mouseIsPressed = false;
                         }
                         //code to move pieces to a particular block only if its valid flag is true
