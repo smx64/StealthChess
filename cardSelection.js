@@ -70,7 +70,7 @@ function preload()
     //pre-loading background score & sound effects - used in piecePlacement.js & gamePlay.js
     PP_bgm = loadSound("./Assets/Music_PiecePlacement.mp3");
     GP_bgm = loadSound("./Assets/Music_Gameplay.mp3");
-    PP_SFX_pieceClicked = loadSound("/Assets/SFX_pieceClicked.mp3");
+    PP_SFX_pieceClicked = loadSound("./Assets/SFX_pieceClicked.mp3");
     // PP_SFX_pieceMoved = loadSound("Assets/SFX_PieceMoved.mp3");
     // GP_SFX_pieceChecked = loadSound("./Assets/SFX_pieceChecked.mp3");
 }
