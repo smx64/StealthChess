@@ -2882,7 +2882,7 @@
 //             "PP_block_occupiedFlag": 1,
 //             "PP_block_selectedFlag": 0,
 //             "PP_block_playerNumber": 1,
-//             "PP_block_pieceType": "N",
+//             "PP_block_pieceType": "Q",
 //             "PP_block_fillColor": {
 //                 "mode": "rgb",
 //                 "maxes": {
@@ -3308,7 +3308,7 @@
 //     },
 //     {
 //         "PP_piecePlayerNumber": 1,
-//         "PP_pieceType": "N",
+//         "PP_pieceType": "Q",
 //         "PP_piecePosition_idRow": 7,
 //         "PP_piecePosition_idCol": 0
 //     }
@@ -3378,6 +3378,10 @@ let GP_P2_checkCounter = 0;
 let GP_piece_validMoves = [];
 let GP_temp_blocksArray = [];
 let GP_tempRow, GP_tempCol;
+
+//initializing counter variables for detecting checkmate - count all legal moves available during active check
+let GP_validMoves_Counter = 0;
+let GP_totalLegalMoves = 0;
 
 //class declaration for temporary chessboard for validating piece movements while king is checked or pinned
 class GP_Chessboard_Temp
@@ -3583,13 +3587,52 @@ function gamePlay()
                     GP_checkSoundPlayed = true;
 
                     //keeping track of number of checks given by each player in a match
+                    //logical condition to detect checkmates
                     if(GP_playerActive == 1)
                     {
+                        //incrementing check quantity counter for player 1
                         GP_P1_checkCounter++;
+
+                        //looping through chessboard to reset all valid flags for fresh calculation
+                        for(let i=0; i<PS_totalCards; i++)
+                        {
+                            for(let i=0; i<PP_chessboardSize; i++)
+                            {
+                                for(let j=0; j<PP_chessboardSize; j++)
+                                {
+                                    GP_blocksArray[i][j].GP_block_validFlag = 0;
+                                }
+                            }
+
+                            //looping through player piece array to check available legal moves for each piece
+                            if(PP_P1_piecesArray[i].PP_piecePosition_idRow != 'X')
+                            {
+                                GP_validMovesChecker(PP_P1_piecesArray[i].PP_pieceType, PP_P1_piecesArray[i].PP_piecePosition_idRow, PP_P1_piecesArray[i].PP_piecePosition_idCol);
+                            }
+                        }
                     }
                     else if(GP_playerActive == 2)
                     {
+                        //incrementing check quantity counter for player 2
                         GP_P2_checkCounter++;
+
+                        //looping through chessboard to reset all valid flags for fresh calculation
+                        for(let i=0; i<PS_totalCards; i++)
+                        {
+                            for(let i=0; i<PP_chessboardSize; i++)
+                            {
+                                for(let j=0; j<PP_chessboardSize; j++)
+                                {
+                                    GP_blocksArray[i][j].GP_block_validFlag = 0;
+                                }
+                            }
+
+                            //looping through player piece array to check available legal moves for each piece
+                            if(PP_P2_piecesArray[i].PP_piecePosition_idRow != 'X')
+                            {
+                                GP_validMovesChecker(PP_P2_piecesArray[i].PP_pieceType, PP_P2_piecesArray[i].PP_piecePosition_idRow, PP_P2_piecesArray[i].PP_piecePosition_idCol);
+                            }
+                        }
                     }
                 }
 
@@ -3720,10 +3763,12 @@ function gamePlay()
                                 }
                             }
                             
-                            //incrementing turn counter & resetting block selection and king check
+                            //incrementing turn counter & resetting block selection, king check, checkmate moves counter
                             GP_turnCount++;
                             GP_blockActive = 0;
                             GP_checkActive = 0;
+                            GP_totalLegalMoves = 0;
+
                             PP_SFX_pieceMoved.play();
                             GP_checkSoundPlayed = false;
                             mouseIsPressed = false;
@@ -3752,8 +3797,22 @@ function gamePlay()
                     }
                 }
 
+                //toggling game win flag if checkmate condition encountered
+                if(GP_totalLegalMoves == 0 && GP_checkActive == 1)
+                {
+                    if(GP_playerActive == 1)
+                    {
+                        GP_winFlag = 2;
+                        GP_bgm.stop();
+                    }
+                    else if(GP_playerActive == 2)
+                    {
+                        GP_winFlag = 1;
+                        GP_bgm.stop();
+                    }
+                }
                 //checking game win condition based on total pieces captured
-                if(GP_P1_capturedArray.length >= (PS_totalCards-1) && GP_checkActive == 1)
+                else if(GP_P1_capturedArray.length >= (PS_totalCards-1) && GP_checkActive == 1)
                 {
                     //toggle win flag if player 1 captures all opponent pieces
                     GP_winFlag = 11;
@@ -3995,6 +4054,29 @@ function GP_validMovesChecker(letterValue, thisRow, thisColumn)
             //function to execute to check valid moves while king is in check or pinned
             GP_validMovesChecker_whileChecked(thisRow, thisColumn);
         break;
+    }
+
+    //code to count all available legal moves during active check - detect for checkmates
+    if(GP_checkActive == 1)
+    {
+        //resetting individual piece legal move counter every single time
+        GP_validMoves_Counter = 0;
+
+        //looping through chessboard
+        for(let i=0; i<PP_chessboardSize; i++)
+        {
+            for(let j=0; j<PP_chessboardSize; j++)
+            {
+                if(GP_blocksArray[i][j].GP_block_validFlag == 1)
+                {
+                    //incrementing piece legal move counter if a valid flag block is found
+                    GP_validMoves_Counter+=1;
+                }
+            }
+        }
+
+        //adding all individual piece counter values to get cumulative count of all available legal moves
+        GP_totalLegalMoves+=GP_validMoves_Counter;
     }
 }
 
@@ -5041,8 +5123,18 @@ function GP_playerTextDisplay()
         textSize(23);
         fill(255);
 
+        //text to display when player 1 wins -- checkmate
+        if(GP_winFlag == 1)
+        {
+            text("You checkmate "+PS_playerNames[1]+"!", width/7.3, height/3.7);
+        }
+        //text to display when player 2 wins -- checkmate
+        else if(GP_winFlag == 2)
+        {
+            text("You checkmate "+PS_playerNames[0]+"!", width/1.17, height/3.7);
+        }
         //text to display when player 1 wins -- captured all pieces
-        if(GP_winFlag == 11)
+        else if(GP_winFlag == 11)
         {
             text("You captured all of "+PS_playerNames[1]+"'s pieces!", width/7.3, height/3.7);
         }
