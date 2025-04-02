@@ -3590,8 +3590,8 @@ function gamePlay()
                     //logical condition to detect checkmates
                     if(GP_playerActive == 1)
                     {
-                        //incrementing check quantity counter for player 1
-                        GP_P1_checkCounter++;
+                        //incrementing check quantity counter for player 2
+                        GP_P2_checkCounter++;
 
                         //looping through chessboard to reset all valid flags for fresh calculation
                         for(let i=0; i<PS_totalCards; i++)
@@ -3613,8 +3613,8 @@ function gamePlay()
                     }
                     else if(GP_playerActive == 2)
                     {
-                        //incrementing check quantity counter for player 2
-                        GP_P2_checkCounter++;
+                        //incrementing check quantity counter for player 1
+                        GP_P1_checkCounter++;
 
                         //looping through chessboard to reset all valid flags for fresh calculation
                         for(let i=0; i<PS_totalCards; i++)
@@ -3803,12 +3803,10 @@ function gamePlay()
                     if(GP_playerActive == 1)
                     {
                         GP_winFlag = 2;
-                        GP_bgm.stop();
                     }
                     else if(GP_playerActive == 2)
                     {
                         GP_winFlag = 1;
-                        GP_bgm.stop();
                     }
                 }
                 //checking game win condition based on total pieces captured
@@ -3816,26 +3814,33 @@ function gamePlay()
                 {
                     //toggle win flag if player 1 captures all opponent pieces
                     GP_winFlag = 11;
-                    GP_bgm.stop();
-
-                    //stopping the game by manually overriding total turns
-                    GP_turnCount += GP_totalTurns;
                 }
                 else if(GP_P2_capturedArray.length >= (PS_totalCards-1) && GP_checkActive == 1)
                 {
                     //toggle win flag if player 2 captures all opponent pieces
                     GP_winFlag = 12;
+                }
+
+                //stopping game music & displaying end-game notification if win-condition detected during gameplay
+                if(GP_winFlag != 0)
+                {
                     GP_bgm.stop();
 
-                    //stopping the game by manually overriding total turns
-                    GP_turnCount += GP_totalTurns;
+                    //display chessboard and details when a particular key is pressed
+                    if(key == 's' && keyIsPressed == true)
+                    {
+                        //stop displaying end-game notification
+                        //display chessboard & stats
+                    }
+                    else
+                    {
+                        GP_endGame_Notification();
+                    }
                 }
             }
             //code to run when all player turns have finished
             else if(GP_turnCount > GP_totalTurns)
             {
-                GP_bgm.stop();
-
                 //resetting valid flag for all blocks during game-end
                 for(let i=0; i<PP_chessboardSize; i++)
                 {
@@ -3844,6 +3849,7 @@ function gamePlay()
                         GP_blocksArray[i][j].GP_block_validFlag = 0;
                     }
                 }
+
                 //toggle win flag if player 1 captures all opponent pieces
                 if(GP_P1_capturedArray.length >= (PS_totalCards-1) && GP_checkActive == 1)
                 {
@@ -3877,6 +3883,20 @@ function gamePlay()
                     {
                         GP_winFlag = 32;
                     }
+                }
+
+                //stopping music and displaying end-game notification popup
+                GP_bgm.stop();
+                
+                //display chessboard and details when a particular key is pressed
+                if(key == 's' && keyIsPressed == true)
+                {
+                    //stop displaying end-game notification
+                    //display chessboard & stats
+                }
+                else
+                {
+                    GP_endGame_Notification();
                 }
             }
         }
@@ -5064,106 +5084,6 @@ function GP_playerTextDisplay()
         }
     }
 
-    //displaying text when a particular player wins
-    if(GP_winFlag != 0)
-    {
-        background(PS_backgroundImage);
-        fill(255,0,0,35);
-
-        //display common elements when player 1 wins
-        if(GP_winFlag % 2 == 1)
-        {
-            rect(0,0,width/2,height);
-
-            rectMode(CENTER);
-            fill(PS_redShade);
-            noStroke();
-            rect(width/7.28, GP_blocksArray[0][0].GP_block_yPos, width/4.82, height/18);
-            textAlign(CENTER,CENTER);
-            textSize(30);
-            fill(255);
-            text("YOU WON!", width/7.25, GP_blocksArray[0][0].GP_block_yPos/1.02);
-
-            textFont(PS_fontAccent);
-            textSize(21);
-            fill(PS_redShade);
-            text("CONGRATULATIONS", width/7.5, height/2.75);
-
-            textFont(PS_fontHeading);
-            textSize(26);
-            fill(255);
-            text(PS_playerNames[0], width/7.5, height/2.5);
-        }
-        //display common elements when player 2 wins
-        else if(GP_winFlag % 2 == 0)
-        {
-            rect(width/2,0,width/2,height);
-
-            rectMode(CENTER);
-            fill(PS_redShade);
-            noStroke();
-            rect(width/1.17, GP_blocksArray[0][0].GP_block_yPos, width/4.82, height/18);
-            textAlign(CENTER,CENTER);
-            textSize(30);
-            fill(255);
-            text("YOU WON!", width/1.17, GP_blocksArray[0][0].GP_block_yPos/1.02);
-
-            textFont(PS_fontAccent);
-            textSize(21);
-            fill(PS_redShade);
-            text("CONGRATULATIONS", width/1.17, height/2.75);
-
-            textFont(PS_fontHeading);
-            textSize(26);
-            fill(255);
-            text(PS_playerNames[1], width/1.17, height/2.5);
-        }
-
-        textFont(PS_fontBody);
-        textSize(23);
-        fill(255);
-
-        //text to display when player 1 wins -- checkmate
-        if(GP_winFlag == 1)
-        {
-            text("You checkmate "+PS_playerNames[1]+"!", width/7.3, height/3.7);
-        }
-        //text to display when player 2 wins -- checkmate
-        else if(GP_winFlag == 2)
-        {
-            text("You checkmate "+PS_playerNames[0]+"!", width/1.17, height/3.7);
-        }
-        //text to display when player 1 wins -- captured all pieces
-        else if(GP_winFlag == 11)
-        {
-            text("You captured all of "+PS_playerNames[1]+"'s pieces!", width/7.3, height/3.7);
-        }
-        //text to display when player 2 wins -- captured all pieces
-        else if(GP_winFlag == 12)
-        {
-            text("You captured all of "+PS_playerNames[0]+"'s pieces!", width/1.17, height/3.7);
-        }
-        //text to display when player 1 wins -- no more moves, scored more points
-        else if(GP_winFlag == 21)
-        {
-            text("You have more points than "+PS_playerNames[1]+"!", width/7.3, height/3.7);
-        }
-        //text to display when player 1 wins -- no more moves, scored more points
-        else if(GP_winFlag == 22)
-        {
-            text("You have more points than "+PS_playerNames[0]+"!", width/1.17, height/3.7);
-        }
-        else if(GP_winFlag == 31)
-        {
-            text("You gave more checks than "+PS_playerNames[1]+"!", width/7.3, height/3.7);
-        }
-        //text to display when player 1 wins -- no more moves, scored more points
-        else if(GP_winFlag == 32)
-        {
-            text("You gave more checks than "+PS_playerNames[0]+"!", width/1.17, height/3.7);
-        }
-    }
-
     textAlign(LEFT,CENTER);
     textFont(PS_fontAccent);
     textSize(16);
@@ -5225,6 +5145,114 @@ function GP_playerTextDisplay()
     GP_logoWidth = width/6;
     imageMode(CENTER);
     image(GP_gameLogo, width/2, height/12, GP_logoWidth, GP_logoWidth/4);
+}
+
+//function to display end-game notifications
+function GP_endGame_Notification()
+{
+    imageMode(CORNER);
+    background(PS_backgroundImage);
+    rectMode(CORNER);
+    noStroke();
+
+    textFont(PS_fontAccent);
+    textAlign(CENTER,CENTER);
+    textSize(40);
+    fill(PS_redShade);
+    if(GP_winFlag != 0)
+    {
+        text("CONGRATULATIONS", width/2, height/4);
+    }
+    else if(GP_winFlag == 0)
+    {
+        text("WELL PLAYED", width/2, height/4);
+    }
+
+    rectMode(CENTER);
+    fill(PS_redShade);
+    rect(width/2, height/2, width/2.75, height/16);
+    textFont(PS_fontHeading);
+    textSize(35);
+    fill(255);
+    if(GP_winFlag != 0)
+    {
+        text("YOU WON!", width/2, height/2.02);
+    }
+    else if(GP_winFlag == 0)
+    {
+        text("IT'S A TIE!", width/2, height/2.02);
+    }
+
+    textFont(PS_fontHeading);
+    textSize(40);
+    fill(255);
+
+    //logical condition to detect which player won
+    if(GP_winFlag != 0)
+    {
+        if(GP_winFlag % 2 != 0)
+        {
+            text(PS_playerNames[0], width/2, height/3.25);
+
+            textFont(PS_fontBody);
+            textSize(25);
+            fill(255);
+            
+            //text to display when player 1 wins -- checkmate
+            if(GP_winFlag == 1)
+            {
+                text("You checkmate "+PS_playerNames[1]+" !", width/2, height/1.82);
+            }
+            //text to display when player 1 wins -- captured all pieces
+            else if(GP_winFlag == 11)
+            {
+                text("You captured all of "+PS_playerNames[1]+"'s pieces !", width/2, height/1.82);
+            }
+            //text to display when player 1 wins -- no more moves, scored more points
+            else if(GP_winFlag == 21)
+            {
+                text("You have more points than "+PS_playerNames[1]+" !", width/2, height/1.82);
+            }
+            //text to display when player 1 wins (equal points and pieces captured) -- gave more checks
+            else if(GP_winFlag == 31)
+            {
+                text("You gave more checks than "+PS_playerNames[1]+" !", width/2, height/1.82);
+            }
+        }
+        else if(GP_winFlag % 2 == 0)
+        {
+            text(PS_playerNames[1], width/2, height/3.25);
+
+            textFont(PS_fontBody);
+            textSize(25);
+            fill(255);
+            
+            //text to display when player 2 wins -- checkmate
+            if(GP_winFlag == 2)
+            {
+                text("You checkmate "+PS_playerNames[0]+" !", width/2, height/1.82);
+            }
+            //text to display when player 2 wins -- captured all pieces
+            else if(GP_winFlag == 12)
+            {
+                text("You captured all of "+PS_playerNames[0]+"'s pieces !", width/2, height/1.82);
+            }
+            //text to display when player 2 wins -- no more moves, scored more points
+            else if(GP_winFlag == 22)
+            {
+                text("You have more points than "+PS_playerNames[0]+" !", width/2, height/1.82);
+            }
+            //text to display when player 2 wins (equal points and pieces captured) -- gave more checks
+            else if(GP_winFlag == 32)
+            {
+                text("You gave more checks than "+PS_playerNames[0]+" !", width/2, height/1.82);
+            }
+        }
+    }
+
+    textFont(PS_fontBody);
+    textSize(22);
+    text("Press and hold the [ S ] key to view the board and game stats", width/2, height-(height/5));
 }
 
 //function to generate card thumbnails depending on piece-type & player number value found on the block
