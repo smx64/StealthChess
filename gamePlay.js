@@ -3413,6 +3413,7 @@ class GP_Chessboard
         this.GP_block_idCol = _GP_block_idCol;
         this.GP_block_fillColor;
 
+        //chessboard block-specific flags
         this.GP_block_playerNumber = 0;
         this.GP_block_pieceType = '';
         this.GP_block_occupiedFlag = 0;
@@ -3420,6 +3421,7 @@ class GP_Chessboard
         this.GP_block_selectedFlag = 0;
         this.GP_block_validFlag = 0;
         this.GP_block_checkFlag = 0;
+        this.GP_block_prevFlag = 0;
     }
     //function to generate individual blocks on-screen
     GP_drawBlock()
@@ -3455,6 +3457,12 @@ class GP_Chessboard
         if(this.GP_block_hoverFlag == 1 && this.GP_block_validFlag == 1)
         {
             this.GP_block_fillColor = PP_hoverShade;
+        }
+
+        //changing block color of initial piece position - highlight change in piece positions
+        if(this.GP_block_prevFlag == 1)
+        {
+            this.GP_block_fillColor = color(150,150,250);
         }
 
         fill(this.GP_block_fillColor);
@@ -3648,8 +3656,9 @@ function gamePlay()
                     //condition to enable mouse-click only on occupied & non-selected blocks of the active player
                     if(mouseButton == LEFT && mouseIsPressed == true && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_hoverFlag == 1 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag == 1 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag == 0 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber == GP_playerActive)
                     {
-                        //toggle selected flag for that particular block & store coordinates into separate variables
+                        //toggle selected & previous flag for that particular block & store coordinates into separate variables
                         GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag = 1;
+                        GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_prevFlag = 1;
                         GP_prev_blockRow = GP_blockRow;
                         GP_prev_blockCol = GP_blockCol;
 
@@ -3667,11 +3676,12 @@ function gamePlay()
                 {
                     if(mouseButton == LEFT && mouseIsPressed == true && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_hoverFlag == 1)
                     {
-                        //resetting selected flag if the same selected block is clicked again
+                        //resetting selected & previous flag if the same selected block is clicked again
                         if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag == 1)
                         {
                             //reset selected flag and remove values stored in variables
                             GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag = 0;
+                            GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_prevFlag = 0;
                             GP_prev_blockRow = '';
                             GP_prev_blockCol = '';
 
@@ -3684,9 +3694,11 @@ function gamePlay()
                         //code to move selection to another occupied block if that is clicked
                         else if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag == 1 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag != 1 && GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber == GP_playerActive)
                         {
-                            //toggle selected flags for both blocks and replace values in variables with the new block's coordinates
+                            //toggle selected & previous flags for both blocks & replace variable values with new block's coordinates
                             GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_selectedFlag = 1;
+                            GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_prevFlag = 1;
                             GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_selectedFlag = 0;
+                            GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_prevFlag = 0;
                             GP_prev_blockRow = GP_blockRow;
                             GP_prev_blockCol = GP_blockCol;
 
@@ -3707,15 +3719,25 @@ function gamePlay()
                         //code to move pieces to a particular block only if its valid flag is true
                         else if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_validFlag == 1)
                         {
+                            //resetting previous flag for old block for next turn
+                            for(let i=0; i<PP_chessboardSize; i++)
+                            {
+                                for(let j=0; j<PP_chessboardSize; j++)
+                                {
+                                    GP_blocksArray[i][j].GP_block_prevFlag = 0;
+                                }
+                            }
+
                             //toggling flag and copying previous block's details to the new block on mouse-click
                             GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag = 1;
                             GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber = GP_playerActive;
                             GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType = GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_pieceType;
 
-                            //resetting previous block's flags & values
+                            //resetting previous block's flags & values & toggling previous flag for old block
                             GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_occupiedFlag = 0;
                             GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_selectedFlag = 0;
                             GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_playerNumber = 0;
+                            GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_prevFlag = 1;
                             GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_pieceType = '';
 
                             //modifying player piece arrays to reflect new positions and piece captures
