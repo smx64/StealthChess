@@ -5253,6 +5253,15 @@ function GP_endGame_Notification()
     textFont(PS_fontBody);
     textSize(22);
     text("Press and hold the [ S ] key to view the board and game stats", width/2, height-(height/5));
+
+    //stopping all code execution once game ends
+    noLoop();
+}
+
+//detecting keypress during game-end to toggle end-game notification screen overlay
+function keyPressed()
+{
+    loop();
 }
 
 //function to generate card thumbnails depending on piece-type & player number value found on the block

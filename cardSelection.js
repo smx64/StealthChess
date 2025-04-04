@@ -269,6 +269,8 @@ function PS_playerTextDisplay()
         textFont(PS_fontBody);
         textSize(30);
         text("Enter Player "+PS_playerCount+"'s Name", width/2, height/2.2);
+        textSize(25);
+        text("Press [ ENTER ] to continue once done", width/2, height-(height/7));
     }
     //code to display text after player has entered name
     else
