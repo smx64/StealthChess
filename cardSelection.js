@@ -57,7 +57,7 @@ function preload()
     PS_P2_cardImage_R = loadImage("./Assets/Player2_Rook.png");
     PS_P2_cardImage_P = loadImage("./Assets/Player2_Pawn.png");
 
-    //pre-loading player 1 card thumbnails - used in piecePlacement.js
+    //pre-loading player 1 piece thumbnails - used in piecePlacement.js
     PP_P1_cardThumb_K = loadImage("./Assets/Player1_Thumbnail_King.png");
     PP_P1_cardThumb_Q = loadImage("./Assets/Player1_Thumbnail_Queen.png");
     PP_P1_cardThumb_B = loadImage("./Assets/Player1_Thumbnail_Bishop.png");
@@ -65,13 +65,29 @@ function preload()
     PP_P1_cardThumb_R = loadImage("./Assets/Player1_Thumbnail_Rook.png");
     PP_P1_cardThumb_P = loadImage("./Assets/Player1_Thumbnail_Pawn.png");
 
-    //pre-loading player 2 card thumbnails - used in piecePlacement.js
+    //pre-loading player 2 piece thumbnails - used in piecePlacement.js
     PP_P2_cardThumb_K = loadImage("./Assets/Player2_Thumbnail_King.png");
     PP_P2_cardThumb_Q = loadImage("./Assets/Player2_Thumbnail_Queen.png");
     PP_P2_cardThumb_B = loadImage("./Assets/Player2_Thumbnail_Bishop.png");
     PP_P2_cardThumb_N = loadImage("./Assets/Player2_Thumbnail_Knight.png");
     PP_P2_cardThumb_R = loadImage("./Assets/Player2_Thumbnail_Rook.png");
     PP_P2_cardThumb_P = loadImage("./Assets/Player2_Thumbnail_Pawn.png");
+
+    //pre-loading player 1 previous piece thumbnails - used in gamePlay.js
+    GP_P1_prevThumb_K = loadImage("./Assets/Player1_PrevThumbnail_King.png");
+    GP_P1_prevThumb_Q = loadImage("./Assets/Player1_PrevThumbnail_Queen.png");
+    GP_P1_prevThumb_B = loadImage("./Assets/Player1_PrevThumbnail_Bishop.png");
+    GP_P1_prevThumb_N = loadImage("./Assets/Player1_PrevThumbnail_Knight.png");
+    GP_P1_prevThumb_R = loadImage("./Assets/Player1_PrevThumbnail_Rook.png");
+    GP_P1_prevThumb_P = loadImage("./Assets/Player1_PrevThumbnail_Pawn.png");
+
+    //pre-loading player 2 previous piece thumbnails - used in gamePlay.js
+    GP_P2_prevThumb_K = loadImage("./Assets/Player2_PrevThumbnail_King.png");
+    GP_P2_prevThumb_Q = loadImage("./Assets/Player2_PrevThumbnail_Queen.png");
+    GP_P2_prevThumb_B = loadImage("./Assets/Player2_PrevThumbnail_Bishop.png");
+    GP_P2_prevThumb_N = loadImage("./Assets/Player2_PrevThumbnail_Knight.png");
+    GP_P2_prevThumb_R = loadImage("./Assets/Player2_PrevThumbnail_Rook.png");
+    GP_P2_prevThumb_P = loadImage("./Assets/Player2_PrevThumbnail_Pawn.png");
 
     //pre-loading background score & sound effects - used in piecePlacement.js & gamePlay.js
     PP_bgm = loadSound("./Assets/Music_PiecePlacement.mp3");

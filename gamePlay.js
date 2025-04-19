@@ -3359,6 +3359,7 @@ let GP_checkSoundPlayed = false;
 let GP_blockActive = 0;
 let GP_playerActive = 1;
 let GP_prev_blockRow, GP_prev_blockCol;
+let GP_prev_piece = '';
 let GP_P1_textFill, GP_P2_textFill;
 
 //initializing player or chess piece specific variables
@@ -3462,9 +3463,9 @@ class GP_Chessboard
         //changing block color of initial piece position - highlight change in piece positions
         if(this.GP_block_prevFlag == 1)
         {
-            this.GP_block_fillColor = color(150,150,250);
+            this.GP_block_fillColor = color(255,210,255);
         }
-
+    
         fill(this.GP_block_fillColor);
         rect(this.GP_block_xPos, this.GP_block_yPos, this.GP_block_size);
     }
@@ -3517,6 +3518,22 @@ function gamePlay()
             //function call to display individual blocks making up the chessboard & start hoverblock function
             GP_blocksArray[GP_blockRow][GP_blockCol].GP_drawBlock();
             GP_blocksArray[GP_blockRow][GP_blockCol].GP_hoverBlock();
+
+            //generating previous piece thumbnails on the chessboard depending on previous active player
+            if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_prevFlag == 1)
+            {
+                if(GP_prev_piece != '')
+                {
+                    if(GP_playerActive == 1)
+                    {
+                        image(GP_showPrevThumb(GP_prev_piece, 2), GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size);
+                    }
+                    else if(GP_playerActive == 2)
+                    {
+                        image(GP_showPrevThumb(GP_prev_piece, 1), GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_xPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_yPos, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size, GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_size);
+                    }
+                }
+            }
 
             //generating piece thumbnails on the chessboard
             if(GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag == 1)
@@ -3732,6 +3749,7 @@ function gamePlay()
                             GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_occupiedFlag = 1;
                             GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_playerNumber = GP_playerActive;
                             GP_blocksArray[GP_blockRow][GP_blockCol].GP_block_pieceType = GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_pieceType;
+                            GP_prev_piece = GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_pieceType;
 
                             //resetting previous block's flags & values & toggling previous flag for old block
                             GP_blocksArray[GP_prev_blockRow][GP_prev_blockCol].GP_block_occupiedFlag = 0;
@@ -5286,7 +5304,7 @@ function keyPressed()
     loop();
 }
 
-//function to generate card thumbnails depending on piece-type & player number value found on the block
+//function to generate piece thumbnails depending on piece-type & player number value found on the block
 function GP_showCardThumb(letterValue, playerValue)
 {
     if(playerValue == 1)
@@ -5322,6 +5340,47 @@ function GP_showCardThumb(letterValue, playerValue)
             case 'R': return PP_P2_cardThumb_R;
             break;
             case 'P': return PP_P2_cardThumb_P;
+            break;
+        }
+    }
+}
+
+//function to generate previous piece thumbnails depending on piece-type & player number
+function GP_showPrevThumb(letterValue, playerValue)
+{
+    if(playerValue == 1)
+    {
+        switch(letterValue)
+        {
+            case 'K': return GP_P1_prevThumb_K;
+            break;
+            case 'Q': return GP_P1_prevThumb_Q;
+            break;
+            case 'B': return GP_P1_prevThumb_B;
+            break;
+            case 'N': return GP_P1_prevThumb_N;
+            break;
+            case 'R': return GP_P1_prevThumb_R;
+            break;
+            case 'P': return GP_P1_prevThumb_P;
+            break;
+        }
+    }
+    else if(playerValue == 2)
+    {
+        switch(letterValue)
+        {
+            case 'K': return GP_P2_prevThumb_K;
+            break;
+            case 'Q': return GP_P2_prevThumb_Q;
+            break;
+            case 'B': return GP_P2_prevThumb_B;
+            break;
+            case 'N': return GP_P2_prevThumb_N;
+            break;
+            case 'R': return GP_P2_prevThumb_R;
+            break;
+            case 'P': return GP_P2_prevThumb_P;
             break;
         }
     }
