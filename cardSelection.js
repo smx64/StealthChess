@@ -3,6 +3,12 @@ let PS_totalPlayers = 2;
 let PS_playerNames = [];
 let PS_totalCards = 5;
 
+//initializing instructional overlay-related variables
+let PS_instOverlayFlag = 0;
+let PS_instImg_size = 0;
+let PS_instImg_startPos = 0;
+let PS_instructionsImage;
+
 //initializing card placeholder position variables
 let PS_cards_initxPos;
 let PS_cards_separation;
@@ -73,6 +79,9 @@ function preload()
     PP_SFX_pieceClicked = loadSound("./Assets/SFX_PieceClicked.mp3");
     PP_SFX_pieceMoved = loadSound("./Assets/SFX_PieceMoved.mp3");
     GP_SFX_pieceChecked = loadSound("./Assets/SFX_PieceChecked.mp3");
+
+    //pre-loading instructional overlay images
+    PS_instructionsImage = loadImage("./Assets/Instructions_PieceSelection.png");
 }
 
 function setup()
@@ -84,6 +93,7 @@ function setup()
     PS_nameField = createInput();
     PS_nameField.size(width/5, height/25);
     PS_nameField.position(width/2.5, height/2);
+    PS_nameField.elt.focus();
 
     //creating card letter input field
     PS_cardLetterField = createInput();
@@ -173,21 +183,8 @@ function draw()
             PS_nameField.value("");
             PS_nameField.hide();
 
-            //generating card placeholder shapes
-            background(PS_backgroundImage);
-            rectMode(CENTER);
-            fill(255);
-            noStroke();
-
-            PS_cards_initxPos = width/5.5;
-            for(let i=1; i<PS_totalCards; i++)
-            {
-                rect(PS_cards_initxPos, height/1.8, PS_cards_size, PS_cards_size/0.64, 15);
-                PS_cards_initxPos += PS_cards_separation;
-            }
-
-            //resetting cards' initial position for superimposing actual card images on card selection
-            PS_cards_initxPos = width/5.5;
+            //setting instructional overlay flag to middle value - hide instructional overlay
+            PS_instOverlayFlag = 0.5;
         }
 
         //condition to check card values entered in input field
@@ -198,23 +195,14 @@ function draw()
                 //pushing letter values onto players' card value array, and resetting input field to blank
                 PS_P1_Cards.push(PS_cardLetterField.value());
                 PS_cardLetterField.value("");
-
-                //generating actual card images for the values entered
-                //function decides which image to generate depending on value passed from letter input field
-                imageMode(CENTER);
-                image(PS_showCardImage(PS_P1_Cards[PS_cardCount]), PS_cards_initxPos, height/1.8, PS_cards_size, PS_cards_size/0.64);
-                PS_cards_initxPos += PS_cards_separation;
             }
             //same thing as above, but for player 2
             else if(PS_playerCount == 2)
             {
                 PS_P2_Cards.push(PS_cardLetterField.value());
                 PS_cardLetterField.value("");
-
-                imageMode(CENTER);
-                image(PS_showCardImage(PS_P2_Cards[PS_cardCount]), PS_cards_initxPos, height/1.8, PS_cards_size, PS_cards_size/0.64);
-                PS_cards_initxPos += PS_cards_separation;
             }
+
             //counter to check total cards picked by each player
             PS_cardCount++;
         }
@@ -225,20 +213,71 @@ function draw()
             PS_cardLetterField.hide();
 
             //continue to another by pressing spacebar
-            if(keyCode == 32)
+            if(keyCode == 32 && PS_instOverlayFlag != 1)
             {
                 //reset card counter for next player & bring up input field for entering player name
                 PS_playerCount++;
                 PS_cardCount = 1;
                 PS_nameField.show();
+                PS_nameField.elt.focus();
+            }
+        }
+    
+        //code to run depending on instructional overlay flag value
+        if(PS_instOverlayFlag == 1)
+        {
+            PS_cardLetterField.hide();
+            PS_cardLetterField.value("");
 
-                //resetting image mode so that the background comes fullscreen
-                imageMode(CORNER);
-                background(PS_backgroundImage);
+            //display instructional overlay and hide all other interface elements
+            instructionContent(PS_instOverlayFlag);
+        }
+        else if(PS_instOverlayFlag == 0.5)
+        {
+            //hiding instructional overlay and displaying all interface elements
+            rectMode(CENTER);
+            fill(255);
+            noStroke();
+            
+            //generating empty card placeholder rectangles
+            if(PS_cardCount < PS_totalCards)
+            {
+                PS_cards_initxPos = width/5.5;
+                for(let i=1; i<PS_totalCards; i++)
+                {
+                    rect(PS_cards_initxPos, height/1.8, PS_cards_size, PS_cards_size/0.64, 15);
+                    PS_cards_initxPos += PS_cards_separation;
+                }
+            }
+
+            //resetting cards' initial position for superimposing actual card images on piece selection
+            PS_cards_initxPos = width/5.5;
+
+            //generating actual card image based on whichever player is active
+            if(PS_playerCount == 1)
+            {
+                for(let i=1; i<PS_P1_Cards.length; i++)
+                {
+                    //generating actual card images for the values entered
+                    //function decides which image to generate depending on value passed from letter input field
+                    imageMode(CENTER);
+                    image(PS_showCardImage(PS_P1_Cards[i]), PS_cards_initxPos, height/1.8, PS_cards_size, PS_cards_size/0.64);
+                    PS_cards_initxPos += PS_cards_separation;
+                }
+            }
+            //same thing as above, but for player 2
+            else if(PS_playerCount == 2)
+            {
+                for(let i=1; i<PS_P2_Cards.length; i++)
+                {
+                    imageMode(CENTER);
+                    image(PS_showCardImage(PS_P2_Cards[i]), PS_cards_initxPos, height/1.8, PS_cards_size, PS_cards_size/0.64);
+                    PS_cards_initxPos += PS_cards_separation;
+                }
             }
         }
     }
-    //if all players done with their card selections, move onto piece placement file
+    //if all players done with their piece selections, move onto piece placement file
     else
     {
         PS_nameField.hide();
@@ -251,6 +290,11 @@ function draw()
 //function definition for displaying on-screen text
 function PS_playerTextDisplay()
 {
+    //generating background image
+    imageMode(CORNER);
+    background(PS_backgroundImage);
+
+    //generating on-screen text
     textAlign(CENTER,CENTER);
     textFont(PS_fontAccent);
     textSize(32);
@@ -264,8 +308,12 @@ function PS_playerTextDisplay()
     //code to display text before player has entered name
     if(PS_playerNames[PS_playerCount-1] == undefined)
     {
-        text("PLAYER "+PS_playerCount, width/2, height/7.5);
+        //resetting instructional overlay flag to base value to disable keypress toggling
+        //instructional overlay will not work when player is typing their name
+        PS_instOverlayFlag = 0;
         
+        //text to generate during player name entry screen
+        text("PLAYER "+PS_playerCount, width/2, height/7.5);
         textFont(PS_fontBody);
         textSize(30);
         text("Enter Player "+PS_playerCount+"'s Name", width/2, height/2.2);
@@ -275,18 +323,45 @@ function PS_playerTextDisplay()
     //code to display text after player has entered name
     else
     {
-        //code to display text for the piece picking process
+        //toggling instructional overlay only when player is not typing their name
+        if(key == 'i' && keyIsPressed == true)
+        {
+            //prevents continuous keystrokes - registers keypress only once
+            keyIsPressed = false;
+
+            //toggling between mid & high flag state based on initial flag value
+            if(PS_instOverlayFlag == 0.5)
+            {
+                PS_instOverlayFlag = 1;
+            }
+            else if(PS_instOverlayFlag == 1)
+            {
+                PS_instOverlayFlag = 0.5;
+            }
+        }
+
+        text("PLAYER "+PS_playerCount+": "+PS_playerNames[PS_playerCount-1], width/2, height/7.5);
+        textFont(PS_fontBody);
+        textSize(30);
+        text("Pieces Picked From Deck", width/2, height/4.5);
+
+        rectMode(CORNER);
+        fill(PS_redShade);
+        rect(width/1.25, height/10, width, height/19);
+        textAlign(RIGHT,CENTER);
+        textSize(25);
+        fill(255);
+        text("Press [ i ] to view instructions", width/1.01, height/8.9);
+
+        //text to display for the piece picking process
         if(PS_cardCount < PS_totalCards)
         {
-            text("PLAYER "+PS_playerCount+": "+PS_playerNames[PS_playerCount-1], width/2, height/7.5);
-
-            textFont(PS_fontBody);
-            textSize(30);
-            text("Pieces Picked From Deck", width/2, height/4.5);
+            textAlign(CENTER,CENTER);
             text("Piece Letter: ", width/2.1, height-(height/9));
             PS_cardLetterField.show();
+            PS_cardLetterField.elt.focus();
         }
-        //code to hide text after all pieces picked for a player
+        //hide bottom text after all pieces picked by a player
         else
         {
             rectMode(CORNER);
@@ -295,10 +370,62 @@ function PS_playerTextDisplay()
             rect(0, height-(height/9), width, height);
             
             fill(255);
+            textAlign(CENTER,CENTER);
             textFont(PS_fontBody);
             textSize(25);
             text("Done! Press [ SPACE ] to continue.", width/2, height-(height/15));
         }
+    }
+}
+
+//function to generate instructional overlay content based on whichever game module is active
+function instructionContent(overlayFlagValue)
+{
+    imageMode(CORNER);
+    background(PS_backgroundImage);
+
+    //generating instructions heading
+    textAlign(CENTER,CENTER);
+    textFont(PS_fontAccent);
+    textSize(32);
+    fill(PS_redShade);
+    noStroke();
+    text("INSTRUCTIONS", width/2, height/12);
+
+    //displaying side rectangle to close instructional overlay
+    rectMode(CORNER);
+    rect(width/1.17, height/10, width, height/19);
+    textAlign(RIGHT,CENTER);
+    textFont(PS_fontBody);
+    textSize(25);
+    fill(255);
+    text("Press [ i ] to go back", width/1.01, height/8.9);
+
+    //generating instructional text based on overlay flag value - depends on which game module it is called from
+    switch(overlayFlagValue)
+    {
+        case 1:
+            textSize(18);
+            textFont(PS_fontAccent);
+            textAlign(CENTER,CENTER);
+            text("PIECE SELECTION", width/2, height/8);
+
+            //setting values for image size and starting coordinate variables depending on screen-resolution
+            if(height <= 800)
+            {
+                PS_instImg_size = width/1.7;
+                PS_instImg_startPos = width/5.25;
+            }
+            else if(height > 800)
+            {
+                PS_instImg_size = width/1.45;
+                PS_instImg_startPos = width/6.5;
+            }
+
+            //generating the instruction content image
+            imageMode(CORNER);
+            image(PS_instructionsImage, PS_instImg_startPos, height/5, PS_instImg_size, PS_instImg_size/1.69);
+        break;
     }
 }
 
