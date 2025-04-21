@@ -7,7 +7,7 @@ let PS_totalCards = 5;
 let PS_instOverlayFlag = 0;
 let PS_instImg_size = 0;
 let PS_instImg_startPos = 0;
-let PS_instructionsImage;
+let PS_instructionsImage, PP_instructionsImage;
 
 //initializing card placeholder position variables
 let PS_cards_initxPos;
@@ -98,6 +98,7 @@ function preload()
 
     //pre-loading instructional overlay images
     PS_instructionsImage = loadImage("./Assets/Instructions_PieceSelection.png");
+    PP_instructionsImage = loadImage("./Assets/Instructions_PiecePlacement.png");
 }
 
 function setup()
@@ -297,7 +298,7 @@ function draw()
     else
     {
         PS_nameField.hide();
-
+       
         //function to proceed to piece placement step
         piecePlacement();
     }
@@ -417,13 +418,14 @@ function instructionContent(overlayFlagValue)
     fill(255);
     text("Press [ i ] to go back", width/1.01, height/8.9);
 
+    textSize(18);
+    textFont(PS_fontAccent);
+    textAlign(CENTER,CENTER);
+
     //generating instructional text based on overlay flag value - depends on which game module it is called from
     switch(overlayFlagValue)
     {
         case 1:
-            textSize(18);
-            textFont(PS_fontAccent);
-            textAlign(CENTER,CENTER);
             text("PIECE SELECTION", width/2, height/8);
 
             //setting values for image size and starting coordinate variables depending on screen-resolution
@@ -441,6 +443,25 @@ function instructionContent(overlayFlagValue)
             //generating the instruction content image
             imageMode(CORNER);
             image(PS_instructionsImage, PS_instImg_startPos, height/5, PS_instImg_size, PS_instImg_size/1.69);
+        break;
+        case 2:
+            text("PIECE PLACEMENT", width/2, height/8);
+
+            //setting values for image size and starting coordinate variables depending on screen-resolution
+            if(height <= 800)
+            {
+                PS_instImg_size = width/1.53;
+                PS_instImg_startPos = width/6.5;
+            }
+            else if(height > 800)
+            {
+                PS_instImg_size = width/1.33;
+                PS_instImg_startPos = width/9.5;
+            }
+
+            //generating the instruction content image
+            imageMode(CORNER);
+            image(PP_instructionsImage, PS_instImg_startPos, height/5, PS_instImg_size, PS_instImg_size/1.8);
         break;
     }
 }
