@@ -8,6 +8,7 @@ let PP_hoverActive = 1;
 //initializing variables for piece movement after initial placement
 let PP_blockActive = 0;
 let PP_prev_blockRow, PP_prev_blockCol;
+let PP_temp_pieceType = '';
 
 //initializing object arrays for chessboard & player piece placements
 let PP_blocksArray = [];
@@ -322,17 +323,61 @@ function piecePlacement()
                                             PP_SFX_pieceClicked.play();
                                             mouseIsPressed = false;
                                         }
-                                        //move selection to another occupied block when it is clicked
+                                        //swap pieces when another occupied block is clicked while having one selected
                                         else if(PP_blocksArray[PP_blockRow][i].PP_block_occupiedFlag == 1 && PP_blocksArray[PP_blockRow][i].PP_block_selectedFlag == 0)
                                         {
-                                            //move selection to current block, and de-select the previous block
-                                            PP_blocksArray[PP_blockRow][i].PP_block_selectedFlag = 1;
+                                            //passing piece type value of selected block onto a temp variable
+                                            PP_temp_pieceType = PP_blocksArray[PP_prev_blockRow][PP_prev_blockCol].PP_block_pieceType;
+
+                                            //replacing piece type of selected block with piece type value of other block
+                                            PP_blocksArray[PP_prev_blockRow][PP_prev_blockCol].PP_block_pieceType = PP_blocksArray[PP_blockRow][i].PP_block_pieceType;
+
+                                            //updating piece type value of selected block in player piece array
+                                            for(let j=0; j<PS_totalCards; j++)
+                                            {
+                                                if(PP_playerCount == 1)
+                                                {
+                                                    if(PP_P1_piecesArray[j].PP_piecePosition_idRow == PP_prev_blockRow && PP_P1_piecesArray[j].PP_piecePosition_idCol == PP_prev_blockCol)
+                                                    {
+                                                        PP_P1_piecesArray[j].PP_pieceType = PP_blocksArray[PP_blockRow][i].PP_block_pieceType;
+                                                    }
+                                                }
+                                                else if(PP_playerCount == 2)
+                                                {
+                                                    if(PP_P2_piecesArray[j].PP_piecePosition_idRow == PP_prev_blockRow && PP_P2_piecesArray[j].PP_piecePosition_idCol == PP_prev_blockCol)
+                                                        {
+                                                            PP_P2_piecesArray[j].PP_pieceType = PP_blocksArray[PP_blockRow][i].PP_block_pieceType;
+                                                        }
+                                                }
+                                            }
+
+                                            //replacing piece type of other block with piece type value stored in temp variable
+                                            PP_blocksArray[PP_blockRow][i].PP_block_pieceType = PP_temp_pieceType;
+
+                                            //updating piece type value of other block in player piece array
+                                            for(let j=0; j<PS_totalCards; j++)
+                                            {
+                                                if(PP_playerCount == 1)
+                                                {
+                                                    if(PP_P1_piecesArray[j].PP_piecePosition_idRow == PP_blockRow && PP_P1_piecesArray[j].PP_piecePosition_idCol == i)
+                                                    {
+                                                        PP_P1_piecesArray[j].PP_pieceType = PP_temp_pieceType;
+                                                    }
+                                                }
+                                                else if(PP_playerCount == 2)
+                                                {
+                                                    if(PP_P2_piecesArray[j].PP_piecePosition_idRow == PP_blockRow && PP_P2_piecesArray[j].PP_piecePosition_idCol == i)
+                                                    {
+                                                        PP_P2_piecesArray[j].PP_pieceType = PP_temp_pieceType;
+                                                    }
+                                                }
+                                            }
+
+                                            //resetting selected flag to deselect all blocks
                                             PP_blocksArray[PP_prev_blockRow][PP_prev_blockCol].PP_block_selectedFlag = 0;
 
-                                            //store value of current block coordinates in variable for later manipulation
-                                            PP_prev_blockRow = PP_blockRow;
-                                            PP_prev_blockCol = i;
-                                            PP_blockActive = 1;
+                                            //toggling flag to reset the block selection process
+                                            PP_blockActive = 0;
                                             PP_SFX_pieceClicked.play();
                                             mouseIsPressed = false;
                                         }

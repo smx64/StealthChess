@@ -7,7 +7,7 @@ let PS_totalCards = 5;
 let PS_instOverlayFlag = 0;
 let PS_instImg_size = 0;
 let PS_instImg_startPos = 0;
-let PS_instructionsImage, PP_instructionsImage;
+let PS_instructionsImage, PP_instructionsImage, GP_instructionsImage;
 
 //initializing card placeholder position variables
 let PS_cards_initxPos;
@@ -99,6 +99,7 @@ function preload()
     //pre-loading instructional overlay images
     PS_instructionsImage = loadImage("./Assets/Instructions_PieceSelection.png");
     PP_instructionsImage = loadImage("./Assets/Instructions_PiecePlacement.png");
+    GP_instructionsImage = loadImage("./Assets/Instructions_Gameplay.png");
 }
 
 function setup()
@@ -461,12 +462,31 @@ function instructionContent(overlayFlagValue)
 
             //generating the instruction content image
             imageMode(CORNER);
-            image(PP_instructionsImage, PS_instImg_startPos, height/5, PS_instImg_size, PS_instImg_size/1.8);
+            image(PP_instructionsImage, PS_instImg_startPos, height/5.25, PS_instImg_size, PS_instImg_size/1.81);
+        break;
+        case 3:
+            text("GAMEPLAY", width/2, height/8);
+
+            //setting values for image size and starting coordinate variables depending on screen-resolution
+            if(height <= 800)
+            {
+                PS_instImg_size = width/1.45;
+                PS_instImg_startPos = width/6.75;
+            }
+            else if(height > 800)
+            {
+                PS_instImg_size = width/1.33;
+                PS_instImg_startPos = width/9.5;
+            }
+
+            //generating the instruction content image
+            imageMode(CORNER);
+            image(GP_instructionsImage, PS_instImg_startPos, height/5.3, PS_instImg_size, PS_instImg_size/1.89);
         break;
     }
 }
 
-// function to return variable name of actual image card depending on letter value received from input field
+//function to return variable name of actual image card depending on letter value received from input field
 function PS_showCardImage(letterValue)
 {
     if(PS_playerCount == 1)
