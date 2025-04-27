@@ -283,6 +283,13 @@ function piecePlacement()
                             }
                             else
                             {
+                                //generating piece thumbnail highlighter on mouse hover - depicting swap condition
+                                if(PP_blocksArray[PP_blockRow][i].PP_block_hoverFlag == 1 && PP_blocksArray[PP_blockRow][i].PP_block_selectedFlag == 0 && PP_hoverActive == 1)
+                                {
+                                    fill(0,255,0,50);
+                                    rect(PP_blocksArray[PP_blockRow][i].PP_block_xPos, PP_blocksArray[PP_blockRow][i].PP_block_yPos, PP_blocksArray[PP_blockRow][i].PP_block_size);
+                                }
+
                                 //code to run when no block is selected
                                 if(PP_blockActive == 0)
                                 {
@@ -494,7 +501,7 @@ function PP_playerTextDisplay()
         
         fill(255);
         textSize(22);
-        text("Re-position any piece by clicking on it, and then clicking on an empty cell.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.8);
+        text("Re-position any piece by clicking on it, and then clicking on another cell.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.8);
         
         fill(PS_redShade);
         text("OR", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.72);
@@ -533,7 +540,8 @@ function PP_playerTextDisplay()
             textSize(22);
             fill(255);
             text("- Click on an empty cell to move the piece there.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.16);
-            text("- To de-select, click on the same piece again.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.12);
+            text("- Click on an occupied cell to swap piece positions.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.12);
+            text("- To de-select, click on the same piece again.", PP_blocksArray[0][PP_chessboardSize-1].PP_block_xPos+PP_blocksArray[0][PP_chessboardSize-1].PP_block_size*1.45, height/1.083);
         }
     }
 

@@ -1,7 +1,13 @@
-//initializing base variables
+//initializing base game variables
 let PS_totalPlayers = 2;
 let PS_playerNames = [];
 let PS_totalCards = 5;
+let PS_cards_size;
+
+//initializing card deck-related variables
+let PS_deckCards = 9;
+let PS_nameField, PS_init_card_xPos, PS_init_card_yPos;
+let PS_deckLetters = ['P','R','N','B','Q','B','N','R','P'];
 
 //initializing instructional overlay-related variables
 let PS_instOverlayFlag = 0;
@@ -9,12 +15,7 @@ let PS_instImg_size = 0;
 let PS_instImg_startPos = 0;
 let PS_instructionsImage, PP_instructionsImage, GP_instructionsImage;
 
-//initializing card placeholder position variables
-let PS_cards_initxPos;
-let PS_cards_separation;
-let PS_cards_size;
-
-//initializing aesthetic variables - red color, fonts, card & background images
+//initializing aesthetic variables - red hex value, fonts, card & background images, background score & sound effects
 let PS_backgroundImage;
 let PS_redShade = "#FF0000";
 let PS_fontHeading, PS_fontBody, PS_fontAccent;
@@ -22,20 +23,93 @@ let PS_P1_cardImage_K, PS_P1_cardImage_Q, PS_P1_cardImage_B, PS_P1_cardImage_N, 
 let PS_P2_cardImage_K, PS_P2_cardImage_Q, PS_P2_cardImage_B, PS_P2_cardImage_N, PS_P2_cardImage_R, PS_P2_cardImage_P;
 let PP_bgm, PP_SFX_pieceClicked, PP_SFX_pieceMoved, GP_SFX_pieceChecked, GP_bgm;
 
-//initializing input field variables
-let PS_nameField, PS_cardLetterField;
-
-//initializing card counter and empty arrays for storing players' card values
+//initializing player count variable & arrays for storing players' card values
 let PS_playerCount = 1;
 let PS_cardCount = 1;
+let PS_finalizeFlag = 0;
+let PS_cardsArray = [];
 let PS_P1_Cards = ['K'];
 let PS_P2_Cards = ['K'];
 
+//class declaration for the individual cards
+class PS_Cards
+{
+    //constructor function for initializing all card-related variables
+    constructor(_PS_card_xPos, _PS_card_yPos, _PS_card_id)
+    {
+        this.PS_card_xPos = _PS_card_xPos;
+        this.PS_card_yPos = _PS_card_yPos;
+        this.PS_card_id = _PS_card_id;
+        this.PS_card_size = int(height/4.25);
+        this.PS_card_separation = this.PS_card_size*1.25;
+
+        //card-specific flags
+        this.PS_card_hoverFlag = 0;
+        this.PS_card_selectedFlag = 0;
+        this.PS_card_pieceType = '';
+    }
+    //function to generate individual card on-screen & assign random piece type value
+    PS_drawCard()
+    {
+        //generating card piece type value from deck letter array randomly
+        let letterValue = random(PS_deckLetters);
+
+        //setting card piece type value only for defined values
+        if(letterValue != undefined)
+        {
+            this.PS_card_pieceType = letterValue;
+        }
+
+        //removing letters from deck letters array after setting card piece type value
+        //ensures no value gets repeated when generated via the random function
+        PS_deckLetters.splice(PS_deckLetters.indexOf(letterValue), 1);
+
+        //logical condition for changing card color on mouse hover
+        if(this.PS_card_hoverFlag == 0)
+        {
+            fill(255);
+        }
+        else if(this.PS_card_hoverFlag == 1)
+        {
+            fill(PS_redShade);
+        }
+
+        //logical condition for changing card stroke on mouse click
+        if(this.PS_card_selectedFlag == 0)
+        {
+            noStroke();
+        }
+        else if(this.PS_card_selectedFlag == 1)
+        {
+            strokeWeight(7);
+            stroke(255,255,0);
+        }
+        
+        rectMode(CENTER);
+        rect(this.PS_card_xPos, this.PS_card_yPos, this.PS_card_size, this.PS_card_size/0.64,10);
+    }
+    //function to determine when pointer is hovering over a card & toggle hoverflag value accordingly
+    PS_hoverCard()
+    {
+        if(mouseX <= this.PS_card_xPos+this.PS_card_size/2 && mouseX >= this.PS_card_xPos-this.PS_card_size/2 && mouseY <= this.PS_card_yPos+this.PS_card_size/1.28 && mouseY >= this.PS_card_yPos-this.PS_card_size/1.27)
+        {
+            this.PS_card_hoverFlag = 1;
+        }
+        else
+        {
+            this.PS_card_hoverFlag = 0;
+        }        
+    }
+}
+
 function preload()
 {
+    //pre-loading background and game logos
     PS_backgroundImage = loadImage("./Assets/BG_Image.png");
+    PS_gameLogo_BlackRed = loadImage("./Assets/Logo_StealthChess_Black.png");
+    PS_gameLogo_BlackWhite = loadImage("./Assets/Logo_StealthChess_BnW.png");
     GP_gameLogo = loadImage("./Assets/Logo_StealthChess_White.png");
-
+    
     //pre-loading typefaces
     PS_fontHeading = loadFont("./Assets/BlackOpsOne.ttf");
     PS_fontAccent = loadFont("./Assets/LexendTera.ttf");
@@ -107,21 +181,56 @@ function setup()
     createCanvas(windowWidth, windowHeight);
     background(PS_backgroundImage);
 
+    //affects only piecePlacement.js - baseline for calculating card display size
+    PS_cards_size = height/3;
+
     //creating name input field
     PS_nameField = createInput();
     PS_nameField.size(width/5, height/25);
     PS_nameField.position(width/2.5, height/2);
     PS_nameField.elt.focus();
 
-    //creating card letter input field
-    PS_cardLetterField = createInput();
-    PS_cardLetterField.hide();
-    PS_cardLetterField.size(width/50, height/25);
-    PS_cardLetterField.position(width/1.9, height-(height/8.5));
+    //initializing starting position of the cards on-screen based on screen resolution
+    if(height <= 800)
+    {
+        PS_init_card_xPos = int(width/4.75);
+    }
+    else if(height > 800)
+    {
+        PS_init_card_xPos = int(width/5.85);
+    }
+    
+    //generating individual cards for card selection segment -- runs in cardSelection.js file (this one)
+    for(let i=0; i<PS_deckCards; i++)
+    {
+        //generating cards in top row
+        if(i <= PS_deckCards/2)
+        {
+            PS_init_card_yPos = int(height/2.65);
+        }
+        //generating cards in bottom row
+        else if(i > PS_deckCards/2)
+        {
+            //adjusting starting position of first card in bottom row
+            if(i == (int(PS_deckCards/2)+1))
+            {
+                //screen resolution-based minor positional adjustments
+                if(height <= 800)
+                {
+                    PS_init_card_xPos = int(width/3.6);
+                }
+                else if(height > 800)
+                {
+                    PS_init_card_xPos = int(width/4);
+                }
+            }
+            PS_init_card_yPos = int(height/1.28);
+        }
 
-    //setting card height to scale according to screen-height
-    PS_cards_size = height/3;
-    PS_cards_separation = width/4.75;
+        let PS_Cards_object = new PS_Cards(PS_init_card_xPos, PS_init_card_yPos, i+1);
+        PS_cardsArray.push(PS_Cards_object);
+        PS_init_card_xPos += PS_cardsArray[i].PS_card_separation;
+    }
 
     //generating chessboard for piece placement segment -- runs in piecePlacement.js file
     let PP_init_block_yPos = int(height/3.75);
@@ -192,7 +301,7 @@ function draw()
     {
         //function to display on-screen text
         PS_playerTextDisplay();
-
+        
         //condition to check player name entry
         if(keyCode == ENTER && PS_nameField.value() != "")
         {
@@ -205,98 +314,110 @@ function draw()
             PS_instOverlayFlag = 0.5;
         }
 
-        //condition to check card values entered in input field
-        if(keyCode == ENTER && PS_cardCount < PS_totalCards && (PS_cardLetterField.value() == 'Q' || PS_cardLetterField.value() == 'B' || PS_cardLetterField.value() == 'N' || PS_cardLetterField.value() == 'R' || PS_cardLetterField.value() == 'P'))
-        {
-            if(PS_playerCount == 1)
-            {
-                //pushing letter values onto players' card value array, and resetting input field to blank
-                PS_P1_Cards.push(PS_cardLetterField.value());
-                PS_cardLetterField.value("");
-            }
-            //same thing as above, but for player 2
-            else if(PS_playerCount == 2)
-            {
-                PS_P2_Cards.push(PS_cardLetterField.value());
-                PS_cardLetterField.value("");
-            }
-
-            //counter to check total cards picked by each player
-            PS_cardCount++;
-        }
-        //once all cards picked, increment player count variable and restart process for next player
-        else if(PS_cardCount >= PS_totalCards && PS_playerCount <= PS_totalPlayers)
-        {
-            //hide the input field box after all cards picked
-            PS_cardLetterField.hide();
-
-            //continue to another by pressing spacebar
-            if(keyCode == 32 && PS_instOverlayFlag != 1)
-            {
-                //reset card counter for next player & bring up input field for entering player name
-                PS_playerCount++;
-                PS_cardCount = 1;
-                PS_nameField.show();
-                PS_nameField.elt.focus();
-            }
-        }
-    
         //code to run depending on instructional overlay flag value
         if(PS_instOverlayFlag == 1)
         {
-            PS_cardLetterField.hide();
-            PS_cardLetterField.value("");
-
             //display instructional overlay and hide all other interface elements
             instructionContent(PS_instOverlayFlag);
         }
         else if(PS_instOverlayFlag == 0.5)
         {
-            //hiding instructional overlay and displaying all interface elements
-            rectMode(CENTER);
-            fill(255);
-            noStroke();
-            
-            //generating empty card placeholder rectangles
-            if(PS_cardCount < PS_totalCards)
+            //displaying and running all game elements
+            for(let i=0; i<PS_deckCards; i++)
             {
-                PS_cards_initxPos = width/5.5;
-                for(let i=1; i<PS_totalCards; i++)
-                {
-                    rect(PS_cards_initxPos, height/1.8, PS_cards_size, PS_cards_size/0.64, 15);
-                    PS_cards_initxPos += PS_cards_separation;
-                }
-            }
+                //generating individual cards on-screen
+                PS_cardsArray[i].PS_drawCard();
+                PS_cardsArray[i].PS_hoverCard();
 
-            //resetting cards' initial position for superimposing actual card images on piece selection
-            PS_cards_initxPos = width/5.5;
+                //card selection logic on mouse press
+                if(mouseButton == LEFT && mouseIsPressed == true && PS_cardsArray[i].PS_card_hoverFlag == 1 && PS_finalizeFlag == 0 )
+                {
+                    mouseIsPressed = false;
 
-            //generating actual card image based on whichever player is active
-            if(PS_playerCount == 1)
-            {
-                for(let i=1; i<PS_P1_Cards.length; i++)
-                {
-                    //generating actual card images for the values entered
-                    //function decides which image to generate depending on value passed from letter input field
-                    imageMode(CENTER);
-                    image(PS_showCardImage(PS_P1_Cards[i]), PS_cards_initxPos, height/1.8, PS_cards_size, PS_cards_size/0.64);
-                    PS_cards_initxPos += PS_cards_separation;
+                    //toggling selection flag of individual card based on initial flag value
+                    if(PS_cardsArray[i].PS_card_selectedFlag == 0 && PS_cardCount < PS_totalCards)
+                    {
+                        PS_cardsArray[i].PS_card_selectedFlag = 1;
+                        PS_cardCount++;
+                    }
+                    else if(PS_cardsArray[i].PS_card_selectedFlag == 1)
+                    {
+                        PS_cardsArray[i].PS_card_selectedFlag = 0;
+                        PS_cardCount--;
+                    }
                 }
-            }
-            //same thing as above, but for player 2
-            else if(PS_playerCount == 2)
-            {
-                for(let i=1; i<PS_P2_Cards.length; i++)
+ 
+                //displaying game logo on card backs depending on hover flag value
+                imageMode(CENTER);
+                let PS_gameLogo_size = width/11;
+
+                if(PS_cardsArray[i].PS_card_hoverFlag == 0)
                 {
-                    imageMode(CENTER);
-                    image(PS_showCardImage(PS_P2_Cards[i]), PS_cards_initxPos, height/1.8, PS_cards_size, PS_cards_size/0.64);
-                    PS_cards_initxPos += PS_cards_separation;
+                    image(PS_gameLogo_BlackRed, PS_cardsArray[i].PS_card_xPos, PS_cardsArray[i].PS_card_yPos, PS_gameLogo_size, PS_gameLogo_size/4);
+                }
+                else if(PS_cardsArray[i].PS_card_hoverFlag == 1)
+                {
+                    image(PS_gameLogo_BlackWhite, PS_cardsArray[i].PS_card_xPos, PS_cardsArray[i].PS_card_yPos, PS_gameLogo_size, PS_gameLogo_size/4);
+                }
+
+                //code to run once player has selected all of their cards
+                if(PS_cardCount >= PS_totalCards)
+                {
+                    //displaying all deck cards & selected cards by player on keypress
+                    if(keyCode == ENTER && keyIsPressed == true)
+                    {
+                        keyIsPressed = false;
+                        PS_finalizeFlag++;
+
+                        //finalizing selected cards on second keypress
+                        if(PS_finalizeFlag == 2)
+                        {
+                            //running loop to pass selected cards onto player card array
+                            for(let j=0; j<PS_deckCards; j++)
+                            {
+                                if(PS_cardsArray[j].PS_card_selectedFlag == 1)
+                                {
+                                    if(PS_playerCount == 1 && PS_P1_Cards.length < PS_totalCards)
+                                    {
+                                        PS_P1_Cards.push(PS_cardsArray[j].PS_card_pieceType);
+                                    }
+                                    else if(PS_playerCount == 2 && PS_P2_Cards.length < PS_totalCards)
+                                    {
+                                        PS_P2_Cards.push(PS_cardsArray[j].PS_card_pieceType);
+                                    }
+                                }
+                            }
+
+                            //incrementing player count and resetting all deck-related variables for next player
+                            PS_playerCount++;
+                            PS_cardCount = 1;
+                            PS_finalizeFlag = 0;
+                            PS_deckLetters = ['P','R','N','B','Q','B','N','R','P'];
+
+                            //resetting card-specific variables for next player
+                            for(let j=0; j<PS_deckCards; j++)
+                            {
+                                PS_cardsArray[j].PS_card_selectedFlag = 0;
+                                PS_cardsArray[j].PS_card_pieceType = '';
+                            }
+                            
+                            //re-enabling text input for player name entry
+                            PS_nameField.show();
+                            PS_nameField.elt.focus();
+                        }
+                    }
+                }
+
+                //displaying deck card images upon first keypress - after full selection and before finalizing by player
+                if(PS_finalizeFlag == 1)
+                {                    
+                    image(PS_showCardImage(PS_cardsArray[i].PS_card_pieceType), PS_cardsArray[i].PS_card_xPos, PS_cardsArray[i].PS_card_yPos, PS_cardsArray[i].PS_card_size, PS_cardsArray[i].PS_card_size/0.64);
                 }
             }
         }
     }
     //if all players done with their piece selections, move onto piece placement file
-    else
+    else if(PS_playerCount > PS_totalPlayers)
     {
         PS_nameField.hide();
        
@@ -341,8 +462,10 @@ function PS_playerTextDisplay()
     //code to display text after player has entered name
     else
     {
+        text("PLAYER "+PS_playerCount+": "+PS_playerNames[PS_playerCount-1], width/2, height/7.5);
+
         //toggling instructional overlay only when player is not typing their name
-        if(key == 'i' && keyIsPressed == true)
+        if(key == 'i' && keyIsPressed == true && PS_finalizeFlag == 0)
         {
             //prevents continuous keystrokes - registers keypress only once
             keyIsPressed = false;
@@ -358,40 +481,51 @@ function PS_playerTextDisplay()
             }
         }
 
-        text("PLAYER "+PS_playerCount+": "+PS_playerNames[PS_playerCount-1], width/2, height/7.5);
-        textFont(PS_fontBody);
-        textSize(30);
-        text("Pieces Picked From Deck", width/2, height/4.5);
-
-        rectMode(CORNER);
-        fill(PS_redShade);
-        rect(width/1.25, height/10, width, height/19);
-        textAlign(RIGHT,CENTER);
-        textSize(25);
-        fill(255);
-        text("Press [ i ] to view instructions", width/1.01, height/8.9);
-
-        //text to display for the piece picking process
-        if(PS_cardCount < PS_totalCards)
-        {
-            textAlign(CENTER,CENTER);
-            text("Piece Letter: ", width/2.1, height-(height/9));
-            PS_cardLetterField.show();
-            PS_cardLetterField.elt.focus();
-        }
-        //hide bottom text after all pieces picked by a player
-        else
+        //text to display on top depending on card selection status
+        if(PS_finalizeFlag == 0)
         {
             rectMode(CORNER);
             fill(PS_redShade);
-            noStroke();
-            rect(0, height-(height/9), width, height);
-            
-            fill(255);
-            textAlign(CENTER,CENTER);
+            rect(width/1.25, height/10, width, height/19);
+
+            textAlign(RIGHT,CENTER);
             textFont(PS_fontBody);
             textSize(25);
-            text("Done! Press [ SPACE ] to continue.", width/2, height-(height/15));
+            fill(255);
+            text("Press [ i ] to view instructions", width/1.01, height/8.9);
+
+            noStroke();
+            textAlign(LEFT,CENTER);
+
+            //displaying player card selected counter on-screen before finalization
+            if((PS_cardCount-1) != (PS_totalCards-1))
+            {
+                text("CARDS SELECTED:", width/30, height/9.4);
+                textFont(PS_fontHeading);
+                text((PS_cardCount-1)+"/"+(PS_totalCards-1), width/6.5, height/8.7);
+            }
+            //displaying completion text on-screen before finalization
+            else if((PS_cardCount-1) == (PS_totalCards-1))
+            {
+                text("Click a card to de-select and re-choose, OR", width/30, height/11);
+                fill(PS_redShade);
+                text("Press [ ENTER ] if you're done!", width/30, height/8.35);
+
+                //generating top red bar
+                rect(0, 0, width, height/75);
+            }
+        }
+        //displaying final text on-screen for finalization
+        else if(PS_finalizeFlag != 0)
+        {
+            textAlign(LEFT,CENTER);
+            textFont(PS_fontBody);
+            textSize(25);
+            text("Press [ ENTER ] again to finalize your cards.", width/30, height/8.35);
+            fill(PS_redShade);
+            text("These are your cards for the round!", width/30, height/11);
+            rectMode(CORNER);
+            rect(0, 0, width, height/75);
         }
     }
 }
