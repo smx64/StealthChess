@@ -171,7 +171,7 @@ function preload()
     GP_SFX_pieceChecked = loadSound("./Assets/SFX_PieceChecked.mp3");
 
     //pre-loading instructional overlay images
-    PS_instructionsImage = loadImage("./Assets/Instructions_PieceSelection.png");
+    PS_instructionsImage = loadImage("./Assets/Instructions_PieceSelection_Digital.png");
     PP_instructionsImage = loadImage("./Assets/Instructions_PiecePlacement.png");
     GP_instructionsImage = loadImage("./Assets/Instructions_Gameplay.png");
 }
@@ -566,18 +566,18 @@ function instructionContent(overlayFlagValue)
             //setting values for image size and starting coordinate variables depending on screen-resolution
             if(height <= 800)
             {
-                PS_instImg_size = width/1.7;
-                PS_instImg_startPos = width/5.25;
+                PS_instImg_size = width/1.5;
+                PS_instImg_startPos = width/6;
             }
             else if(height > 800)
             {
-                PS_instImg_size = width/1.45;
-                PS_instImg_startPos = width/6.5;
+                PS_instImg_size = width/1.3;
+                PS_instImg_startPos = width/7.5;
             }
 
             //generating the instruction content image
             imageMode(CORNER);
-            image(PS_instructionsImage, PS_instImg_startPos, height/5, PS_instImg_size, PS_instImg_size/1.69);
+            image(PS_instructionsImage, PS_instImg_startPos, height/5.25, PS_instImg_size, PS_instImg_size/1.84);
         break;
         case 2:
             text("PIECE PLACEMENT", width/2, height/8);
