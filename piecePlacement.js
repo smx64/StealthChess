@@ -76,7 +76,7 @@ class PP_Chessboard
                     {
                         this.PP_block_fillColor = color(255,50);
                     }
-                }                
+                }
                 else
                 {
                     if(this.PP_block_idCol%2 == 0)
@@ -87,7 +87,7 @@ class PP_Chessboard
                     {
                         this.PP_block_fillColor = color(255,50);
                     }
-                }  
+                }
             }
         }
 
@@ -150,6 +150,7 @@ function piecePlacement()
     if(PP_playerCount <= PS_totalPlayers)
     {
         //starting background score for the piece placement segment
+        PP_bgm.setVolume(0.25);
         PP_bgm.playMode('untilDone');
         PP_bgm.loop();
 
@@ -212,7 +213,7 @@ function piecePlacement()
                                     if(PP_P2_piecesArray[k].PP_pieceType == PP_blocksArray[PP_blockRow][i].PP_block_pieceType)
                                     {
                                         image(PP_showCardThumb(PP_P2_piecesArray[k].PP_pieceType), PP_blocksArray[PP_blockRow][i].PP_block_xPos, PP_blocksArray[PP_blockRow][i].PP_block_yPos, PP_blocksArray[PP_blockRow][i].PP_block_size, PP_blocksArray[PP_blockRow][i].PP_block_size);
-                                    } 
+                                    }
                                 }
                             }
                             
@@ -436,7 +437,7 @@ function piecePlacement()
                                 }
                             }
                         }
-                    }            
+                    }
                 }
             }
         }

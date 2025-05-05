@@ -69,9 +69,13 @@ class PS_Cards
         {
             fill(255);
         }
-        else if(this.PS_card_hoverFlag == 1)
+        else if(this.PS_card_hoverFlag == 1 && (PS_cardCount < PS_totalCards))
         {
             fill(PS_redShade);
+        }
+        else
+        {
+            fill(255);
         }
 
         //logical condition for changing card stroke on mouse click
@@ -86,7 +90,7 @@ class PS_Cards
         }
         
         rectMode(CENTER);
-        rect(this.PS_card_xPos, this.PS_card_yPos, this.PS_card_size, this.PS_card_size/0.64,10);
+        rect(this.PS_card_xPos, this.PS_card_yPos, this.PS_card_size, this.PS_card_size/0.64, 10);
     }
     //function to determine when pointer is hovering over a card & toggle hoverflag value accordingly
     PS_hoverCard()
@@ -98,7 +102,7 @@ class PS_Cards
         else
         {
             this.PS_card_hoverFlag = 0;
-        }        
+        }
     }
 }
 
@@ -164,11 +168,13 @@ function preload()
     GP_P2_prevThumb_P = loadImage("./Assets/Player2_PrevThumbnail_Pawn.png");
 
     //pre-loading background score & sound effects - used in piecePlacement.js & gamePlay.js
+    PS_bgm = loadSound("./Assets/Music_PieceSelection.mp3");
     PP_bgm = loadSound("./Assets/Music_PiecePlacement.mp3");
     GP_bgm = loadSound("./Assets/Music_Gameplay.mp3");
     PP_SFX_pieceClicked = loadSound("./Assets/SFX_PieceClicked.mp3");
     PP_SFX_pieceMoved = loadSound("./Assets/SFX_PieceMoved.mp3");
     GP_SFX_pieceChecked = loadSound("./Assets/SFX_PieceChecked.mp3");
+    GP_SFX_pieceCaptured = loadSound("./Assets/SFX_PieceCaptured.mp3");
 
     //pre-loading instructional overlay images
     PS_instructionsImage = loadImage("./Assets/Instructions_PieceSelection_Digital.png");
@@ -217,11 +223,11 @@ function setup()
                 //screen resolution-based minor positional adjustments
                 if(height <= 800)
                 {
-                    PS_init_card_xPos = int(width/3.6);
+                    PS_init_card_xPos = int(width/3.55);
                 }
                 else if(height > 800)
                 {
-                    PS_init_card_xPos = int(width/4);
+                    PS_init_card_xPos = int(width/3.95);
                 }
             }
             PS_init_card_yPos = int(height/1.28);
@@ -299,6 +305,11 @@ function draw()
 {
     if(PS_playerCount <= PS_totalPlayers)
     {
+        //starting background score for the piece selection segment
+        PS_bgm.setVolume(0.25);
+        PS_bgm.playMode('untilDone');
+        PS_bgm.loop();
+
         //function to display on-screen text
         PS_playerTextDisplay();
         
@@ -338,11 +349,13 @@ function draw()
                     if(PS_cardsArray[i].PS_card_selectedFlag == 0 && PS_cardCount < PS_totalCards)
                     {
                         PS_cardsArray[i].PS_card_selectedFlag = 1;
+                        PP_SFX_pieceMoved.play();
                         PS_cardCount++;
                     }
                     else if(PS_cardsArray[i].PS_card_selectedFlag == 1)
                     {
                         PS_cardsArray[i].PS_card_selectedFlag = 0;
+                        PP_SFX_pieceClicked.play();
                         PS_cardCount--;
                     }
                 }
@@ -351,13 +364,20 @@ function draw()
                 imageMode(CENTER);
                 let PS_gameLogo_size = width/11;
 
-                if(PS_cardsArray[i].PS_card_hoverFlag == 0)
+                if(PS_cardCount < PS_totalCards)
+                {
+                    if(PS_cardsArray[i].PS_card_hoverFlag == 0)
+                    {
+                        image(PS_gameLogo_BlackRed, PS_cardsArray[i].PS_card_xPos, PS_cardsArray[i].PS_card_yPos, PS_gameLogo_size, PS_gameLogo_size/4);
+                    }
+                    else if(PS_cardsArray[i].PS_card_hoverFlag == 1)
+                    {
+                        image(PS_gameLogo_BlackWhite, PS_cardsArray[i].PS_card_xPos, PS_cardsArray[i].PS_card_yPos, PS_gameLogo_size, PS_gameLogo_size/4);
+                    }
+                }
+                else if(PS_cardCount >= PS_totalCards)
                 {
                     image(PS_gameLogo_BlackRed, PS_cardsArray[i].PS_card_xPos, PS_cardsArray[i].PS_card_yPos, PS_gameLogo_size, PS_gameLogo_size/4);
-                }
-                else if(PS_cardsArray[i].PS_card_hoverFlag == 1)
-                {
-                    image(PS_gameLogo_BlackWhite, PS_cardsArray[i].PS_card_xPos, PS_cardsArray[i].PS_card_yPos, PS_gameLogo_size, PS_gameLogo_size/4);
                 }
 
                 //code to run once player has selected all of their cards
@@ -367,6 +387,7 @@ function draw()
                     if(keyCode == ENTER && keyIsPressed == true)
                     {
                         keyIsPressed = false;
+                        PP_SFX_pieceMoved.play();
                         PS_finalizeFlag++;
 
                         //finalizing selected cards on second keypress
@@ -410,7 +431,7 @@ function draw()
 
                 //displaying deck card images upon first keypress - after full selection and before finalizing by player
                 if(PS_finalizeFlag == 1)
-                {                    
+                {
                     image(PS_showCardImage(PS_cardsArray[i].PS_card_pieceType), PS_cardsArray[i].PS_card_xPos, PS_cardsArray[i].PS_card_yPos, PS_cardsArray[i].PS_card_size, PS_cardsArray[i].PS_card_size/0.64);
                 }
             }
@@ -420,6 +441,7 @@ function draw()
     else if(PS_playerCount > PS_totalPlayers)
     {
         PS_nameField.hide();
+        PS_bgm.stop();
        
         //function to proceed to piece placement step
         piecePlacement();
@@ -457,7 +479,11 @@ function PS_playerTextDisplay()
         textSize(30);
         text("Enter Player "+PS_playerCount+"'s Name", width/2, height/2.2);
         textSize(25);
-        text("Press [ ENTER ] to continue once done", width/2, height-(height/7));
+        
+        if(PS_nameField.value() != "")
+        {
+            text("Press [ ENTER ] to continue once done", width/1.98, height-(height/8));
+        }
     }
     //code to display text after player has entered name
     else

@@ -92,11 +92,13 @@ function preload()
     GP_P2_prevThumb_P = loadImage("./Assets/Player2_PrevThumbnail_Pawn.png");
 
     //pre-loading background score & sound effects - used in piecePlacement.js & gamePlay.js
+    PS_bgm = loadSound("./Assets/Music_PieceSelection.mp3");
     PP_bgm = loadSound("./Assets/Music_PiecePlacement.mp3");
     GP_bgm = loadSound("./Assets/Music_Gameplay.mp3");
     PP_SFX_pieceClicked = loadSound("./Assets/SFX_PieceClicked.mp3");
     PP_SFX_pieceMoved = loadSound("./Assets/SFX_PieceMoved.mp3");
     GP_SFX_pieceChecked = loadSound("./Assets/SFX_PieceChecked.mp3");
+    GP_SFX_pieceCaptured = loadSound("./Assets/SFX_PieceCaptured.mp3");
 
     //pre-loading instructional overlay images
     PS_instructionsImage = loadImage("./Assets/Instructions_PieceSelection_Hybrid.png");
@@ -192,6 +194,11 @@ function draw()
 {
     if(PS_playerCount <= PS_totalPlayers)
     {
+        //starting background score for the piece selection segment
+        PS_bgm.setVolume(0.25);
+        PS_bgm.playMode('untilDone');
+        PS_bgm.loop();
+
         //function to display on-screen text
         PS_playerTextDisplay();
 
@@ -225,6 +232,7 @@ function draw()
 
             //counter to check total cards picked by each player
             PS_cardCount++;
+            PP_SFX_pieceMoved.play();
         }
         //once all cards picked, increment player count variable and restart process for next player
         else if(PS_cardCount >= PS_totalCards && PS_playerCount <= PS_totalPlayers)
@@ -238,6 +246,7 @@ function draw()
                 //reset card counter for next player & bring up input field for entering player name
                 PS_playerCount++;
                 PS_cardCount = 1;
+                PP_SFX_pieceMoved.play();
                 PS_nameField.show();
                 PS_nameField.elt.focus();
             }
@@ -313,6 +322,7 @@ function draw()
     else
     {
         PS_nameField.hide();
+        PS_bgm.stop();
        
         //function to proceed to piece placement step
         piecePlacement();
@@ -350,7 +360,11 @@ function PS_playerTextDisplay()
         textSize(30);
         text("Enter Player "+PS_playerCount+"'s Name", width/2, height/2.2);
         textSize(25);
-        text("Press [ ENTER ] to continue once done", width/2, height-(height/7));
+
+        if(PS_nameField.value() != "")
+        {
+            text("Press [ ENTER ] to continue once done", width/1.98, height-(height/8));
+        }
     }
     //code to display text after player has entered name
     else
